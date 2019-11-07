@@ -5,6 +5,7 @@
  */
 package cabbooking;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +26,8 @@ PreparedStatement pst = null;
  
  
     /**
-     * Creates new form Addmoney1
+     * Creates new form Add money
+     * @param uname
      */
    
 
@@ -41,7 +43,7 @@ PreparedStatement pst = null;
             pst.setString(1,uname);
             rs = pst.executeQuery();
           
-            userName_display.setText("Hi, " + rs.getString("NAME"));
+            userName_display.setText( rs.getString("NAME"));
             double bal = rs.getDouble("BALANCE");
             userbalance = bal;
             
@@ -50,14 +52,12 @@ PreparedStatement pst = null;
         }
         catch(Exception e){
             
-        }finally{
-            try{
-                rs.close();
-                pst.close();
-            }catch(Exception e){
-                
-            }
         }
+             finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (pst != null) pst.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
         
             
     }
@@ -118,18 +118,18 @@ PreparedStatement pst = null;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(6, 5, 83));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         currentbalancetext.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 18)); // NOI18N
-        currentbalancetext.setForeground(new java.awt.Color(153, 255, 255));
+        currentbalancetext.setForeground(new java.awt.Color(255, 255, 255));
         currentbalancetext.setText("Current Balance is ");
 
         jLabel3.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Amount to add");
 
         jLabel5.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password");
 
         txt_amount.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -150,18 +150,19 @@ PreparedStatement pst = null;
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Welcome");
 
-        userName_display.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        userName_display.setForeground(new java.awt.Color(153, 255, 255));
-        userName_display.setText("User_name");
+        userName_display.setBackground(new java.awt.Color(255, 255, 255));
+        userName_display.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        userName_display.setForeground(new java.awt.Color(255, 255, 255));
+        userName_display.setText("    User_name");
 
         balance.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 18)); // NOI18N
         balance.setForeground(new java.awt.Color(153, 255, 255));
 
-        balance_display.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        balance_display.setForeground(new java.awt.Color(153, 255, 255));
+        balance_display.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        balance_display.setForeground(new java.awt.Color(255, 255, 255));
         balance_display.setText("Balance");
 
         BackButton.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -172,8 +173,9 @@ PreparedStatement pst = null;
             }
         });
 
+        jCheckBox1.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(153, 255, 255));
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Show Password");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,61 +190,60 @@ PreparedStatement pst = null;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(userName_display, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(currentbalancetext, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(balance_display, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(112, 112, 112)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(currentbalancetext, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5))
+                        .addGap(328, 328, 328)
                         .addComponent(balance, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_amount, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                            .addComponent(txt_password))
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox1)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                        .addGap(265, 265, 265)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userName_display, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
-                .addComponent(Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(163, 163, 163))
+                .addGap(101, 101, 101)
+                .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(balance_display, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(267, 267, 267))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(userName_display, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(currentbalancetext)
-                        .addComponent(balance))
-                    .addComponent(balance_display, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(balance)
+                        .addGap(20, 20, 20))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(balance_display, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(currentbalancetext)))
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txt_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txt_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
                     .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
-                .addGap(63, 63, 63)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BackButton, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(Confirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -252,13 +253,11 @@ PreparedStatement pst = null;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -297,14 +296,17 @@ PreparedStatement pst = null;
              JOptionPane.showMessageDialog(null, "Kindly Enter a Positive amount");
        }
       
+       PreparedStatement ps = null;
+        rs= null;
+       
        try
        {
            
        String password = String.valueOf(txt_password.getPassword());
        String query ="select PASSWORD from customer where USERNAME=? ";
-                PreparedStatement ps =conn.prepareStatement(query);
+                 ps =conn.prepareStatement(query);
                 ps.setString(1,userid);
-                ResultSet rs=ps.executeQuery();
+               rs=ps.executeQuery();
                 
                 String pass=rs.getString("PASSWORD");
                 if(pass.equals(password))
@@ -319,27 +321,26 @@ PreparedStatement pst = null;
                  
                 
        }
-       catch(Exception e)
+       catch(SQLException | HeadlessException e)
        {
            System.out.println(e.getMessage());
        }
-       finally{
-            try{
-                rs.close();
-                pst.close();
-            }catch(Exception e){
-                
-            }
-        }
+           finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
        
        if(add == true)
        {
+            ps = null;
+           
            try
            {
                 Double new_amount  = userbalance + Integer.parseInt(txt_amount.getText());
                 newamt = new_amount;
                 String sqlQuery = "UPDATE customer SET BALANCE =? WHERE USERNAME = ?";
-                PreparedStatement ps =conn.prepareStatement(sqlQuery);
+                ps =conn.prepareStatement(sqlQuery);
                 ps.setDouble(1,new_amount);
                 ps.setString(2, userid);
                 
@@ -349,19 +350,14 @@ PreparedStatement pst = null;
                 
                 
            }
-           catch(Exception e)
+           catch(NumberFormatException | SQLException e)
        {
            System.out.println(e.getMessage());
        }
-           finally{
-            try{
-                rs.close();
-                pst.close();
-                
-            }catch(Exception e){
-                 System.out.println(e.getMessage());
-            }
-        }
+             finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
             JOptionPane.showMessageDialog(null, "Amount Added Sucessfully. New Balance is " + newamt);
             this.setVisible(false);
             new Functions(userid).setVisible(true);
@@ -426,10 +422,8 @@ PreparedStatement pst = null;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new Addmoney1(userid).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new Addmoney1(userid).setVisible(true);
         });
     }
 

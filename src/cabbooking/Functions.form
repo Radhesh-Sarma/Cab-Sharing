@@ -61,51 +61,40 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="4c" green="3" red="e" type="rgb"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="125" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="hi" min="-2" pref="335" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="154" max="32767" attributes="0"/>
+              </Group>
               <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="BookCAb" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="changePwd" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="ViewBalance" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="AddBalance" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="ViewTransHistory" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="125" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="hi" min="-2" pref="123" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="112" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="changePwd" alignment="0" max="32767" attributes="0"/>
+                      <Component id="BookCAb" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="27" pref="369" max="32767" attributes="0"/>
-                  <Component id="logout" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="EditProfile" alignment="0" max="32767" attributes="0"/>
+                      <Component id="AddBalance" alignment="0" max="32767" attributes="0"/>
+                      <Component id="HelpButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="ViewBalance" alignment="0" max="32767" attributes="0"/>
+                      <Component id="ViewTransHistory" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="logout" min="-2" pref="143" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -117,19 +106,23 @@
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="hi" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="ViewBalance" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="AddBalance" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="ViewTransHistory" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="changePwd" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="BookCAb" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="54" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <Component id="changePwd" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="EditProfile" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="HelpButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="logout" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -140,16 +133,13 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="99" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Welcome"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="ViewBalance">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="99" red="ff" type="rgb"/>
+              <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic Medium" size="18" style="1"/>
@@ -160,24 +150,10 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ViewBalanceActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="AddBalance">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="33" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Yu Gothic Medium" size="18" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Add Balance"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddBalanceActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="ViewTransHistory">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="cc" red="33" type="rgb"/>
+              <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic Medium" size="18" style="1"/>
@@ -191,7 +167,7 @@
         <Component class="javax.swing.JButton" name="changePwd">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="0" type="rgb"/>
+              <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic Medium" size="18" style="1"/>
@@ -202,27 +178,24 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changePwdActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="BookCAb">
+        <Component class="javax.swing.JButton" name="HelpButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="66" red="ff" type="rgb"/>
+              <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic Medium" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Book a Cab"/>
+            <Property name="text" type="java.lang.String" value="Help"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BookCAbActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HelpButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="hi">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="2"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="99" type="rgb"/>
+              <Font name="Tahoma" size="24" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="User_name"/>
           </Properties>
@@ -236,6 +209,48 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="AddBalance">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic Medium" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Add Balance"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddBalanceActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BookCAb">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic Medium" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Book a Cab"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BookCAbActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="EditProfile">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Yu Gothic Medium" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Edit Profile"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditProfileActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

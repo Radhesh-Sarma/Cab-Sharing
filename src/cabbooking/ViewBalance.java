@@ -24,6 +24,7 @@ public class ViewBalance extends javax.swing.JFrame {
      ResultSet rs;
      String userid;
      Double userbalance;
+     
     public ViewBalance(String id) {
         initComponents();
          connect=dbm.dbconnect();
@@ -45,18 +46,14 @@ public class ViewBalance extends javax.swing.JFrame {
             
             
         } catch (SQLException ex) {
-            System.out.println("Entered");
             System.out.println(ex.getMessage());
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-            try{
-                rs.close();
-                ps.close();
-            }catch(Exception e){
-                
-            }
-        }
+            finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
     }
 
     /**
@@ -77,20 +74,21 @@ public class ViewBalance extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(3, 3, 83));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Dear,");
 
         hi.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
-        hi.setForeground(new java.awt.Color(153, 255, 255));
+        hi.setForeground(new java.awt.Color(255, 255, 255));
         hi.setText("Username");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Your current balance is:");
 
+        backbutton.setBackground(new java.awt.Color(51, 51, 51));
         backbutton.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         backbutton.setText("BACK");
         backbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -99,8 +97,8 @@ public class ViewBalance extends javax.swing.JFrame {
             }
         });
 
-        balance_display.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        balance_display.setForeground(new java.awt.Color(153, 255, 255));
+        balance_display.setFont(new java.awt.Font("Tahoma", 2, 16)); // NOI18N
+        balance_display.setForeground(new java.awt.Color(255, 255, 255));
         balance_display.setText("Balance");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -108,22 +106,20 @@ public class ViewBalance extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(balance_display, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(backbutton))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(balance_display, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(backbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,9 +132,9 @@ public class ViewBalance extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(balance_display, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addComponent(backbutton)
-                .addGap(32, 32, 32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(backbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,10 +186,8 @@ public class ViewBalance extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-               // new ViewBalance(userid).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            // new ViewBalance(userid).setVisible(true);
         });
     }
 

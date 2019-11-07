@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package cabbooking;
-
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.awt.Desktop;
 /**
  *
  * @author Dell
@@ -34,7 +36,7 @@ public class Functions extends javax.swing.JFrame {
             ps.setString(1, nam);
             rs=ps.executeQuery();
             rname=rs.getString("name");
-            hi.setText("Hi, "+rname);
+            hi.setText(rname);
             
         } catch (SQLException ex) {
             System.out.println("Entered");
@@ -48,6 +50,7 @@ public class Functions extends javax.swing.JFrame {
             }catch(Exception e){
                 
             }
+
         }
         
     }
@@ -68,24 +71,23 @@ public class Functions extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ViewBalance = new javax.swing.JButton();
-        AddBalance = new javax.swing.JButton();
         ViewTransHistory = new javax.swing.JButton();
         changePwd = new javax.swing.JButton();
-        BookCAb = new javax.swing.JButton();
+        HelpButton = new javax.swing.JButton();
         hi = new javax.swing.JLabel();
         logout = new javax.swing.JButton();
+        AddBalance = new javax.swing.JButton();
+        BookCAb = new javax.swing.JButton();
+        EditProfile = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(14, 3, 76));
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 255, 255));
         jLabel1.setText("Welcome");
 
-        ViewBalance.setBackground(new java.awt.Color(255, 153, 0));
+        ViewBalance.setBackground(java.awt.Color.lightGray);
         ViewBalance.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
         ViewBalance.setText("View Balance");
         ViewBalance.addActionListener(new java.awt.event.ActionListener() {
@@ -94,16 +96,7 @@ public class Functions extends javax.swing.JFrame {
             }
         });
 
-        AddBalance.setBackground(new java.awt.Color(255, 51, 51));
-        AddBalance.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
-        AddBalance.setText("Add Balance");
-        AddBalance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddBalanceActionPerformed(evt);
-            }
-        });
-
-        ViewTransHistory.setBackground(new java.awt.Color(51, 204, 0));
+        ViewTransHistory.setBackground(java.awt.Color.lightGray);
         ViewTransHistory.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
         ViewTransHistory.setText("View Transaction History");
         ViewTransHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +105,7 @@ public class Functions extends javax.swing.JFrame {
             }
         });
 
-        changePwd.setBackground(new java.awt.Color(0, 153, 153));
+        changePwd.setBackground(java.awt.Color.lightGray);
         changePwd.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
         changePwd.setText("Change Password");
         changePwd.addActionListener(new java.awt.event.ActionListener() {
@@ -121,17 +114,16 @@ public class Functions extends javax.swing.JFrame {
             }
         });
 
-        BookCAb.setBackground(new java.awt.Color(255, 102, 255));
-        BookCAb.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
-        BookCAb.setText("Book a Cab");
-        BookCAb.addActionListener(new java.awt.event.ActionListener() {
+        HelpButton.setBackground(java.awt.Color.lightGray);
+        HelpButton.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        HelpButton.setText("Help");
+        HelpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BookCAbActionPerformed(evt);
+                HelpButtonActionPerformed(evt);
             }
         });
 
-        hi.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        hi.setForeground(new java.awt.Color(153, 255, 255));
+        hi.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         hi.setText("User_name");
 
         logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -142,38 +134,62 @@ public class Functions extends javax.swing.JFrame {
             }
         });
 
+        AddBalance.setBackground(java.awt.Color.lightGray);
+        AddBalance.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        AddBalance.setText("Add Balance");
+        AddBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddBalanceActionPerformed(evt);
+            }
+        });
+
+        BookCAb.setBackground(java.awt.Color.lightGray);
+        BookCAb.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        BookCAb.setText("Book a Cab");
+        BookCAb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BookCAbActionPerformed(evt);
+            }
+        });
+
+        EditProfile.setBackground(new java.awt.Color(255, 255, 153));
+        EditProfile.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        EditProfile.setText("Edit Profile");
+        EditProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditProfileActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BookCAb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(changePwd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ViewBalance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(AddBalance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ViewTransHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 112, Short.MAX_VALUE)))
-                .addGap(136, 136, 136))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 369, Short.MAX_VALUE)
-                .addComponent(logout)
-                .addGap(64, 64, 64))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 154, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(changePwd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BookCAb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(136, 136, 136))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(EditProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AddBalance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(HelpButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ViewBalance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ViewTransHistory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(136, 136, 136))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,19 +198,23 @@ public class Functions extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ViewBalance)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AddBalance)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ViewTransHistory)
                 .addGap(18, 18, 18)
-                .addComponent(changePwd)
-                .addGap(18, 18, 18)
                 .addComponent(BookCAb)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(changePwd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(EditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(HelpButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logout)
-                .addGap(24, 24, 24))
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,12 +234,6 @@ public class Functions extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void AddBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBalanceActionPerformed
-
-     new Addmoney1(userid).setVisible(true);
-        this.dispose();              // TODO add your handling code here:
-    }//GEN-LAST:event_AddBalanceActionPerformed
 
     private void ViewTransHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewTransHistoryActionPerformed
       new TransactionHistory(userid).setVisible(true);
@@ -241,23 +255,49 @@ public class Functions extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutActionPerformed
 
     private void EditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProfileActionPerformed
-            new EditProfile(userid).setVisible(true);
-            this.dispose();            // TODO add your handling code here:
+        new EditProfile(userid).setVisible(true);
+
+        this.dispose();            // TODO add your handling code here:
     }//GEN-LAST:event_EditProfileActionPerformed
 
-    private void BookCAbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookCAbActionPerformed
-        // TODO add your handling code here:
+    private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpButtonActionPerformed
         
-         new bookcab(userid).setVisible(true);
-            this.dispose();            // TODO add your handling code here:
+        Desktop desktop = Desktop.getDesktop();  
+           String url = "";  
+           URI mailTo;  
+           
+           
+           
+            try {  
+                 url = "mailTo:test@gmail.com" + "?subject=" + "Support%20Needed" 
+                           + "&body=" + "TEST%20BODY";  
+                 mailTo = new URI(url);  
+                 desktop.mail(mailTo);  
+            } catch (URISyntaxException e) {  
+                 e.printStackTrace();  
+            } catch (IOException e) {  
+                 e.printStackTrace();  
+            }
             
-    }//GEN-LAST:event_BookCAbActionPerformed
+    }//GEN-LAST:event_HelpButtonActionPerformed
 
     private void changePwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePwdActionPerformed
         // TODO add your handling code here:
          new ChangePassword(userid).setVisible(true);
             this.dispose();  
     }//GEN-LAST:event_changePwdActionPerformed
+
+    private void AddBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBalanceActionPerformed
+        // TODO add your handling code here:
+        new Addmoney1(userid).setVisible(true);
+            this.dispose();  
+    }//GEN-LAST:event_AddBalanceActionPerformed
+
+    private void BookCAbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookCAbActionPerformed
+        // TODO add your handling code here:
+           new bookcab(userid).setVisible(true);
+            this.dispose();    
+    }//GEN-LAST:event_BookCAbActionPerformed
 
    
     /**
@@ -298,6 +338,8 @@ public class Functions extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddBalance;
     private javax.swing.JButton BookCAb;
+    private javax.swing.JButton EditProfile;
+    private javax.swing.JButton HelpButton;
     private javax.swing.JButton ViewBalance;
     private javax.swing.JButton ViewTransHistory;
     private javax.swing.ButtonGroup buttonGroup1;

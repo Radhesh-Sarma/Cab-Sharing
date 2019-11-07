@@ -321,7 +321,7 @@ public class SignupPage extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Signup Successful");
         new CabBookingApplication().setVisible(true);
       }catch (java.sql.SQLException e){
-          System.out.println(e);
+          //System.out.println(e);
           JOptionPane.showMessageDialog(null, "Username Already Taken");
       }
       catch(Exception e){

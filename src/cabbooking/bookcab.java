@@ -6,22 +6,17 @@
 
 package cabbooking;
 
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
 /**
  *
- * @author Dell
+ * @author Radhesh
  */
-
-
 
 public class bookcab extends javax.swing.JFrame {
            Connection connect = null;
@@ -31,16 +26,53 @@ PreparedStatement pst = null;
  String rname;
  Double userbalance;
  int Fare = -1;
- 
+ String pickuploc,droploc;
+
  
     /**
-     * Creates new form bookcab
+     * Creates new form book cab
+     * @param uid
      */
     public bookcab(String uid) {
         initComponents();
         //static JFrame f;
         connect=dbm.dbconnect();
         userid = uid;
+        
+         pickupLocation.addItem("Alwal");
+         pickupLocation.addItem("Banjara Hills");
+         pickupLocation.addItem("Bolaram");
+         pickupLocation.addItem("Dholakpur");
+         pickupLocation.addItem("East MaredPally");
+         pickupLocation.addItem("Firoz Nagar");
+         pickupLocation.addItem("Gandhi Marg");
+         pickupLocation.addItem("Hi Tech City");
+         pickupLocation.addItem("Kachiguda");
+         pickupLocation.addItem("Kompally");
+         pickupLocation.addItem("Nampally");
+         pickupLocation.addItem("Medchal"); 
+         pickupLocation.addItem("Malakpet");
+         pickupLocation.addItem("Ratna Nagar");
+         pickupLocation.addItem("Trimulgherry");
+         pickupLocation.addItem("West MaredPally");
+        //combo.deleteItem
+        //static JFrame f;
+        DropLocation.addItem("Alwal");
+        DropLocation.addItem("Banjara Hills");
+        DropLocation.addItem("Bolaram");
+        DropLocation.addItem("Dholakpur");
+        DropLocation.addItem("East MaredPally");
+        DropLocation.addItem("Firoz Nagar");
+        DropLocation.addItem("Gandhi Marg");
+        DropLocation.addItem("Hi Tech City");
+        DropLocation.addItem("Kachiguda");
+        DropLocation.addItem("Kompally");
+        DropLocation.addItem("Nampally");
+        DropLocation.addItem("Medchal"); 
+        DropLocation.addItem("Malakpet");
+        DropLocation.addItem("Ratna Nagar");
+        DropLocation.addItem("Trimulgherry");
+        DropLocation.addItem("West MaredPally");
         
             String query3="SELECT NAME,BALANCE FROM customer where USERNAME=?";
         PreparedStatement ps=null;
@@ -62,14 +94,12 @@ PreparedStatement pst = null;
             System.out.println(ex.getMessage());
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-            try{
-                rs.close();
-                ps.close();
-            }catch(Exception e){
-                
-            }
-        }
+               finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
+     
         
     }
     
@@ -92,16 +122,14 @@ PreparedStatement pst = null;
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Back = new javax.swing.JButton();
         BookCab = new javax.swing.JButton();
         Calculate_Fare = new javax.swing.JButton();
-        Pickup_X = new javax.swing.JTextField();
-        Drop_X = new javax.swing.JTextField();
-        Pickup_Y = new javax.swing.JTextField();
-        Drop_Y = new javax.swing.JTextField();
         fare_display = new javax.swing.JLabel();
         Add_Money = new javax.swing.JButton();
         balance_display2 = new javax.swing.JLabel();
+        pickupLocation = new javax.swing.JComboBox<String>();
+        DropLocation = new javax.swing.JComboBox<String>();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -138,27 +166,18 @@ PreparedStatement pst = null;
         jLabel5.setForeground(new java.awt.Color(153, 255, 255));
         jLabel5.setText("Your balance");
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setText("BACK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Back.setBackground(new java.awt.Color(153, 255, 102));
+        Back.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Back.setText("BACK");
+        Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BackActionPerformed(evt);
             }
         });
 
         BookCab.setBackground(new java.awt.Color(153, 255, 102));
         BookCab.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         BookCab.setText("BOOK CAB");
-        BookCab.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                BookCabAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
         BookCab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BookCabActionPerformed(evt);
@@ -167,6 +186,15 @@ PreparedStatement pst = null;
 
         Calculate_Fare.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         Calculate_Fare.setText("Show Fare");
+        Calculate_Fare.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Calculate_FareAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         Calculate_Fare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Calculate_FareActionPerformed(evt);
@@ -189,6 +217,18 @@ PreparedStatement pst = null;
         balance_display2.setForeground(new java.awt.Color(153, 255, 255));
         balance_display2.setText("Balance");
 
+        pickupLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pickupLocationActionPerformed(evt);
+            }
+        });
+
+        DropLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DropLocationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -200,24 +240,19 @@ PreparedStatement pst = null;
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Pickup_X, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                            .addComponent(Drop_X))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Pickup_Y)
-                            .addComponent(Drop_Y)))
+                            .addComponent(pickupLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(DropLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(63, 63, 63))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jButton1))
+                    .addComponent(Back))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -247,18 +282,14 @@ PreparedStatement pst = null;
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Pickup_X, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Pickup_Y, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(48, 48, 48)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pickupLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Drop_X, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Drop_Y, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(64, 64, 64)
+                    .addComponent(DropLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(fare_display, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,7 +303,7 @@ PreparedStatement pst = null;
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BookCab)
-                    .addComponent(jButton1))
+                    .addComponent(Back))
                 .addGap(23, 23, 23))
         );
 
@@ -296,12 +327,9 @@ PreparedStatement pst = null;
             boolean showfare = true;
             
             
-           int pickupx = Integer.parseInt(Pickup_X.getText());
-           int pickupy = Integer.parseInt(Pickup_Y.getText());
-           int dropx = Integer.parseInt(Drop_X.getText());
-           int dropy = Integer.parseInt(Drop_Y.getText());
+         
            
-           if(pickupx == dropx && pickupy == dropy)
+           if(pickuploc.equals(droploc))
            {
                    JOptionPane.showMessageDialog(null, "Pickup and Drop Location are same");
                showfare = false;
@@ -309,8 +337,12 @@ PreparedStatement pst = null;
            
            if(showfare)
            {
-               Fare = (HeadQuater.CalculateFare(pickupx,pickupy,dropx,dropy));
+               //System.out.println(1);
+               Fare = HeadQuater.CalculateFare(pickuploc,droploc);
+              // System.out.println(2);
                fare_display.setText(String.valueOf(Fare));
+               //System.out.println(3);
+               
                
            }
            
@@ -319,50 +351,25 @@ PreparedStatement pst = null;
             
     }//GEN-LAST:event_Calculate_FareActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new Functions("x").setVisible(true);
-
+    private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
+        new Functions(userid).setVisible(true);
         this.dispose();   
                  // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BackActionPerformed
     
-    private int GetNearestCab(String pick_x,String pick_y)
-    {
-        
-        try
-       {
-           
-       
-                 
-                
-       }
-       catch(Exception e)
-       {
-           System.out.println(e.getMessage());
-       }
-       finally{
-            try{
-                rs.close();
-                pst.close();
-            }catch(Exception e){
-                
-            }
-        }
-        
-       
-        
-        return 0;
-    }
+   
     private void BookCabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookCabActionPerformed
         
-        String pick_x = Pickup_X.getText();
-        String pick_y = Pickup_Y.getText();
-        String drop_x = Pickup_X.getText();
-        String drop_y = Pickup_Y.getText();
-       
-      
+       /// int customer_x = Integer.parseInt(Pickup_X.getText());
+       // int customer_y = Integer.parseInt(Pickup_Y.getText());
+       // int drop_x = Integer.parseInt(Drop_X.getText());
+       // int drop_y = Integer.parseInt(Drop_Y.getText());
+        String driverid,triprefno;
         
-       if(HeadQuater.isCabAvailable()==false)
+        
+        
+      
+        if(HeadQuater.isCabAvailable(userid)==false)
         {
             JOptionPane.showMessageDialog(null, "Request Timeout.No Cab Available at the Moment. Please try again later");
         }
@@ -374,6 +381,20 @@ PreparedStatement pst = null;
         {
             JOptionPane.showMessageDialog(null, "Insufficient Balance to book cab ");
         }
+       else
+       {
+           
+           driverid = HeadQuater.FindNearestDriverWithHighestRating(pickuploc);
+           
+           JOptionPane.showMessageDialog(null, "Cab Booked Successfully with driver " + driverid);
+           
+           triprefno = HeadQuater.AddBooking(HeadQuater.getLocationNumber(pickuploc),HeadQuater.getLocationNumber(droploc), userid, driverid);
+            //JOptionPane.showMessageDialog(null, "2 .Cab Booked Successfully with driver " + driverid + "Trip id: " + triprefno);
+            HeadQuater.ChangeUserBalance(userid, Fare);
+            new TripDetails(triprefno).setVisible(true);
+        this.dispose(); 
+           
+       }
         
     }//GEN-LAST:event_BookCabActionPerformed
 
@@ -384,9 +405,25 @@ PreparedStatement pst = null;
         this.dispose(); 
     }//GEN-LAST:event_Add_MoneyActionPerformed
 
-    private void BookCabAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_BookCabAncestorAdded
+    private void pickupLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupLocationActionPerformed
+        String x = pickupLocation.getSelectedItem().toString();
+        pickuploc=x;
+        
+        System.out.println(pickuploc);
+
         // TODO add your handling code here:
-    }//GEN-LAST:event_BookCabAncestorAdded
+    }//GEN-LAST:event_pickupLocationActionPerformed
+
+    private void DropLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DropLocationActionPerformed
+        String y = DropLocation.getSelectedItem().toString();
+        droploc = y;// TODO add your handling code here:
+        
+        System.out.println(droploc);
+    }//GEN-LAST:event_DropLocationActionPerformed
+
+    private void Calculate_FareAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Calculate_FareAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Calculate_FareAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -416,24 +453,19 @@ PreparedStatement pst = null;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new bookcab().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new bookcab().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Add_Money;
+    private javax.swing.JButton Back;
     private javax.swing.JButton BookCab;
     private javax.swing.JButton Calculate_Fare;
-    private javax.swing.JTextField Drop_X;
-    private javax.swing.JTextField Drop_Y;
-    private javax.swing.JTextField Pickup_X;
-    private javax.swing.JTextField Pickup_Y;
+    private javax.swing.JComboBox<String> DropLocation;
     private javax.swing.JLabel balance_display2;
     private javax.swing.JLabel fare_display;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -441,5 +473,6 @@ PreparedStatement pst = null;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> pickupLocation;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,8 +5,6 @@
  */
 package cabbooking;
 
-import java.awt.Color;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -18,6 +16,8 @@ import java.sql.Connection;
 
 
 import java.awt.Color;
+import java.awt.HeadlessException;
+import java.sql.SQLException;
 
 /**
  *
@@ -46,6 +46,9 @@ public class CabBookingApplication extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollBar1 = new javax.swing.JScrollBar();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -57,23 +60,29 @@ public class CabBookingApplication extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
 
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.blue);
         setForeground(new java.awt.Color(0, 0, 153));
         setType(java.awt.Window.Type.UTILITY);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 87));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cab Booking Portal");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("User ID");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Password:");
 
         txt_user_id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -92,6 +101,7 @@ public class CabBookingApplication extends javax.swing.JFrame {
             }
         });
 
+        login.setBackground(new java.awt.Color(51, 51, 51));
         login.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +110,7 @@ public class CabBookingApplication extends javax.swing.JFrame {
             }
         });
 
+        sign_up.setBackground(new java.awt.Color(102, 102, 102));
         sign_up.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         sign_up.setText("Sign Up");
         sign_up.addActionListener(new java.awt.event.ActionListener() {
@@ -110,8 +121,9 @@ public class CabBookingApplication extends javax.swing.JFrame {
 
         txt_password.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jCheckBox1.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(153, 255, 255));
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Show Password");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,41 +132,40 @@ public class CabBookingApplication extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("New User?");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 83, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sign_up, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(83, 83, 83))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_user_id, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(txt_password)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jCheckBox1)))))
+                    .addComponent(jCheckBox1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txt_user_id, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                        .addComponent(txt_password)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 92, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(sign_up, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(83, 83, 83))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(150, 150, 150))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(197, 197, 197))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,15 +182,15 @@ public class CabBookingApplication extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sign_up, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(4, 4, 4))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,6 +215,26 @@ public class CabBookingApplication extends javax.swing.JFrame {
         else if(txt_password.getPassword().length==0){
         JOptionPane.showMessageDialog(null, "Enter Valid Password");
         }
+           else if(txt_user_id.getText().equals("Radhesh") && "admin".equals(String.valueOf(txt_password.getPassword())))
+            {
+                new Admin("Radhesh").setVisible(true);
+               this.dispose();
+            }
+         else if(txt_user_id.getText().equals("Amogh") && "admin".equals(String.valueOf(txt_password.getPassword())))
+            {
+                new Admin("Amogh").setVisible(true);
+               this.dispose();
+            }
+           else if(txt_user_id.getText().equals("Simran") && "admin".equals(String.valueOf(txt_password.getPassword())))
+            {
+                new Admin("Simran").setVisible(true);
+               this.dispose();
+            }
+            else if(txt_user_id.getText().equals("Jalaj") && "admin".equals(String.valueOf(txt_password.getPassword())))
+            {
+                new Admin("Simran").setVisible(true);
+               this.dispose();
+            }
         else{
             try
                 {    
@@ -230,7 +261,7 @@ public class CabBookingApplication extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null ,"SORRY you need to register!");
                     check=false;
                 }
-            }catch(Exception e){
+            }catch(SQLException | HeadlessException e){
                 //JOptionPane.showMessageDialog(null ,"Enter a valid User Id or Password!");
                 //System.out.println(e.getMessage());
             }
@@ -329,6 +360,9 @@ public class CabBookingApplication extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JButton login;
