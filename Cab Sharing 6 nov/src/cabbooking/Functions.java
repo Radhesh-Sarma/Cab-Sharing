@@ -43,15 +43,11 @@ public class Functions extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-            try{
-                rs.close();
-                ps.close();
-            }catch(Exception e){
-                
-            }
-
-        }
+           finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
         
     }
     

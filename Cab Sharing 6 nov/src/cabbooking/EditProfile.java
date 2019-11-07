@@ -7,7 +7,10 @@ package cabbooking;
 
 import java.awt.Color;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +27,7 @@ public class EditProfile extends javax.swing.JFrame {
     public EditProfile(String nam) {
         userid = nam;
         initComponents();
+        connect=dbm.dbconnect();
         
     }
 
@@ -46,93 +50,112 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         Back = new javax.swing.JButton();
-        SignUp = new javax.swing.JButton();
+        FinalSubmitButtion = new javax.swing.JButton();
         changePasswordButtion = new javax.swing.JButton();
-        txt_name = new javax.swing.JTextField();
-        txt_user_id = new javax.swing.JTextField();
+        Name = new javax.swing.JTextField();
+        user_id = new javax.swing.JTextField();
         txt_email = new javax.swing.JTextField();
         txt_password = new javax.swing.JPasswordField();
         txt_address = new javax.swing.JTextField();
-        txt_dob = new datechooser.beans.DateChooserCombo();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(153, 255, 255));
 
-        jLabel1.setText("Enter the fields you wish to change ");
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Enter the fields you wish to change ");
 
-        jLabel2.setText("Changed Name:");
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Changed Name:");
 
-        jLabel3.setText("Changed user ID");
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Changed username:");
 
-        jLabel4.setText("Changed DOB:");
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Changed DOB:");
 
-        jLabel5.setText("Changed Email ID:");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Changed Email ID:");
 
-        jLabel7.setText("Changed Address:");
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Changed Address:");
 
-        jLabel8.setText("Do you wish to change your password?");
         jLabel8.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Do you wish to change your password?");
 
-        jLabel9.setText("Enter current password:");
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Enter current password:");
 
-        Back.setText("BACK");
         Back.setBackground(new java.awt.Color(51, 51, 51));
         Back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Back.setText("BACK");
         Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BackActionPerformed(evt);
             }
         });
 
-        SignUp.setText("SUBMIT");
-        SignUp.setBackground(new java.awt.Color(51, 51, 51));
-        SignUp.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SignUp.addActionListener(new java.awt.event.ActionListener() {
+        FinalSubmitButtion.setBackground(new java.awt.Color(51, 51, 51));
+        FinalSubmitButtion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        FinalSubmitButtion.setText("SUBMIT");
+        FinalSubmitButtion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SignUpActionPerformed(evt);
+                FinalSubmitButtionActionPerformed(evt);
             }
         });
 
-        changePasswordButtion.setText("CHANGE PASSWORD");
         changePasswordButtion.setBackground(new java.awt.Color(51, 51, 51));
         changePasswordButtion.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        changePasswordButtion.setText("CHANGE PASSWORD");
         changePasswordButtion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 changePasswordButtionActionPerformed(evt);
             }
         });
 
-        txt_name.addFocusListener(new java.awt.event.FocusAdapter() {
+        Name.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_nameFocusGained(evt);
+                NameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                NameFocusLost(evt);
             }
         });
 
-        jCheckBox1.setBackground(new java.awt.Color(0, 0, 0));
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Show Password");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+        user_id.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                user_idFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                user_idFocusLost(evt);
+            }
+        });
+
+        txt_email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emailFocusLost(evt);
+            }
+        });
+
+        txt_password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_passwordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_passwordFocusLost(evt);
             }
         });
 
@@ -141,16 +164,16 @@ public class EditProfile extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(63, 63, 63)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel7)
@@ -163,28 +186,29 @@ public class EditProfile extends javax.swing.JFrame {
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(txt_dob, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(txt_address, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txt_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(SignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel9))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jCheckBox1))))
+                                        .addComponent(user_id, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(changePasswordButtion)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(92, 92, 92)
+                            .addComponent(jLabel1))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(216, 216, 216)
+                            .addComponent(FinalSubmitButtion, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(582, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -194,15 +218,15 @@ public class EditProfile extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(user_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(txt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -216,9 +240,7 @@ public class EditProfile extends javax.swing.JFrame {
                     .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                .addComponent(FinalSubmitButtion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
@@ -247,16 +269,16 @@ public class EditProfile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
     private void changePasswordButtionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtionActionPerformed
           new ChangePassword(userid).setVisible(true);
 
           this.dispose();            // TODO add your handling code here:
     }//GEN-LAST:event_changePasswordButtionActionPerformed
 
-    private void SignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpActionPerformed
+    private void FinalSubmitButtionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalSubmitButtionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_SignUpActionPerformed
+    }//GEN-LAST:event_FinalSubmitButtionActionPerformed
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
          new Functions(userid).setVisible(true);
@@ -264,21 +286,86 @@ public class EditProfile extends javax.swing.JFrame {
         this.dispose();            // TODO add your handling code here:
     }//GEN-LAST:event_BackActionPerformed
 
-    private void txt_nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nameFocusGained
-        // TODO add your handling code here:
-             if(txt_name.getText().equals("Enter Name")){
-        txt_name.setText(null);
-        txt_name.setForeground(Color.BLACK);
-    }
+    private void NameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFocusGained
+      if(Name.getText().equals("Enter Name")){
+        Name.setText(null);
+        Name.setForeground(Color.BLACK);
+    }        // TODO add your handling code here:
         
-    }//GEN-LAST:event_txt_nameFocusGained
+        
+    }//GEN-LAST:event_NameFocusGained
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if(jCheckBox1.isSelected()){
-            txt_password.setEchoChar((char)0);
-        }else
-        txt_password.setEchoChar('*');
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    private void NameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFocusLost
+        try{
+                String query ="select NAME from customer where USERNAME=? ";
+                PreparedStatement ps =connect.prepareStatement(query);
+                ps.setString(1,userid);
+                ResultSet rs=ps.executeQuery();
+                String s1=rs.getString("NAME");
+        if(Name.getText().equals(s1)){
+            Name.setForeground(new Color(204,204,204));
+            Name.setText(s1);    }
+        }
+        catch(Exception e) { }// TODO add your handling code here:
+    }//GEN-LAST:event_NameFocusLost
+
+    private void txt_emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusGained
+        if(txt_email.getText().equals("Enter E-mail ID")){
+        txt_email.setText(null);
+        txt_email.setForeground(Color.BLACK);
+    }
+            // TODO add your handling code here:
+    }//GEN-LAST:event_txt_emailFocusGained
+
+    private void txt_emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusLost
+     if(txt_email.getText().equals("")){
+            txt_email.setForeground(new Color(204,204,204));
+        txt_email.setText("Enter E-mail ID");
+        }
+        if(!txt_email.getText().equals("Enter E-mail ID")){
+            verify_email(txt_email.getText());
+         }        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_emailFocusLost
+
+    private void user_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_user_idFocusGained
+        if(user_id.getText().equals("Enter User ID")){
+        user_id.setText(null);
+        user_id.setForeground(Color.BLACK);
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_user_idFocusGained
+
+    private void user_idFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_user_idFocusLost
+          if(Name.getText().equals("")){
+            Name.setForeground(new Color(204,204,204));
+            Name.setText("Enter Name");     }
+                // TODO add your handling code here:
+    }//GEN-LAST:event_user_idFocusLost
+
+    private void txt_passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_passwordFocusLost
+     try{
+                String query ="select PASSWORD from customer where USERNAME=? ";
+                PreparedStatement ps =connect.prepareStatement(query);
+                ps.setString(1,userid);
+                ResultSet rs=ps.executeQuery();     
+                String pass=rs.getString("PASSWORD");
+                if(pass.equals(txt_password.getPassword()))
+                {
+                    JOptionPane.showMessageDialog(null ,"Updated successfully!");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null ,"Incorrect password!");
+                }
+        }
+catch(Exception e) { }           // TODO add your handling code here:
+    }//GEN-LAST:event_txt_passwordFocusLost
+
+    private void txt_passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_passwordFocusGained
+             if(txt_password.getText().equals("Enter Name")){
+       txt_password.setText(null);
+        txt_password.setForeground(Color.BLACK);
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_passwordFocusGained
 
     /**
      * @param args the command line arguments
@@ -306,6 +393,8 @@ public class EditProfile extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -314,12 +403,26 @@ public class EditProfile extends javax.swing.JFrame {
             }
         });
     }
+    
+    public boolean verify_email(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+                            "[a-zA-Z0-9_+&*-]+)*@" + 
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+                            "A-Z]{2,7}$";
+        Pattern pat = Pattern.compile(emailRegex); 
+        if (email == null) 
+            return false;
+        return pat.matcher(email).matches();
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
-    private javax.swing.JButton SignUp;
+    private javax.swing.JButton FinalSubmitButtion;
+    private javax.swing.JTextField Name;
     private javax.swing.JButton changePasswordButtion;
-    private javax.swing.JCheckBox jCheckBox1;
+    private datechooser.beans.DateChooserCombo dateChooserCombo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -330,10 +433,8 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txt_address;
-    private datechooser.beans.DateChooserCombo txt_dob;
     private javax.swing.JTextField txt_email;
-    private javax.swing.JTextField txt_name;
     private javax.swing.JPasswordField txt_password;
-    private javax.swing.JTextField txt_user_id;
+    private javax.swing.JTextField user_id;
     // End of variables declaration//GEN-END:variables
 }
