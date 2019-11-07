@@ -8,7 +8,6 @@ package cabbooking;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,37 +30,49 @@ public class DriverDetails extends javax.swing.JFrame {
        // table.setValueAt((Object)("9650993163"),0,2);
         int numberofdrivers = 0;
         
+            Connection conn = null ;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try
         {
-             Connection conn = dbm2.dbconnect();
+            conn = dbm2.dbconnect();
              String query="SELECT * FROM driver";
-             PreparedStatement ps =conn.prepareStatement(query);
-             ResultSet rs=ps.executeQuery();
+             ps =conn.prepareStatement(query);
+             rs=ps.executeQuery();
              
              while(rs.next())
              {
                  numberofdrivers++;
              }
         }
-         catch (SQLException ex) 
+         catch (Exception ex) 
         {
             System.out.println("Radhesh " + ex.getMessage());
-          
-            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
+          finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
         
+        
+        
+          conn = null ;
+         ps = null;
+         rs = null;
+         
         try
         {
-             Connection conn = dbm2.dbconnect();
+             conn = dbm2.dbconnect();
              String query="SELECT * FROM driver";
-             PreparedStatement ps =conn.prepareStatement(query);
+             ps =conn.prepareStatement(query);
            
              int i = 0 ;
              Object[] cname={"Driver Name","Driver ID","Phone Number","Rating","Vehicle Number","Vehicle Name","Current Location","Is He Busy"};
             DefaultTableModel model=new DefaultTableModel(cname,numberofdrivers);
             table.setModel(model);
             
-              ResultSet rs=ps.executeQuery();
+               rs=ps.executeQuery();
               while(rs.next())
               {
                 String drivername = rs.getString("DRIVERNAME");
@@ -92,14 +103,16 @@ public class DriverDetails extends javax.swing.JFrame {
                 i++;
               }
         }
-        catch (SQLException ex) 
+        catch (Exception ex) 
         {
-            System.out.println("Radhesh " + ex.getMessage());
-          
-            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println( ex.getMessage());
         }
-        //table.setValueAt(555,1,2);
-       // table.enable(true);
+          finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
+
         
     }
 
