@@ -5,8 +5,6 @@
  */
 package cabbooking;
 
-import java.awt.Color;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -18,6 +16,8 @@ import java.sql.Connection;
 
 
 import java.awt.Color;
+import java.awt.HeadlessException;
+import java.sql.SQLException;
 
 /**
  *
@@ -261,7 +261,7 @@ public class CabBookingApplication extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null ,"SORRY you need to register!");
                     check=false;
                 }
-            }catch(Exception e){
+            }catch(SQLException | HeadlessException e){
                 //JOptionPane.showMessageDialog(null ,"Enter a valid User Id or Password!");
                 //System.out.println(e.getMessage());
             }

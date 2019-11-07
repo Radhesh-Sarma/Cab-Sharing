@@ -39,8 +39,8 @@ String vehicle_Number;
         
         drivername.setText(DriverName);
         driver_id.setText(String.valueOf(DriverId));
-        Pickup_Location.setText(PickupLocation);
-        Drop_Location.setText(DropLocation);
+        Pickup_Location.setText(HeadQuater.getLocationDescription(Integer.parseInt(PickupLocation)));
+        Drop_Location.setText(HeadQuater.getLocationDescription(Integer.parseInt(DropLocation)) + " Min");
         Duration_.setText(Duration);
         car_name.setText(vehicle_Name);
         car_id.setText(vehicle_Number);

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +29,26 @@ public class DriverDetails extends javax.swing.JFrame {
       //  table.setValueAt((Object)"PARTH KRISHNA SHARMA",0,0);
        // table.setValueAt((Object)(1),0,1);
        // table.setValueAt((Object)("9650993163"),0,2);
+        int numberofdrivers = 0;
+        
+        try
+        {
+             Connection conn = dbm2.dbconnect();
+             String query="SELECT * FROM driver";
+             PreparedStatement ps =conn.prepareStatement(query);
+             ResultSet rs=ps.executeQuery();
+             
+             while(rs.next())
+             {
+                 numberofdrivers++;
+             }
+        }
+         catch (SQLException ex) 
+        {
+            System.out.println("Radhesh " + ex.getMessage());
+          
+            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         try
         {
@@ -36,7 +57,10 @@ public class DriverDetails extends javax.swing.JFrame {
              PreparedStatement ps =conn.prepareStatement(query);
            
              int i = 0 ;
-             
+             Object[] cname={"Driver Name","Driver ID","Phone Number","Rating","Vehicle Number","Vehicle Name","Current Location","Is He Busy"};
+            DefaultTableModel model=new DefaultTableModel(cname,numberofdrivers);
+            table.setModel(model);
+            
               ResultSet rs=ps.executeQuery();
               while(rs.next())
               {
@@ -65,7 +89,7 @@ public class DriverDetails extends javax.swing.JFrame {
                 {
                     table.setValueAt((Object)"YES",i,7);
                 }
-                //i++;
+                i++;
               }
         }
         catch (SQLException ex) 
@@ -75,6 +99,8 @@ public class DriverDetails extends javax.swing.JFrame {
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
         //table.setValueAt(555,1,2);
+       // table.enable(true);
+        
     }
 
     /**

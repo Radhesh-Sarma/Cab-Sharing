@@ -5,6 +5,7 @@
  */
 package cabbooking;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +26,8 @@ PreparedStatement pst = null;
  
  
     /**
-     * Creates new form Addmoney1
+     * Creates new form Add money
+     * @param uname
      */
    
 
@@ -41,7 +43,7 @@ PreparedStatement pst = null;
             pst.setString(1,uname);
             rs = pst.executeQuery();
           
-            userName_display.setText("Hi, " + rs.getString("NAME"));
+            userName_display.setText( rs.getString("NAME"));
             double bal = rs.getDouble("BALANCE");
             userbalance = bal;
             
@@ -50,14 +52,12 @@ PreparedStatement pst = null;
         }
         catch(Exception e){
             
-        }finally{
-            try{
-                rs.close();
-                pst.close();
-            }catch(Exception e){
-                
-            }
         }
+             finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (pst != null) pst.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
         
             
     }
@@ -200,8 +200,8 @@ PreparedStatement pst = null;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(265, 265, 265)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userName_display, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userName_display, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(101, 101, 101)
@@ -296,14 +296,17 @@ PreparedStatement pst = null;
              JOptionPane.showMessageDialog(null, "Kindly Enter a Positive amount");
        }
       
+       PreparedStatement ps = null;
+        rs= null;
+       
        try
        {
            
        String password = String.valueOf(txt_password.getPassword());
        String query ="select PASSWORD from customer where USERNAME=? ";
-                PreparedStatement ps =conn.prepareStatement(query);
+                 ps =conn.prepareStatement(query);
                 ps.setString(1,userid);
-                ResultSet rs=ps.executeQuery();
+               rs=ps.executeQuery();
                 
                 String pass=rs.getString("PASSWORD");
                 if(pass.equals(password))
@@ -318,27 +321,26 @@ PreparedStatement pst = null;
                  
                 
        }
-       catch(Exception e)
+       catch(SQLException | HeadlessException e)
        {
            System.out.println(e.getMessage());
        }
-       finally{
-            try{
-                rs.close();
-                pst.close();
-            }catch(Exception e){
-                
-            }
-        }
+           finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
        
        if(add == true)
        {
+            ps = null;
+           
            try
            {
                 Double new_amount  = userbalance + Integer.parseInt(txt_amount.getText());
                 newamt = new_amount;
                 String sqlQuery = "UPDATE customer SET BALANCE =? WHERE USERNAME = ?";
-                PreparedStatement ps =conn.prepareStatement(sqlQuery);
+                ps =conn.prepareStatement(sqlQuery);
                 ps.setDouble(1,new_amount);
                 ps.setString(2, userid);
                 
@@ -348,19 +350,14 @@ PreparedStatement pst = null;
                 
                 
            }
-           catch(Exception e)
+           catch(NumberFormatException | SQLException e)
        {
            System.out.println(e.getMessage());
        }
-           finally{
-            try{
-                rs.close();
-                pst.close();
-                
-            }catch(Exception e){
-                 System.out.println(e.getMessage());
-            }
-        }
+             finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
             JOptionPane.showMessageDialog(null, "Amount Added Sucessfully. New Balance is " + newamt);
             this.setVisible(false);
             new Functions(userid).setVisible(true);
@@ -425,10 +422,8 @@ PreparedStatement pst = null;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new Addmoney1(userid).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new Addmoney1(userid).setVisible(true);
         });
     }
 

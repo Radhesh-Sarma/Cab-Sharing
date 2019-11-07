@@ -6,15 +6,12 @@
 
 package cabbooking;
 
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
+
 
 /**
  *
@@ -33,7 +30,8 @@ PreparedStatement pst = null;
 
  
     /**
-     * Creates new form bookcab
+     * Creates new form book cab
+     * @param uid
      */
     public bookcab(String uid) {
         initComponents();
@@ -96,14 +94,12 @@ PreparedStatement pst = null;
             System.out.println(ex.getMessage());
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-            try{
-                rs.close();
-                ps.close();
-            }catch(Exception e){
-                
-            }
-        }
+               finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
+     
         
     }
     
@@ -370,7 +366,10 @@ PreparedStatement pst = null;
        // int drop_y = Integer.parseInt(Drop_Y.getText());
         String driverid,triprefno;
         
-       if(HeadQuater.isCabAvailable()==false)
+        
+        
+      
+        if(HeadQuater.isCabAvailable(userid)==false)
         {
             JOptionPane.showMessageDialog(null, "Request Timeout.No Cab Available at the Moment. Please try again later");
         }
@@ -454,10 +453,8 @@ PreparedStatement pst = null;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new bookcab().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new bookcab().setVisible(true);
         });
     }
 

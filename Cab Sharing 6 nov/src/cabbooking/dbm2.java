@@ -22,7 +22,7 @@ public class dbm2 {
     Class.forName("org.sqlite.JDBC");
     Connection conn=DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Radhesh\\Desktop\\Cab Sharing Patch\\1edit-20191026T180150Z-001\\1edit\\CabBooking\\databases\\driver.sqlite");
     //JOptionPane.showMessageDialog(null ,"connected");
-    System.out.println("connected to Driver Database" );
+    //System.out.println("connected to Driver Database" );
     return conn;
 }catch(Exception e){
     JOptionPane.showMessageDialog(null ,e);

@@ -24,6 +24,7 @@ public class ViewBalance extends javax.swing.JFrame {
      ResultSet rs;
      String userid;
      Double userbalance;
+     
     public ViewBalance(String id) {
         initComponents();
          connect=dbm.dbconnect();
@@ -45,18 +46,14 @@ public class ViewBalance extends javax.swing.JFrame {
             
             
         } catch (SQLException ex) {
-            System.out.println("Entered");
             System.out.println(ex.getMessage());
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-            try{
-                rs.close();
-                ps.close();
-            }catch(Exception e){
-                
-            }
-        }
+            finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
     }
 
     /**
@@ -189,10 +186,8 @@ public class ViewBalance extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-               // new ViewBalance(userid).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            // new ViewBalance(userid).setVisible(true);
         });
     }
 

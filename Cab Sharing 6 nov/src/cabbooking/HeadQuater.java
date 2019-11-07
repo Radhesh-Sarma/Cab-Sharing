@@ -8,7 +8,8 @@ package cabbooking;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JOptionPane;
+import java.sql.SQLException;
+
 import java.util.*; 
 
 /**
@@ -189,38 +190,96 @@ public class HeadQuater
         return 80*(Distance(pickup,drop));
     }
     
-    public static boolean isCabAvailable()
+    public static boolean isUserFree(String userid)
+    {
+        boolean answer = true;
+        
+        Connection conn = null ;
+        PreparedStatement ps = null;
+        ResultSet rs1 = null;
+        
+        try
+      {
+       conn= dbm.dbconnect();
+          String sql = "SELECT ISBUSY FROM customer WHERE USERNAME = ?";
+          
+             ps =conn.prepareStatement(sql);
+            ps.setString(1,userid);
+             rs1=ps.executeQuery();
+              
+              int status = rs1.getInt("ISBUSY");
+              
+
+            
+              if(status == 1)
+                  
+              {
+                  answer = false;
+              }
+              
+              
+              
+      }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+           finally {
+    try { if (rs1 != null) rs1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
+      
+        
+        
+        
+        return answer;
+        
+        
+    }
+    public static boolean isCabAvailable(String userid)
     {
         
         boolean answer = false;
         
-   
-      
-       
-      
-    
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
       try
       {
           
               
-       Connection con= dbm2.dbconnect();
+      con= dbm2.dbconnect();
       
       String sql = "SELECT * FROM driver WHERE ISBUSY=? ";
-            PreparedStatement ps =con.prepareStatement(sql);
+            ps =con.prepareStatement(sql);
             ps.setInt(1,0);
-              ResultSet rs=ps.executeQuery();
+              rs=ps.executeQuery();
               
               while(rs.next())
               {
         
                   answer = true;    
               }
+              
+            
       }
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+      finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
       
-               
+        
+      
+         if(answer == true)
+         {
+            
+        answer = isUserFree(userid);
+         }
         
         return answer;
     }
@@ -229,15 +288,18 @@ public class HeadQuater
     {
         boolean answer = true;
        
+      Connection con = null;
+      PreparedStatement ps = null;
+      ResultSet rs = null;
       
       try
       {
-      Connection con= dbm.dbconnect();
+     con= dbm.dbconnect();
           String sql = "SELECT BALANCE FROM customer WHERE USERNAME = ?";
           
-            PreparedStatement ps =con.prepareStatement(sql);
+       ps =con.prepareStatement(sql);
             ps.setString(1,uid);
-             ResultSet rs=ps.executeQuery();
+            rs=ps.executeQuery();
               
               double bal = rs.getDouble("balance");
               if(bal < 300 || bal < fare)
@@ -252,11 +314,17 @@ public class HeadQuater
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+      finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
         
         return answer;
     }
     
   
+    @SuppressWarnings("empty-statement")
     public static String FindNearestDriverWithHighestRating(String Cust_Loc_Description)
     {
         String answer = null;
@@ -265,14 +333,18 @@ public class HeadQuater
         int cust_loc = getLocationNumber(Cust_Loc_Description);
         
         
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs= null;
+        
       try
       {
-           Connection con= dbm2.dbconnect();
+          con= dbm2.dbconnect();
           String sql = "SELECT DRIVERID,RATING,LOCATION FROM driver WHERE ISBUSY = ?";
       
-          PreparedStatement ps =con.prepareStatement(sql);
+           ps =con.prepareStatement(sql);
             ps.setInt(1,0);
-              ResultSet rs=ps.executeQuery();
+              rs=ps.executeQuery();
               
               while(rs.next())
               {
@@ -289,19 +361,27 @@ public class HeadQuater
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+        finally {
+    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+}
       
       
-     
+        Connection conn = null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1= null;
+        
       try
       {
-           Connection conn = dbm2.dbconnect();
+           conn = dbm2.dbconnect();
     
 
           String sql = "SELECT DRIVERID,RATING,LOCATION FROM driver WHERE ISBUSY = ?";
       
-            PreparedStatement ps1 =conn.prepareStatement(sql);
+             ps1 =conn.prepareStatement(sql);
             ps1.setInt(1,0);
-              ResultSet rs1=ps1.executeQuery();
+               rs1=ps1.executeQuery();
               
               while(rs1.next())
               {
@@ -328,6 +408,12 @@ public class HeadQuater
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+         finally {
+    try { if (rs1 != null) rs1.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (ps1 != null) ps1.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+}
+     
       
       
       
@@ -343,17 +429,20 @@ public class HeadQuater
     {
         return Distance(pickup_loc,drop_loc);
     }
+    @SuppressWarnings("empty-statement")
     public static String AddBooking(int Customer_Location,int Drop_Location,String userid,String driverid)      
     {
         
         String answer = null;
         
-
+        Connection con = null;
+        PreparedStatement ps = null;
+        
       try
       {
-            Connection con = dbm3.dbconnect();
+            con = dbm3.dbconnect();
            String query="insert into booking values(?,?,?,?,?,?,?)";
-         PreparedStatement ps=con.prepareStatement(query);
+          ps=con.prepareStatement(query);
          String referencenumber=String.valueOf(new Date().getTime());
           answer = String.valueOf(referencenumber);
           ps.setString(1,referencenumber);
@@ -365,13 +454,18 @@ public class HeadQuater
           ps.setInt(7,CalculateTripEndtime(getLocationDescription(Customer_Location),getLocationDescription(Drop_Location)));      
           ps.execute();
            UpdateDriverStatusStartTrip(driverid);
-             
+           UpdateCustomerStatusStartTrip(userid);
                    
               
       }
-        catch(Exception e){
+        catch(SQLException | NumberFormatException e){
             System.out.println(e.getMessage());
         }
+             finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+}
+      
       
       return answer;
       
@@ -381,54 +475,71 @@ public class HeadQuater
     public static void UpdateDriverStatusStartTrip(String driverid)
     {
        
-      
+       Connection con = null;
+        PreparedStatement ps = null ;
+        
       try
       {
                     
-                     Connection con= dbm2.dbconnect();
+                    con= dbm2.dbconnect();
                  String sqlQuery = "UPDATE driver SET ISBUSY = ? WHERE DRIVERID = ?";
-                PreparedStatement ps =con.prepareStatement(sqlQuery);
+                 ps =con.prepareStatement(sqlQuery);
                  ps.setInt(1,1);
                 ps.setInt(2,Integer.parseInt(driverid));
                 ps.executeUpdate();
          
       }
-        catch(Exception e){
+        catch(SQLException | NumberFormatException e){
             System.out.println( e.getMessage());
         }
+           finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
       
     }
     
     public static void UpdateDriverStatusEndTrip(String driverid)
     {
+        Connection con = null;
+        PreparedStatement ps = null ;
+        
         try
         {
-              Connection con= dbm2.dbconnect();
+             con= dbm2.dbconnect();
                  String sqlQuery = "UPDATE driver SET ISBUSY = ? WHERE DRIVERID = ?";
-                PreparedStatement ps =con.prepareStatement(sqlQuery);
+                ps =con.prepareStatement(sqlQuery);
                  ps.setInt(1,0);
                 ps.setInt(2,Integer.parseInt(driverid));
                 ps.executeUpdate();
         }
-        catch(Exception e){
+        catch(SQLException | NumberFormatException e){
             System.out.println( e.getMessage());
         }
+          finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
+        
     }
     
     public static void Randomize()
     {
         
-        ArrayList<Integer> freedriverlist = new ArrayList<Integer>();
+        ArrayList<Integer> freedriverlist = new ArrayList<>();
         
+        Connection conn = null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1 = null;
         
         try
         {
-            Connection conn= dbm2.dbconnect();
+             conn= dbm2.dbconnect();
              String sql = "SELECT DRIVERID FROM driver WHERE ISBUSY = ?";
       
-            PreparedStatement ps1 =conn.prepareStatement(sql);
+           ps1 =conn.prepareStatement(sql);
             ps1.setInt(1,0);
-              ResultSet rs1=ps1.executeQuery();
+               rs1=ps1.executeQuery();
               
               while(rs1.next())
               {
@@ -442,6 +553,11 @@ public class HeadQuater
          catch(Exception e){
             System.out.println(e.getMessage());
         }
+             finally {
+    try { if (rs1 != null) rs1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps1 != null) ps1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
         
         int numberofdrivers = freedriverlist.size();
         
@@ -453,20 +569,27 @@ public class HeadQuater
         
         int new_location = 1;
         
-        for(int i = 0; i < freedriverlist.size();i++)
+        
+        
+        for (Integer freedriverlist1 : freedriverlist) 
         {
-            try
-            {
-                 Connection con= dbm2.dbconnect();
-                 String sqlQuery = "UPDATE driver SET LOCATION = ? WHERE DRIVERID = ?";
-                PreparedStatement ps =con.prepareStatement(sqlQuery);
-                 ps.setInt(1,new_location);
-                ps.setInt(2,freedriverlist.get(i));
+             Connection con = null;
+               PreparedStatement ps = null;
+            try {
+                con= dbm2.dbconnect();
+                String sqlQuery = "UPDATE driver SET LOCATION = ? WHERE DRIVERID = ?";
+                 ps =con.prepareStatement(sqlQuery);
+                ps.setInt(1,new_location);
+                ps.setInt(2, freedriverlist1);
                 ps.executeUpdate();
+            }catch(Exception e){
+                System.out.println(e.getMessage());
             }
-            catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+               finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
+            
             new_location += delta;
         }
 
@@ -474,35 +597,50 @@ public class HeadQuater
     public static void ChangeUserBalance(String userid,int Fare)
     {
         int userbalance  = 0;
+        Connection conn = null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1 = null;
+        
          try
         {
-            Connection conn= dbm.dbconnect();
+            conn= dbm.dbconnect();
              String sql = "SELECT BALANCE FROM customer WHERE USERNAME =?";
       
-            PreparedStatement ps1 =conn.prepareStatement(sql);
+             ps1 =conn.prepareStatement(sql);
             ps1.setString(1,userid);
-              ResultSet rs1=ps1.executeQuery();
+              rs1=ps1.executeQuery();
             userbalance  = rs1.getInt("BALANCE");
         }
          catch(Exception e){
             System.out.println(e.getMessage());
         }
+            finally {
+    try { if (rs1 != null) rs1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps1 != null) ps1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
          
          
          int newuserbalance = userbalance - Fare;
          
+         Connection con = null;
+        PreparedStatement ps = null;   
            try
         {
-             Connection con= dbm.dbconnect();
+                 con= dbm.dbconnect();
                  String sqlQuery = "UPDATE customer SET BALANCE = ? WHERE USERNAME = ?";
-                PreparedStatement ps =con.prepareStatement(sqlQuery);
+                 ps =con.prepareStatement(sqlQuery);
                  ps.setInt(1,newuserbalance);
                 ps.setInt(2,Integer.parseInt(userid));
                 ps.executeUpdate();
         }
-         catch(Exception e){
+         catch(SQLException | NumberFormatException e){
             System.out.println(e.getMessage());
         }
+                finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
          
     }
     
@@ -516,4 +654,49 @@ public class HeadQuater
         }
     }
     
+   public static void UpdateCustomerStatusStartTrip(String userid)
+   {
+       Connection con = null;
+       PreparedStatement ps = null; 
+       try
+        {
+               con= dbm.dbconnect();
+                 String sqlQuery = "UPDATE customer SET ISBUSY = ? WHERE USERNAME = ?";
+                 ps =con.prepareStatement(sqlQuery);
+                 ps.setInt(1,1);
+                ps.setInt(2,Integer.parseInt(userid));
+                ps.executeUpdate();
+        }
+        catch(SQLException | NumberFormatException e){
+            System.out.println( e.getMessage());
+        }
+               finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
+       
+   }
+    
+   public static void UpdateCustomerStatusEndTrip(String userid)
+   {
+       Connection con = null ; 
+       PreparedStatement ps = null; 
+       try
+        {
+              con= dbm.dbconnect();
+                 String sqlQuery = "UPDATE customer SET ISBUSY = ? WHERE USERNAME = ?";
+                ps =con.prepareStatement(sqlQuery);
+                 ps.setInt(1,0);
+                ps.setInt(2,Integer.parseInt(userid));
+                ps.executeUpdate();
+        }
+        catch(SQLException | NumberFormatException e){
+            System.out.println( e.getMessage());
+        }
+             finally {
+    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+}
+       
+   }
 }

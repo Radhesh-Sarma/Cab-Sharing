@@ -112,8 +112,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="265" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="userName_display" min="-2" pref="123" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" pref="125" max="-2" attributes="0"/>
+                              <Component id="userName_display" min="-2" pref="455" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
