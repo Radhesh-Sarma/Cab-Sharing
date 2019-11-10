@@ -29,6 +29,7 @@ public class EditProfile extends javax.swing.JFrame {
     public EditProfile(String nam) {
         userid = nam;
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         connect=dbm.dbconnect();
         
     }

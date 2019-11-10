@@ -35,6 +35,7 @@ PreparedStatement pst = null;
      */
     public bookcab(String uid) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         //static JFrame f;
         connect=dbm.dbconnect();
         userid = uid;
@@ -95,9 +96,9 @@ PreparedStatement pst = null;
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
                finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
      
         

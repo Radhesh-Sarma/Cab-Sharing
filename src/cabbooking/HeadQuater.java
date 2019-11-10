@@ -450,7 +450,7 @@ public class HeadQuater
       try
       {
             con = dbm3.dbconnect();
-           String query="insert into booking values(?,?,?,?,?,?,?)";
+           String query="insert into booking values(?,?,?,?,?,?,?,?)";
           ps=con.prepareStatement(query);
          String referencenumber=String.valueOf(new Date().getTime());
           answer = String.valueOf(referencenumber);
@@ -461,6 +461,7 @@ public class HeadQuater
           ps.setString(5,String.valueOf(Drop_Location));
           ps.setString(6,HeadQuater.GetCurrentTime());
           ps.setString(7,CalculateTripEndtime(getLocationDescription(Customer_Location),getLocationDescription(Drop_Location)));      
+          ps.setInt(8,0);
           ps.execute();
            UpdateDriverStatusStartTrip(driverid);
            UpdateCustomerStatusStartTrip(userid);
@@ -641,7 +642,6 @@ public class HeadQuater
          int newuserbalance = userbalance - Fare;
          System.out.println(userbalance);
          System.out.println(Fare);
-
          System.out.println(newuserbalance);
          Connection con = null;
         PreparedStatement ps = null;   
@@ -744,7 +744,7 @@ public class HeadQuater
         PreparedStatement ps1 = null;
         ResultSet rs1 = null;
            String userid = null;
-           String driverid = null;
+         String driverid = null;
            String pickuploc =null;
            String droploc = null;
          try
@@ -769,6 +769,10 @@ public class HeadQuater
     try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
+         
+         
+         
+         
          
       UpdateCustomerStatusEndTrip(userid);
       UpdateDriverStatusEndTrip(driverid,getLocationNumber(droploc));

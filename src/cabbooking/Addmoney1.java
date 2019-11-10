@@ -33,6 +33,7 @@ PreparedStatement pst = null;
 
     public Addmoney1(String uname) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         conn = dbm.dbconnect();
         String sql = "SELECT NAME,BALANCE FROM customer WHERE USERNAME=?";
         userid = uname;
@@ -50,13 +51,13 @@ PreparedStatement pst = null;
             balance_display.setText(String.valueOf(bal));
             
         }
-        catch(Exception e){
+        catch(SQLException e){
             
         }
              finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (pst != null) pst.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (pst != null) pst.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
         
             
@@ -295,20 +296,20 @@ PreparedStatement pst = null;
            amount_flag=false;
              JOptionPane.showMessageDialog(null, "Kindly Enter a Positive amount");
        }
-      
+      Connection connect = dbm.dbconnect();;
        PreparedStatement ps = null;
-        rs= null;
+        ResultSet rs1= null;
        
        try
        {
            
        String password = String.valueOf(txt_password.getPassword());
        String query ="select PASSWORD from customer where USERNAME=? ";
-                 ps =conn.prepareStatement(query);
+                 ps =connect.prepareStatement(query);
                 ps.setString(1,userid);
-               rs=ps.executeQuery();
+               rs1=ps.executeQuery();
                 
-                String pass=rs.getString("PASSWORD");
+                String pass=rs1.getString("PASSWORD");
                 if(pass.equals(password))
                 {
                     add = true;
@@ -326,28 +327,24 @@ PreparedStatement pst = null;
            System.out.println(e.getMessage());
        }
            finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
        
        if(add == true)
-       {
-            ps = null;
+       {    Connection con = dbm.dbconnect();
+            PreparedStatement ps2 = null;
            
            try
            {
                 Double new_amount  = userbalance + Integer.parseInt(txt_amount.getText());
                 newamt = new_amount;
                 String sqlQuery = "UPDATE customer SET BALANCE =? WHERE USERNAME = ?";
-                ps =conn.prepareStatement(sqlQuery);
-                ps.setDouble(1,new_amount);
-                ps.setString(2, userid);
-                
-                ps.executeUpdate();
-                
-                
-                
+                ps2=con.prepareStatement(sqlQuery);
+                ps2.setDouble(1,new_amount);
+                ps2.setString(2, userid);
+                ps2.executeUpdate();
                 
            }
            catch(NumberFormatException | SQLException e)
@@ -355,8 +352,8 @@ PreparedStatement pst = null;
            System.out.println(e.getMessage());
        }
              finally {
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps2!= null) ps2.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
             JOptionPane.showMessageDialog(null, "Amount Added Sucessfully. New Balance is " + newamt);
             this.setVisible(false);

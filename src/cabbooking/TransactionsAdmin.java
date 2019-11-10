@@ -24,6 +24,7 @@ public class TransactionsAdmin extends javax.swing.JFrame {
     public TransactionsAdmin(String adminname) {
         
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         admin_name = adminname;
         
         int numberofbookings = 0;

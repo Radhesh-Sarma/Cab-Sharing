@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.*;
 /**
  *
  * @author Dell
@@ -33,6 +33,7 @@ String vehicle_Number;
      */
     public TripDetails(String trip_referenece) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         getInfo1(trip_referenece);
         DriverName = getDriverName(DriverId);
          drivername.setText(DriverName);
@@ -45,6 +46,9 @@ String vehicle_Number;
         Duration_.setText(String.valueOf(Duration)  + " Min");
         car_name.setText(vehicle_Name);
         car_id.setText(vehicle_Number);
+        
+        Timer timer = new Timer();
+        timer.schedule(new Scheduler(),new Date(),60000);
       
     }
     
