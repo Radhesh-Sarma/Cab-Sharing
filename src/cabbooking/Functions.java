@@ -27,7 +27,6 @@ public class Functions extends javax.swing.JFrame {
      String userid;
     public Functions(String nam) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
         connect=dbm.dbconnect();
            userid = nam;
          String query3="SELECT NAME FROM customer where USERNAME=?";

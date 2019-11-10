@@ -33,7 +33,6 @@ PreparedStatement pst = null;
 
     public Addmoney1(String uname) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
         conn = dbm.dbconnect();
         String sql = "SELECT NAME,BALANCE FROM customer WHERE USERNAME=?";
         userid = uname;

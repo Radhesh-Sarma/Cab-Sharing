@@ -27,7 +27,6 @@ public class ViewBalance extends javax.swing.JFrame {
      
     public ViewBalance(String id) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
          connect=dbm.dbconnect();
           userid = id;
          String query3="SELECT NAME,BALANCE FROM customer where USERNAME=?";

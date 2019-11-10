@@ -33,7 +33,6 @@ public class ChangePassword extends javax.swing.JFrame {
      
     public ChangePassword(String id) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
            this.setLocationRelativeTo(null);
         this.getRootPane().setDefaultButton(SubmitButton);
         connect=dbm.dbconnect();

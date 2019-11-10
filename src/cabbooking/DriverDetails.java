@@ -24,7 +24,6 @@ public class DriverDetails extends javax.swing.JFrame {
     
     public DriverDetails(String adminname) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
         admin_name = adminname;
         
       //  table.setValueAt((Object)"PARTH KRISHNA SHARMA",0,0);

@@ -33,7 +33,6 @@ String vehicle_Number;
      */
     public TripDetails(String trip_referenece) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
         getInfo1(trip_referenece);
         DriverName = getDriverName(DriverId);
          drivername.setText(DriverName);
