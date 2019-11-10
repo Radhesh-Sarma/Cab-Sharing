@@ -6,6 +6,7 @@
 package cabbooking;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -207,7 +208,7 @@ public class ChangePassword extends javax.swing.JFrame {
               }
               else if(txt_re_enter_password.getPassword().length==0 && !(txt_enter_password.getPassword().length==0) && !(txt_old_password.getPassword().length == 0))
               {
-                  change = false;
+                  change = false;   
                   change2 = false;
                   JOptionPane.showMessageDialog(null, "Re-enter New Password");
               }
@@ -231,15 +232,18 @@ public class ChangePassword extends javax.swing.JFrame {
               if(change2)
               {
                   
+                  
+              PreparedStatement ps = null;
+              ResultSet rs= null;
               
               try
        {
            
        String password = String.valueOf(txt_old_password.getPassword());
        String query ="select PASSWORD from customer where USERNAME=? ";
-                PreparedStatement ps =connect.prepareStatement(query);
+                 ps =connect.prepareStatement(query);
                 ps.setString(1,userid);
-                ResultSet rs=ps.executeQuery();
+                rs=ps.executeQuery();
                 
                 String pass=rs.getString("PASSWORD");
                 if(pass.equals(password))
@@ -254,27 +258,26 @@ public class ChangePassword extends javax.swing.JFrame {
                  
                 
        }
-       catch(Exception e)
+       catch( HeadlessException | SQLException e)
        {
            System.out.println(e.getMessage());
        }
-       finally{
-            try{
-                rs.close();
-                pst.close();
-            }catch(Exception e){
-                
-            }
-        }
+                      finally {
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
               
            if(change)
            {
+               ps = null;
+               
                     try
        {
            
            
                 String sqlQuery = "UPDATE customer SET PASSWORD =? WHERE USERNAME =?";
-                PreparedStatement ps =connect.prepareStatement(sqlQuery);
+               ps =connect.prepareStatement(sqlQuery);
                 ps.setString(1,String.valueOf(txt_enter_password.getPassword()));
                 ps.setString(2, userid);
                 ps.executeUpdate();
@@ -289,14 +292,10 @@ public class ChangePassword extends javax.swing.JFrame {
        {
            System.out.println(e.getMessage());
        }
-       finally{
-            try{
-                rs.close();
-                pst.close();
-            }catch(Exception e){
-                
-            }
-        }
+                      finally {
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
                     
               JOptionPane.showMessageDialog(null, "Password changed Successfully");
             this.setVisible(false);

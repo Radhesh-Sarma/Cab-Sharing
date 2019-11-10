@@ -43,14 +43,14 @@ public class TransactionsAdmin extends javax.swing.JFrame {
                  numberofbookings++;
              }
         }
-         catch (Exception ex) 
+         catch (SQLException ex) 
         {
             System.out.println( ex.getMessage());
         }
           finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
         
         
@@ -98,9 +98,9 @@ public class TransactionsAdmin extends javax.swing.JFrame {
             System.out.println( ex.getMessage());
         }
           finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
          
         
@@ -261,10 +261,8 @@ public class TransactionsAdmin extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new TransactionsAdmin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new TransactionsAdmin().setVisible(true);
         });
     }
 

@@ -20,7 +20,7 @@ public class dbm3 {
     try
     {
     Class.forName("org.sqlite.JDBC");
-    Connection conn=DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Radhesh\\Desktop\\Cab Sharing Patch\\1edit-20191026T180150Z-001\\1edit\\CabBooking\\databases\\booking.sqlite");
+    Connection conn=DriverManager.getConnection("jdbc:sqlite:/home/radhesh/Cab-Sharing-Application/CabBooking/databases/booking.sqlite");
     //JOptionPane.showMessageDialog(null ,"connected");
     return conn;
 }catch(Exception e){

@@ -101,7 +101,6 @@ public class CabBookingApplication extends javax.swing.JFrame {
             }
         });
 
-        login.setBackground(new java.awt.Color(51, 51, 51));
         login.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
@@ -142,25 +141,25 @@ public class CabBookingApplication extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 83, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(sign_up, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(83, 83, 83))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(141, 141, 141))))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(sign_up, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(83, 83, 83))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_user_id, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                        .addComponent(txt_password)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox1)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_user_id, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                .addComponent(txt_password))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -232,17 +231,20 @@ public class CabBookingApplication extends javax.swing.JFrame {
             }
             else if(txt_user_id.getText().equals("Jalaj") && "admin".equals(String.valueOf(txt_password.getPassword())))
             {
-                new Admin("Simran").setVisible(true);
+                new Admin("Jalaj").setVisible(true);
                this.dispose();
             }
         else{
+                PreparedStatement ps = null;
+                ResultSet rs = null;
+                
             try
                 {    
                 String dbuname=txt_user_id.getText();
                 String query ="select PASSWORD from customer where USERNAME=? ";
-                PreparedStatement ps =connect.prepareStatement(query);
+                ps =connect.prepareStatement(query);
                 ps.setString(1,dbuname);
-                ResultSet rs=ps.executeQuery();
+                rs=ps.executeQuery();
                 int count=0;
                 String pass=null;
                 while(rs.next()){
@@ -265,6 +267,11 @@ public class CabBookingApplication extends javax.swing.JFrame {
                 //JOptionPane.showMessageDialog(null ,"Enter a valid User Id or Password!");
                 //System.out.println(e.getMessage());
             }
+                      finally {
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
        
         if(check){
             this.setVisible(false);
