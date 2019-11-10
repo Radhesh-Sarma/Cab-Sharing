@@ -27,6 +27,7 @@ PreparedStatement pst = null;
  String userid;
     public TransactionHistory(String uid) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         connect=dbm.dbconnect();
         userid = uid;
         

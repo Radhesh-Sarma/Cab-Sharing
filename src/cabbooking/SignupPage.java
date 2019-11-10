@@ -24,6 +24,7 @@ public class SignupPage extends javax.swing.JFrame {
      Connection connect =null;
     public SignupPage() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         connect=dbm.dbconnect();
     }
 

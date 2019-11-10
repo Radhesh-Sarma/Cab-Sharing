@@ -20,6 +20,7 @@ public class Admin extends javax.swing.JFrame {
     String admin_name;
     public Admin(String adminname) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         hi.setText("Developer " + adminname);
         admin_name = adminname;
     }

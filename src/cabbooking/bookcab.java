@@ -35,6 +35,7 @@ PreparedStatement pst = null;
      */
     public bookcab(String uid) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         //static JFrame f;
         connect=dbm.dbconnect();
         userid = uid;

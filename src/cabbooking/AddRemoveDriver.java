@@ -18,6 +18,7 @@ public class AddRemoveDriver extends javax.swing.JFrame {
      */
     public AddRemoveDriver(String adminname) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         admin_name = adminname;
         
     }
