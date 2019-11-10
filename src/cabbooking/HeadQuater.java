@@ -9,9 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.*; 
-
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;  
 /**
  *
  * @author Radhesh
@@ -21,9 +21,9 @@ import java.util.*;
 
 public class HeadQuater 
 {
-    static int currenttime = 0;
+
   
-    
+   
     
     
    public static String getLocationDescription(int loc)
@@ -220,13 +220,13 @@ public class HeadQuater
               
               
       }
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println(e.getMessage());
         }
            finally {
-    try { if (rs1 != null) rs1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
       
         
@@ -264,13 +264,13 @@ public class HeadQuater
               
             
       }
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println(e.getMessage());
         }
       finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
       
         
@@ -311,13 +311,13 @@ public class HeadQuater
               
               
       }
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println(e.getMessage());
         }
       finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
         
         return answer;
@@ -358,13 +358,16 @@ public class HeadQuater
                    } 
               }
       }
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println(e.getMessage());
         }
         finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());};
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());};
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+;
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+;
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+;
 }
       
       
@@ -405,13 +408,13 @@ public class HeadQuater
                    
               }
       }
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println(e.getMessage());
         }
          finally {
-    try { if (rs1 != null) rs1.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (ps1 != null) ps1.close(); } catch (Exception e) {System.out.println(e.getMessage());};
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
      
       
@@ -421,9 +424,15 @@ public class HeadQuater
       return answer;
     }
     
-    public static int CalculateTripEndtime(String pickup_loc,String drop_loc)
+    public static String CalculateTripEndtime(String pickup_loc,String drop_loc)
     {
-        return currenttime + CalculateTripDuration(pickup_loc,drop_loc);
+
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+     LocalDateTime answer = LocalDateTime.now().plusMinutes(CalculateTripDuration(pickup_loc,drop_loc));
+     
+     return dtf.format(answer);
+        
     }
     public static int CalculateTripDuration(String pickup_loc,String drop_loc)
     {
@@ -450,8 +459,8 @@ public class HeadQuater
           ps.setInt(3,Integer.parseInt(driverid));
           ps.setString(4,String.valueOf(Customer_Location));
           ps.setString(5,String.valueOf(Drop_Location));
-          ps.setInt(6,currenttime);
-          ps.setInt(7,CalculateTripEndtime(getLocationDescription(Customer_Location),getLocationDescription(Drop_Location)));      
+          ps.setString(6,HeadQuater.GetCurrentTime());
+          ps.setString(7,CalculateTripEndtime(getLocationDescription(Customer_Location),getLocationDescription(Drop_Location)));      
           ps.execute();
            UpdateDriverStatusStartTrip(driverid);
            UpdateCustomerStatusStartTrip(userid);
@@ -462,8 +471,10 @@ public class HeadQuater
             System.out.println(e.getMessage());
         }
              finally {
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());};
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+;
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+;
 }
       
       
@@ -493,13 +504,13 @@ public class HeadQuater
             System.out.println( e.getMessage());
         }
            finally {
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
       
     }
     
-    public static void UpdateDriverStatusEndTrip(String driverid)
+    public static void UpdateDriverStatusEndTrip(String driverid,int location)
     {
         Connection con = null;
         PreparedStatement ps = null ;
@@ -507,18 +518,19 @@ public class HeadQuater
         try
         {
              con= dbm2.dbconnect();
-                 String sqlQuery = "UPDATE driver SET ISBUSY = ? WHERE DRIVERID = ?";
+                 String sqlQuery = "UPDATE driver SET ISBUSY = ? , LOCATION = ? WHERE DRIVERID = ?";
                 ps =con.prepareStatement(sqlQuery);
                  ps.setInt(1,0);
-                ps.setInt(2,Integer.parseInt(driverid));
+                 ps.setInt(2, location);
+                ps.setInt(3,Integer.parseInt(driverid));
                 ps.executeUpdate();
         }
         catch(SQLException | NumberFormatException e){
             System.out.println( e.getMessage());
         }
           finally {
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
         
     }
@@ -550,13 +562,17 @@ public class HeadQuater
             
             
         }
-         catch(Exception e){
+         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-             finally {
-    try { if (rs1 != null) rs1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps1 != null) ps1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+         
+        finally {
+    try { if (rs1 != null) rs1.close(); }
+    catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps1 != null) ps1.close(); } 
+    catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } 
+    catch (SQLException e) {System.out.println(e.getMessage());}
 }
         
         int numberofdrivers = freedriverlist.size();
@@ -582,12 +598,12 @@ public class HeadQuater
                 ps.setInt(1,new_location);
                 ps.setInt(2, freedriverlist1);
                 ps.executeUpdate();
-            }catch(Exception e){
+            }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
                finally {
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
             
             new_location += delta;
@@ -596,6 +612,7 @@ public class HeadQuater
     }
     public static void ChangeUserBalance(String userid,int Fare)
     {
+        
         int userbalance  = 0;
         Connection conn = null;
         PreparedStatement ps1 = null;
@@ -611,18 +628,21 @@ public class HeadQuater
               rs1=ps1.executeQuery();
             userbalance  = rs1.getInt("BALANCE");
         }
-         catch(Exception e){
+         catch(SQLException e){
             System.out.println(e.getMessage());
         }
             finally {
-    try { if (rs1 != null) rs1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps1 != null) ps1.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
          
          
          int newuserbalance = userbalance - Fare;
-         
+         System.out.println(userbalance);
+         System.out.println(Fare);
+
+         System.out.println(newuserbalance);
          Connection con = null;
         PreparedStatement ps = null;   
            try
@@ -631,15 +651,15 @@ public class HeadQuater
                  String sqlQuery = "UPDATE customer SET BALANCE = ? WHERE USERNAME = ?";
                  ps =con.prepareStatement(sqlQuery);
                  ps.setInt(1,newuserbalance);
-                ps.setInt(2,Integer.parseInt(userid));
+                ps.setString(2,(userid));
                 ps.executeUpdate();
         }
          catch(SQLException | NumberFormatException e){
             System.out.println(e.getMessage());
         }
                 finally {
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
          
     }
@@ -671,8 +691,8 @@ public class HeadQuater
             System.out.println( e.getMessage());
         }
                finally {
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
        
    }
@@ -694,9 +714,117 @@ public class HeadQuater
             System.out.println( e.getMessage());
         }
              finally {
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
+       
+   }
+   
+   
+   public static String GetCurrentTime()
+   {
+       
+       
+       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+     LocalDateTime now = LocalDateTime.now();
+     
+     return dtf.format(now);
+        //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+   // Date date = new Date();  
+   }
+   public static int Comparetime(String s1,String s2)
+   {
+       return s1.compareTo(s2);
+   }
+   
+   
+   public static void EndTrip(String referencenumber)
+   {
+          Connection conn = null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1 = null;
+           String userid = null;
+           String driverid = null;
+           String pickuploc =null;
+           String droploc = null;
+         try
+        {
+            conn= dbm3.dbconnect();
+             String sql = "SELECT * FROM booking WHERE REFERENCENUMBER =?";
+      
+             ps1 =conn.prepareStatement(sql);
+            ps1.setString(1,referencenumber);
+              rs1=ps1.executeQuery();
+              driverid = String.valueOf(rs1.getInt("DRIVERID"));
+              userid = rs1.getString("USERNAME");
+              pickuploc = HeadQuater.getLocationDescription(rs1.getInt("PICKUPLOCATION"));
+              droploc = HeadQuater.getLocationDescription(rs1.getInt("DROPLOCATION"));
+
+        }
+         catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+            finally {
+    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+         
+      UpdateCustomerStatusEndTrip(userid);
+      UpdateDriverStatusEndTrip(driverid,getLocationNumber(droploc));
+      ChangeUserBalance(userid,HeadQuater.CalculateFare(pickuploc,droploc));
+      
+         
+   }
+   
+   
+   public static void TimeChecker()
+   {
+       
+       Connection conn = null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1 = null;
+       
+        String currenttime = GetCurrentTime();
+        
+        ArrayList<String> toend = new ArrayList();
+        
+        
+           try
+        {
+            conn= dbm3.dbconnect();
+             String sql = "SELECT * FROM booking WHERE ISTRIPENDED = ?";
+             ps1 =conn.prepareStatement(sql);
+             ps1.setInt(1,0);
+             rs1=ps1.executeQuery();
+             
+             while(rs1.next())
+             {
+                 String tripendtime = rs1.getString("TRIPENDTIME");
+                 if(Comparetime(currenttime,tripendtime)>=0)
+                 {
+                     toend.add(rs1.getString("REFERENCENUMBER"));
+                 }
+                 
+             }
+             
+        }
+         catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+            finally {
+    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+       
+       
+       
+       for(int i = 0; i < toend.size();i++)
+       {
+           EndTrip(toend.get(i));
+       }
+       
        
    }
    

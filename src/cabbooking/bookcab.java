@@ -390,7 +390,7 @@ PreparedStatement pst = null;
            
            triprefno = HeadQuater.AddBooking(HeadQuater.getLocationNumber(pickuploc),HeadQuater.getLocationNumber(droploc), userid, driverid);
             //JOptionPane.showMessageDialog(null, "2 .Cab Booked Successfully with driver " + driverid + "Trip id: " + triprefno);
-            HeadQuater.ChangeUserBalance(userid, Fare);
+
             new TripDetails(triprefno).setVisible(true);
         this.dispose(); 
            

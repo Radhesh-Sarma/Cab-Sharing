@@ -103,8 +103,8 @@ PreparedStatement pst = null;
                 int driverid = rs.getInt("DRIVERID");
                 String pickuplocation = HeadQuater.getLocationDescription(Integer.parseInt(rs.getString("PICKUPLOCATION")));
                 String droplocation = HeadQuater.getLocationDescription(Integer.parseInt(rs.getString("DROPLOCATION")));
-                int  tripstarttime = rs.getInt("TRIPSTARTTIME");
-                int  tripendtime = rs.getInt("TRIPENDTIME");
+                String  tripstarttime = rs.getString("TRIPSTARTTIME");
+                String  tripendtime = rs.getString("TRIPENDTIME");
                 
 
                 table.setValueAt((Object)(referencenumber),i,0);
@@ -124,9 +124,9 @@ PreparedStatement pst = null;
             System.out.println( ex.getMessage());
         }
           finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
         
         
@@ -166,7 +166,6 @@ PreparedStatement pst = null;
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Your Transaction History is");
 
-        Back.setBackground(new java.awt.Color(51, 51, 51));
         Back.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         Back.setText("BACK");
         Back.addActionListener(new java.awt.event.ActionListener() {
@@ -195,10 +194,10 @@ PreparedStatement pst = null;
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -311,10 +310,7 @@ PreparedStatement pst = null;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-            }
+        java.awt.EventQueue.invokeLater(() -> {
         });
     }
 

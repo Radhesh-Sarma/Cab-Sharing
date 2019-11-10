@@ -77,8 +77,9 @@ public class TransactionsAdmin extends javax.swing.JFrame {
                 int driverid = rs.getInt("DRIVERID");
                 String pickuplocation = HeadQuater.getLocationDescription(Integer.parseInt(rs.getString("PICKUPLOCATION")));
                 String droplocation = HeadQuater.getLocationDescription(Integer.parseInt(rs.getString("DROPLOCATION")));
-                int  tripstarttime = rs.getInt("TRIPSTARTTIME");
-                int  tripendtime = rs.getInt("TRIPENDTIME");
+                String  tripstarttime = rs.getString("TRIPSTARTTIME");
+                String  tripendtime = rs.getString("TRIPENDTIME");
+                
                 
 
                table.setValueAt((Object)(referencenumber),i,0);
@@ -125,7 +126,7 @@ public class TransactionsAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 115));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 255, 255));
@@ -152,10 +153,10 @@ public class TransactionsAdmin extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

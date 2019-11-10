@@ -6,9 +6,11 @@
 package cabbooking;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -298,13 +300,14 @@ public class EditProfile extends javax.swing.JFrame {
                 String query ="select NAME from customer where USERNAME=? ";
                 PreparedStatement ps =connect.prepareStatement(query);
                 ps.setString(1,userid);
-                ResultSet rs=ps.executeQuery();
-                String s1=rs.getString("NAME");
+                ResultSet p;
+            p = ps.executeQuery();
+                String s1=p.getString("NAME");
         if(Name.getText().equals(s1)){
             Name.setForeground(new Color(204,204,204));
             Name.setText(s1);    }
         }
-        catch(Exception e) { }// TODO add your handling code here:
+        catch(SQLException e) { }// TODO add your handling code here:
     }//GEN-LAST:event_NameFocusLost
 
     private void txt_emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusGained
@@ -355,7 +358,7 @@ public class EditProfile extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null ,"Incorrect password!");
                 }
         }
-catch(Exception e) { }           // TODO add your handling code here:
+catch(HeadlessException | SQLException e) { }           // TODO add your handling code here:
     }//GEN-LAST:event_txt_passwordFocusLost
 
     private void txt_passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_passwordFocusGained

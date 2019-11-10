@@ -34,6 +34,11 @@ public class CabBookingApplication extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.getRootPane().setDefaultButton(login);
         connect=dbm.dbconnect();
+        
+        
+        
+       // System.out.println(HeadQuater.GetCurrentTime());
+       // System.out.println(HeadQuater.Comparetime("2019/11/10 23:44:58","2019/11/10 23:44:58"));
     }
 
     /**
@@ -293,9 +298,10 @@ public class CabBookingApplication extends javax.swing.JFrame {
     }//GEN-LAST:event_loginActionPerformed
 
     private void sign_upActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sign_upActionPerformed
-      new SignupPage().setVisible(true);
-
-        this.dispose();        // TODO add your handling code here:
+        this.setVisible(false);
+        new SignupPage().setVisible(true);
+        
+                // TODO add your handling code here:
     }//GEN-LAST:event_sign_upActionPerformed
 
     private void txt_user_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_user_idActionPerformed
@@ -357,6 +363,7 @@ public class CabBookingApplication extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CabBookingApplication().setVisible(true);
+                
             }
         });
     }
