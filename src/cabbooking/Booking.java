@@ -17,7 +17,7 @@ public class Booking {
     private String dropLocation;
     private String tripStartTime;
     private String tripEndTime;
-    private String isTripEnded;
+    private int isTripEnded;
 
     @Override
     public String toString() {
@@ -33,7 +33,7 @@ public class Booking {
             "}";
     }
 
-    public Booking(String referenceNumber, String userName, int driverId, String pickUpLocation, String dropLocation, String tripStartTime, String tripEndTime, String isTripEnded) {
+    public Booking(String referenceNumber, String userName, int driverId, String pickUpLocation, String dropLocation, String tripStartTime, String tripEndTime, int isTripEnded) {
         this.referenceNumber = referenceNumber;
         this.userName = userName;
         this.driverId = driverId;
@@ -100,11 +100,11 @@ public class Booking {
         this.tripEndTime = tripEndTime;
     }
 
-    public String getIsTripEnded() {
+    public int getIsTripEnded() {
         return this.isTripEnded;
     }
 
-    public void setIsTripEnded(String isTripEnded) {
+    public void setIsTripEnded(int isTripEnded) {
         this.isTripEnded = isTripEnded;
     }
     

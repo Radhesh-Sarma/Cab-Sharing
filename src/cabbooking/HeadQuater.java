@@ -1069,7 +1069,12 @@ public class HeadQuater
        return answer;
        
    }
-   public static void AddCustomer(Customer ob)
+
+    /**
+     *
+     * @param ob
+     */
+    public static void AddCustomer(Customer ob)
    {
              Connection con = null;
         PreparedStatement ps = null;
@@ -1161,7 +1166,7 @@ public class HeadQuater
              ps.executeUpdate();
       }
         catch(SQLException e){
-            System.out.println("Jalaj " +e.getMessage());
+            System.out.println(e.getMessage());
         }
       finally {
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
@@ -1218,7 +1223,144 @@ public class HeadQuater
     try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
    }
+   public static void AddBooking(Booking ob)
+   {
+             Connection con = null;
+        PreparedStatement ps = null;
+        
+      try
+      {
+            con = dbm3.dbconnect();
+           String query="insert into BOOKING values(?,?,?,?,?,?,?,?)";
+          ps=con.prepareStatement(query);
+          ps.setString(1,ob.getReferenceNumber());
+          ps.setString(2,ob.getUserName());
+          ps.setInt(3,ob.getDriverId());
+          ps.setString(4, ob.getPickUpLocation());
+          ps.setString(5,ob.getDropLocation());
+          ps.setString(6,ob.getTripStartTime());
+          ps.setString(7,ob.getTripEndTime());
+         ps.setInt(8,ob.getIsTripEnded());
+         
+         
+          
+          
+          
+          ps.execute();
+      }
+        catch(SQLException | NumberFormatException e){
+            System.out.println(e.getMessage());
+        }
+             finally {
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+      
+   }
    
+   public static Booking retriveBookingData(String referno)
+   {
+       Booking ob = null;
+       
+        Connection connect = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+ 
+        
+          try
+        {
+            connect= dbm3.dbconnect();
+             String sql = "SELECT * FROM BOOKING WHERE REFERENCENUMBER = ?";
+             ps=connect.prepareStatement(sql);
+             ps.setString(1,referno);
+             rs=ps.executeQuery(); 
+             
+             ob = new Booking(referno,rs.getString("USERNAME"),rs.getInt("DRIVERID"),rs.getString("PICKUPLOCATION"),rs.getString("DROPLOCATION"),rs.getString("TRIPSTARTTIME"),rs.getString("TRIPENDTIME"),rs.getInt("ISTRIPENDED"));
+            
+ 
+        }
+         catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+            finally {
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+       
+       return ob;
+   }
+   
+    /**
+     *
+     * @param ob
+     */
+    public static void updateBookingData(Booking ob)
+   {
+        Connection con = null;
+      PreparedStatement ps = null;
+      
+      try
+      {
+     con= dbm3.dbconnect();
+     System.out.println(ob.toString());
+     String sql = "UPDATE booking SET ISTRIPENDED =? WHERE REFERENCENUMBER =?";
+          
+       ps =con.prepareStatement(sql);
+           
+       ps.setInt(1, ob.getIsTripEnded());
+       ps.setString(2,ob.getReferenceNumber());
+      
+
+ 
+             ps.executeUpdate();
+      }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+      finally {
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    
+    
+}
+      
+      
+   }
+    public static void updateDriverData(Driver ob)
+   {
+        Connection con = null;
+      PreparedStatement ps = null;
+      
+      try
+      {
+     con= dbm2.dbconnect();
+     System.out.println(ob.toString());
+     String sql = "UPDATE driver SET ISBUSY =? , PHONENUMBER =? , LOCATION =? WHERE DRIVERID =?";
+          
+       ps =con.prepareStatement(sql);
+           
+       ps.setInt(1, ob.getIsBusy());
+       ps.setString(2,ob.getPhoneNumber());
+       ps.setInt(3,ob.getLocation());
+       ps.setInt(4,ob.getDriverId());
+       
+
+ 
+             ps.executeUpdate();
+      }
+        catch(SQLException e){
+            System.out.println("yoyo"+e.getMessage());
+        }
+      finally {
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    
+    
+}
+      
+      
+   }
    
    
    

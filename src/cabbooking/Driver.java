@@ -19,6 +19,22 @@ public class Driver {
     private int location;
     private int isBusy;
 
+
+    @Override
+    public String toString() {
+        return "{" +
+            " driverName='" + getDriverName() + "'" +
+            ", driverId='" + getDriverId() + "'" +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
+            ", rating='" + getRating() + "'" +
+            ", vehicleNumber='" + getVehicleNumber() + "'" +
+            ", vehicleName='" + getVehicleName() + "'" +
+            ", location='" + getLocation() + "'" +
+            ", isBusy='" + getIsBusy() + "'" +
+            "}";
+    }
+    
+
     public Driver(String driverName, int driverId, String phoneNumber, int rating, String vehicleNumber, String vehicleName, int location, int isBusy) {
         this.driverName = driverName;
         this.driverId = driverId;
