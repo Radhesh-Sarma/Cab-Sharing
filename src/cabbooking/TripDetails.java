@@ -28,13 +28,17 @@ String endtime;
 String vehicle_Name;
 String vehicle_Number;
 
+
+Customer currentuser;
     /**
      * Creates new form TripDetails
+     * @param trip_referenece
+     * @param ob
      */
-    public TripDetails(String trip_referenece) {
+    public TripDetails(String trip_reference,Customer ob) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        getInfo1(trip_referenece);
+        currentuser = ob;
+        getInfo1(trip_reference);
         DriverName = getDriverName(DriverId);
          drivername.setText(DriverName);
         driver_id.setText(String.valueOf(DriverId));
@@ -46,11 +50,8 @@ String vehicle_Number;
         Duration_.setText(String.valueOf(Duration)  + " Min");
         car_name.setText(vehicle_Name);
         car_id.setText(vehicle_Number);
-        
         Timer timer = new Timer();
-        
         System.out.println(new Scheduler().scheduledExecutionTime());
-        
         if(new Scheduler().scheduledExecutionTime()==0)
         {
             timer.schedule(new Scheduler(),60000,60000);
@@ -333,7 +334,7 @@ String vehicle_Number;
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
-             new Functions(userid).setVisible(true);
+             new bookcab(currentuser).setVisible(true);
         this.dispose(); 
     }//GEN-LAST:event_BackActionPerformed
 

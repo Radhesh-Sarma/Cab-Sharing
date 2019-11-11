@@ -22,11 +22,12 @@ public class SignupPage extends javax.swing.JFrame {
     /**
      * Creates new form SignupPage
      */
-    
-     Connection connect =null;
+  
+     
     public SignupPage() {
         initComponents();
-        connect=dbm.dbconnect();
+
+  
     }
 
     /**
@@ -56,7 +57,7 @@ public class SignupPage extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         BackButton = new javax.swing.JButton();
         password = new javax.swing.JLabel();
-        txt_user_id = new javax.swing.JTextField();
+        txt_userid = new javax.swing.JTextField();
         txt_dob = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -161,12 +162,12 @@ public class SignupPage extends javax.swing.JFrame {
         password.setForeground(new java.awt.Color(255, 255, 255));
         password.setText("Phone Number");
 
-        txt_user_id.addFocusListener(new java.awt.event.FocusAdapter() {
+        txt_userid.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_user_idFocusGained(evt);
+                txt_useridFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_user_idFocusLost(evt);
+                txt_useridFocusLost(evt);
             }
         });
 
@@ -198,7 +199,7 @@ public class SignupPage extends javax.swing.JFrame {
                             .addComponent(jCheckBox1)
                             .addComponent(txt_address)
                             .addComponent(SignUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txt_user_id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)))
+                            .addComponent(txt_userid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -240,7 +241,7 @@ public class SignupPage extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(txt_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_userid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -286,132 +287,18 @@ public class SignupPage extends javax.swing.JFrame {
 
     private void SignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpActionPerformed
            // TODO add your handling code here:
-       boolean name_flag=true,dob_flag=true,add=true,phone_flag = true;
-        if("Enter Name".equals(txt_name.getText()))
-        {
-            name_flag=false;
-        JOptionPane.showMessageDialog(null, "Enter Valid Name");
-        }
-        else if(!"Enter Name".equals(txt_name.getText()))
-        {
-           boolean b1=verify_name(txt_name.getText());
-            if(!b1){
-                name_flag=false;
-                add = false;
-                JOptionPane.showMessageDialog(null, "Enter a Valid Name");
-            } 
-        }
-        
-        
-       
-        
-        
-        
-        if(name_flag)
-        {
-        Date d1 = new Date();
-        Date d2 = txt_dob.getDate();
-        Date d3 = null;
-        
-        if(d2 == d3)
-        {
-            dob_flag=false;
-            JOptionPane.showMessageDialog(null, "Enter Valid DOB.");
-        }
-        else
-        {
+           
+        boolean b = HeadQuater.canSignUp(txt_name.getText(), txt_dob.getDate(), txt_email.getText(), txt_userid.getText(), String.valueOf(txt_password.getPassword()), txt_phonenumber.getText(), txt_address.getText());
+           if(b == true)
+           {
 
-        try 
-        {
-         if(d1.before(d2))
-        {
-            dob_flag=false;
-        JOptionPane.showMessageDialog(null, "Enter Valid DOB. You are too young!");
-        }}
-        catch(HeadlessException e){
-            dob_flag=false;
-
-        JOptionPane.showMessageDialog(null, "Enter Valid DOB.");
-        }
-        }
-        }
-        
-        
-        if("Enter Address".equals(txt_address.getText())){
-                add=false;
-            JOptionPane.showMessageDialog(null, "Enter Valid Address");
-        }
-        else if("Enter Email ID".equals(txt_email.getText())&&name_flag&&dob_flag&&add){
-            add=false;
-            JOptionPane.showMessageDialog(null, "Enter a Valid Email-ID");
-        }
-        else if(!"Enter Email ID".equals(txt_email.getText())&&name_flag&&dob_flag&&add){
-            boolean b1=verify_email(txt_email.getText());
-            if(!b1){
-                add=false;
-                JOptionPane.showMessageDialog(null, "Enter a Valid Email-ID");
-            }
-        }
-         if("Enter Phone Number".equals(txt_phonenumber.getText())&&add)
-        {
-            phone_flag=false;
-        JOptionPane.showMessageDialog(null, "Enter Phone Number");
-        }
-        else if(!"Enter Phone Number".equals(txt_phonenumber.getText())&&add)
-        {
-           boolean b1=verify_phonenumber(txt_phonenumber.getText());
-            if(!b1){
-                phone_flag=false;
-                add = false;
-                JOptionPane.showMessageDialog(null, "Enter a Valid Phone Number");
-            } 
-        }
-        if("Enter User ID".equals(txt_user_id.getText())&&!"Enter Name".equals(txt_name.getText()) &&!"Enter Address".equals(txt_address.getText())){
-        JOptionPane.showMessageDialog(null, "Enter Valid User ID");
-        }
-        else if(txt_password.getPassword().length==0&&!"Enter Name".equals(txt_name.getText()) &&!"Enter Address".equals(txt_address.getText())){
-        JOptionPane.showMessageDialog(null, "Enter Valid Password");
-        }
-        else if(!"Enter Name".equals(txt_name.getText()) &&!"Enter Address".equals(txt_address.getText())&&dob_flag&&name_flag&&add&&phone_flag){
-        String name = txt_name.getText();
-        
-      String date = String.valueOf(txt_dob.getDate().getDate())+"/"+String.valueOf(txt_dob.getDate().getMonth())+"/"+String.valueOf(1900+txt_dob.getDate().getYear());
-      String address = txt_address.getText();
-      String email = txt_email.getText();
-      String username = txt_user_id.getText();
-      String password = String.valueOf(txt_password.getPassword());
-      int initialBalance = 0;
-      String phonenumber = txt_phonenumber.getText();
-      try{
-          String query="insert into customer values(?,?,?,?,?,?,?,?,?)";
-          PreparedStatement ps=null;
-          ps=connect.prepareStatement(query);
-          ps.setString(1, name);
-          ps.setString(2, address);
-          ps.setString(3, email);
-          ps.setString(4, username);
-          ps.setString(5, password);
-          ps.setInt(6,initialBalance);
-          ps.setString(7, date);
-          ps.setInt(8,0);
-          ps.setString(9,phonenumber);
-          ps.execute();
-          this.setVisible(false);
-        
-        JOptionPane.showMessageDialog(null, "Signup Successful");
-        new CabBookingApplication().setVisible(true); 
-      }catch (java.sql.SQLException e){
-          System.out.println(e);
-          JOptionPane.showMessageDialog(null, "User Name Already Taken");
-        
-          
-      }
-      catch(HeadlessException e){
-           JOptionPane.showMessageDialog(null ,e);
-      }
-       
-        
-        }
+               Customer ob = new Customer(txt_name.getText(),txt_address.getText(),txt_email.getText(),txt_userid.getText(),String.valueOf(txt_password.getPassword()),0,String.valueOf(txt_dob.getDate()),0,txt_phonenumber.getText());
+               HeadQuater.AddCustomer(ob);
+               JOptionPane.showMessageDialog(null, "Signup Successful");
+                 new CabBookingApplication().setVisible(true); 
+           }         
+   
+      
     }//GEN-LAST:event_SignUpActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -469,9 +356,7 @@ public class SignupPage extends javax.swing.JFrame {
             txt_email.setForeground(new Color(204,204,204));
         txt_email.setText("Enter E-mail ID");
         }
-        if(!txt_email.getText().equals("Enter E-mail ID")){
-            verify_email(txt_email.getText());
-         }
+
     }//GEN-LAST:event_txt_emailFocusLost
 
     private void txt_phonenumberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_phonenumberFocusGained
@@ -496,22 +381,22 @@ public class SignupPage extends javax.swing.JFrame {
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_BackButtonActionPerformed
 
-    private void txt_user_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_user_idFocusGained
+    private void txt_useridFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_useridFocusGained
         // TODO add your handling code here:
-            if(txt_user_id.getText().equals("Enter User ID")){
-        txt_user_id.setText(null);
-        txt_user_id.setForeground(Color.BLACK);
+            if(txt_userid.getText().equals("Enter User ID")){
+        txt_userid.setText(null);
+        txt_userid.setForeground(Color.BLACK);
     }
-    }//GEN-LAST:event_txt_user_idFocusGained
+    }//GEN-LAST:event_txt_useridFocusGained
 
-    private void txt_user_idFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_user_idFocusLost
+    private void txt_useridFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_useridFocusLost
         // TODO add your handling code here:
-          if(txt_user_id.getText().equals("")){
-            txt_user_id.setForeground(new Color(204,204,204));
-        txt_user_id.setText("Enter User ID");
+          if(txt_userid.getText().equals("")){
+            txt_userid.setForeground(new Color(204,204,204));
+        txt_userid.setText("Enter User ID");
     }    
         
-    }//GEN-LAST:event_txt_user_idFocusLost
+    }//GEN-LAST:event_txt_useridFocusLost
 
     /**
      * @param args the command line arguments
@@ -541,39 +426,15 @@ public class SignupPage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SignupPage().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SignupPage().setVisible(true);
         });
     }
     
-    public boolean verify_email(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
-                            "[a-zA-Z0-9_+&*-]+)*@" + 
-                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
-                            "A-Z]{2,7}$";
-        Pattern pat = Pattern.compile(emailRegex); 
-        if (email == null) 
-            return false;
-        return pat.matcher(email).matches();
-    }
-    public boolean verify_name(String name) {
-        String Regex = "^[\\p{L} .'-]+$";
-        Pattern pat = Pattern.compile(Regex); 
-        if (name == null) 
-            return false;
-        return pat.matcher(name).matches();
-    }
-    public boolean verify_phonenumber(String phonenumber) {
-        String Regex = "^[6-9]\\d{9}$";
-        Pattern pat = Pattern.compile(Regex); 
-        if (phonenumber == null) 
-            return false;
-        return pat.matcher(phonenumber).matches();
-    }
+    
     
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
     private javax.swing.JButton SignUp;
@@ -594,6 +455,6 @@ public class SignupPage extends javax.swing.JFrame {
     private javax.swing.JTextField txt_name;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_phonenumber;
-    private javax.swing.JTextField txt_user_id;
+    private javax.swing.JTextField txt_userid;
     // End of variables declaration//GEN-END:variables
 }

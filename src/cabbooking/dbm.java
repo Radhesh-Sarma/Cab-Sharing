@@ -23,7 +23,7 @@ public class dbm {
     Connection conn=DriverManager.getConnection("jdbc:sqlite:/home/radhesh/Cab-Sharing-Application/CabBooking/databases/customer.sqlite");
     //JOptionPane.showMessageDialog(null ,"connected");
     return conn;
-}catch(Exception e){
+}catch(ClassNotFoundException | SQLException e){
     JOptionPane.showMessageDialog(null ,e);
     return null;
 }

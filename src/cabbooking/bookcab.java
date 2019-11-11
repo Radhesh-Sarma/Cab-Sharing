@@ -5,41 +5,24 @@
  */
 
 package cabbooking;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
-
 /**
  *
  * @author Radhesh
  */
-
 public class bookcab extends javax.swing.JFrame {
-           Connection connect = null;
-ResultSet rs = null;
-PreparedStatement pst = null;
- String userid;
- String rname;
- Double userbalance;
- int Fare = -1;
  String pickuploc,droploc;
-
+ Customer currentuser = null;
+ int Fare;
  
     /**
      * Creates new form book cab
-     * @param uid
+     * @param ob
      */
-    public bookcab(String uid) {
-        initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        //static JFrame f;
-        connect=dbm.dbconnect();
-        userid = uid;
+    public bookcab(Customer ob) {
         
+        initComponents();
+        currentuser = null;
          pickupLocation.addItem("Alwal");
          pickupLocation.addItem("Banjara Hills");
          pickupLocation.addItem("Bolaram");
@@ -56,8 +39,7 @@ PreparedStatement pst = null;
          pickupLocation.addItem("Ratna Nagar");
          pickupLocation.addItem("Trimulgherry");
          pickupLocation.addItem("West MaredPally");
-        //combo.deleteItem
-        //static JFrame f;
+         
         DropLocation.addItem("Alwal");
         DropLocation.addItem("Banjara Hills");
         DropLocation.addItem("Bolaram");
@@ -75,33 +57,7 @@ PreparedStatement pst = null;
         DropLocation.addItem("Trimulgherry");
         DropLocation.addItem("West MaredPally");
         
-            String query3="SELECT NAME,BALANCE FROM customer where USERNAME=?";
-        PreparedStatement ps=null;
-        
-          try {
-            ps = connect.prepareStatement(query3);
-            ps.setString(1, uid);
-            rs=ps.executeQuery();
-            rname=rs.getString("name");
-            double bal = rs.getDouble("balance");
-            
-            userbalance = bal;
-            
-            balance_display2.setText(String.valueOf(bal));
-            
-            
-        } catch (SQLException ex) {
-            System.out.println("Entered");
-            System.out.println(ex.getMessage());
-            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-               finally {
-    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-     
-        
+        balance_display2.setText(String.valueOf(ob.getBalance()));
     }
     
     
@@ -129,8 +85,8 @@ PreparedStatement pst = null;
         fare_display = new javax.swing.JLabel();
         Add_Money = new javax.swing.JButton();
         balance_display2 = new javax.swing.JLabel();
-        pickupLocation = new javax.swing.JComboBox<String>();
-        DropLocation = new javax.swing.JComboBox<String>();
+        pickupLocation = new javax.swing.JComboBox<>();
+        DropLocation = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -187,15 +143,6 @@ PreparedStatement pst = null;
 
         Calculate_Fare.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         Calculate_Fare.setText("Show Fare");
-        Calculate_Fare.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                Calculate_FareAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
         Calculate_Fare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Calculate_FareActionPerformed(evt);
@@ -323,37 +270,21 @@ PreparedStatement pst = null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void Calculate_FareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Calculate_FareActionPerformed
-        
-        
-            boolean showfare = true;
-            
-            
-         
-           
+ 
            if(pickuploc.equals(droploc))
            {
                    JOptionPane.showMessageDialog(null, "Pickup and Drop Location are same");
-               showfare = false;
-           }
-           
-           if(showfare)
+              
+           }  
+           else
            {
-               //System.out.println(1);
-               Fare = HeadQuater.CalculateFare(pickuploc,droploc);
-              // System.out.println(2);
+                Fare = HeadQuater.CalculateFare(pickuploc,droploc);
                fare_display.setText(String.valueOf(Fare));
-               //System.out.println(3);
-               
-               
-           }
-           
-           
-            
-            
+           } 
     }//GEN-LAST:event_Calculate_FareActionPerformed
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
-        new Functions(userid).setVisible(true);
+        new Functions(currentuser).setVisible(true);
         this.dispose();   
                  // TODO add your handling code here:
     }//GEN-LAST:event_BackActionPerformed
@@ -361,16 +292,9 @@ PreparedStatement pst = null;
    
     private void BookCabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookCabActionPerformed
         
-       /// int customer_x = Integer.parseInt(Pickup_X.getText());
-       // int customer_y = Integer.parseInt(Pickup_Y.getText());
-       // int drop_x = Integer.parseInt(Drop_X.getText());
-       // int drop_y = Integer.parseInt(Drop_Y.getText());
+
         String driverid,triprefno;
-        
-        
-        
-      
-        if(HeadQuater.isCabAvailable(userid)==false)
+        if(HeadQuater.isCabAvailable(currentuser.getUsername())==false)
         {
             JOptionPane.showMessageDialog(null, "Request Timeout.No Cab Available at the Moment. Please try again later");
         }
@@ -378,23 +302,17 @@ PreparedStatement pst = null;
        {
            JOptionPane.showMessageDialog(null, "Click ShowFare first");
        }
-       else  if(HeadQuater.CanBookCab(userid,Fare)==false)
+       else  if(HeadQuater.CanBookCab(currentuser.getUsername(),Fare)==false)
         {
             JOptionPane.showMessageDialog(null, "Insufficient Balance to book cab ");
         }
        else
-       {
-           
+       { 
            driverid = HeadQuater.FindNearestDriverWithHighestRating(pickuploc);
-           
-           JOptionPane.showMessageDialog(null, "Cab Booked Successfully with driver " + driverid);
-           
-           triprefno = HeadQuater.AddBooking(HeadQuater.getLocationNumber(pickuploc),HeadQuater.getLocationNumber(droploc), userid, driverid);
-            //JOptionPane.showMessageDialog(null, "2 .Cab Booked Successfully with driver " + driverid + "Trip id: " + triprefno);
-
-            new TripDetails(triprefno).setVisible(true);
-        this.dispose(); 
-           
+           JOptionPane.showMessageDialog(null, "Cab Booked Successfully with driver " + driverid);    
+           triprefno = HeadQuater.AddBooking(HeadQuater.getLocationNumber(pickuploc),HeadQuater.getLocationNumber(droploc), currentuser.getUsername(), driverid);
+            new TripDetails(triprefno,currentuser).setVisible(true);
+        this.dispose();   
        }
         
     }//GEN-LAST:event_BookCabActionPerformed
@@ -402,7 +320,7 @@ PreparedStatement pst = null;
     private void Add_MoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_MoneyActionPerformed
         // TODO add your handling code here:
          this.setVisible(false);
-        new Addmoney1(userid).setVisible(true);
+        new Addmoney1(currentuser).setVisible(true);
         this.dispose(); 
     }//GEN-LAST:event_Add_MoneyActionPerformed
 
@@ -421,10 +339,6 @@ PreparedStatement pst = null;
         
         System.out.println(droploc);
     }//GEN-LAST:event_DropLocationActionPerformed
-
-    private void Calculate_FareAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Calculate_FareAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Calculate_FareAncestorAdded
 
     /**
      * @param args the command line arguments

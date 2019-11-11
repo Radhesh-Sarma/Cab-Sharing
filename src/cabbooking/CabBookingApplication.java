@@ -4,19 +4,8 @@
  * and open the template in the editor.
  */
 package cabbooking;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import java.sql.Connection;
-
-
-
-
-
 import java.awt.Color;
-import java.awt.HeadlessException;
-import java.sql.SQLException;
 import java.util.Timer;
 
 /**
@@ -24,17 +13,16 @@ import java.util.Timer;
  * @author Radhesh
  */
 public class CabBookingApplication extends javax.swing.JFrame {
-        Connection connect=null;
+
         
     /**
      * Creates new form CabBookingApplication
      */
     public CabBookingApplication() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         this.getRootPane().setDefaultButton(login);
-        connect=dbm.dbconnect();
+        
         System.out.println(new Scheduler().scheduledExecutionTime());
            Timer timer = new Timer();
         System.out.println(new Scheduler().scheduledExecutionTime());
@@ -217,88 +205,44 @@ public class CabBookingApplication extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-    boolean check=false;
+        
+        
         if("Enter User ID".equals(txt_user_id.getText())){
         JOptionPane.showMessageDialog(null, "Enter Valid User ID");
         }
         else if(txt_password.getPassword().length==0){
         JOptionPane.showMessageDialog(null, "Enter Valid Password");
         }
-           else if(txt_user_id.getText().equals("Radhesh") && "admin".equals(String.valueOf(txt_password.getPassword())))
-            {
-                new Admin("Radhesh").setVisible(true);
+        else if(HeadQuater.isAdminUser(txt_user_id.getText()))
+        {
+           if(HeadQuater.isAdminPasswordCorrect(txt_user_id.getText(), String.valueOf(txt_password.getPassword())))
+           {
+               new Admin(txt_user_id.getText()).setVisible(true);
                this.dispose();
-            }
-         else if(txt_user_id.getText().equals("Amogh") && "admin".equals(String.valueOf(txt_password.getPassword())))
-            {
-                new Admin("Amogh").setVisible(true);
-               this.dispose();
-            }
-           else if(txt_user_id.getText().equals("Simran") && "admin".equals(String.valueOf(txt_password.getPassword())))
-            {
-                new Admin("Simran").setVisible(true);
-               this.dispose();
-            }
-            else if(txt_user_id.getText().equals("Jalaj") && "admin".equals(String.valueOf(txt_password.getPassword())))
-            {
-                new Admin("Jalaj").setVisible(true);
-               this.dispose();
-            }
-        else{
-                PreparedStatement ps = null;
-                ResultSet rs = null;
-                
-            try
-                {    
-                String dbuname=txt_user_id.getText();
-                String query ="select PASSWORD from customer where USERNAME=? ";
-                ps =connect.prepareStatement(query);
-                ps.setString(1,dbuname);
-                rs=ps.executeQuery();
-                int count=0;
-                String pass=null;
-                while(rs.next()){
-                count++;
-                pass=rs.getString("PASSWORD");
-                }
-                if(count==1){
-                    if(pass.equals(String.valueOf(txt_password.getPassword()))){
-                    check=true;
-                    JOptionPane.showMessageDialog(null ,"WELCOME "+rs.getString("NAME")+"!");
-                    }
-                    else
-                    JOptionPane.showMessageDialog(null ,"Incorrect password!");
-                }
-                else{
-                    JOptionPane.showMessageDialog(null ,"SORRY you need to register!");
-                    check=false;
-                }
-            }catch(SQLException | HeadlessException e){
-                //JOptionPane.showMessageDialog(null ,"Enter a valid User Id or Password!");
-                //System.out.println(e.getMessage());
-            }
-                      finally {
-    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-       
-        if(check){
+           }
+           else
+           {
+               JOptionPane.showMessageDialog(null, "Wrong Password");
+           }
+            
+        }
+
+        else if(HeadQuater.doesUserIdExists(txt_user_id.getText()) == false && (!(HeadQuater.isAdminUser(txt_user_id.getText()))))
+        {
+            
+            JOptionPane.showMessageDialog(null, "Given User ID does not exist");
+        }
+        else if(HeadQuater.isCustomerPasswordCorrect(txt_user_id.getText(),String.valueOf(txt_password.getPassword())))
+        {
+            Customer ob = HeadQuater.retriveCustomerData(txt_user_id.getText());
+            JOptionPane.showMessageDialog(null ,"WELCOME "+ ob.getName() +"!");
             this.setVisible(false);
-            new Functions(txt_user_id.getText()).setVisible(true);
+            new Functions(ob).setVisible(true);
         }
         else
         {
-            new CabBookingApplication().setVisible(true);
-               this.dispose();
+            JOptionPane.showMessageDialog(null, "Wrong Password");
         }
-        
-        
-        
-        
-        }
-
-        
               // TODO add your handling code here:
     }//GEN-LAST:event_loginActionPerformed
 
@@ -365,12 +309,8 @@ public class CabBookingApplication extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CabBookingApplication().setVisible(true);
-                
-                
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CabBookingApplication().setVisible(true);
         });
     }
 

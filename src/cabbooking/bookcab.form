@@ -249,7 +249,6 @@
             <Property name="text" type="java.lang.String" value="Show Fare"/>
           </Properties>
           <Events>
-            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="Calculate_FareAncestorAdded"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Calculate_FareActionPerformed"/>
           </Events>
         </Component>

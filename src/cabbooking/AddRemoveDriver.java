@@ -5,6 +5,11 @@
  */
 package cabbooking;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dell
@@ -38,7 +43,18 @@ public class AddRemoveDriver extends javax.swing.JFrame {
          location_.addItem("Ratna Nagar");
          location_.addItem("Trimulgherry");
          location_.addItem("West MaredPally");
-        
+         Connection conn=dbm2.dbconnect();
+         String query="SELECT DRIVERID from driver";
+         try{
+         PreparedStatement ps=conn.prepareStatement(query);
+         ResultSet rs=ps.executeQuery();
+      while(rs.next())
+         {
+             //rs=ps.getInteger("DRIVERID");
+             driverids.addItem(rs.getString("DRIVERID"));
+         }
+         }
+         catch(java.sql.SQLException e){ }
     }
 
     /**
@@ -53,11 +69,11 @@ public class AddRemoveDriver extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         tabs = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        SubmitRemove = new javax.swing.JButton();
         back = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        driverids = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -65,14 +81,14 @@ public class AddRemoveDriver extends javax.swing.JFrame {
         txt_drivername = new javax.swing.JTextField();
         txt_driverid = new javax.swing.JTextField();
         txt_phonenumber = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        SubmitAdd = new javax.swing.JButton();
         Back = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txt_vehiclename = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txt_vehiclenumber = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        location_ = new javax.swing.JComboBox<String>();
+        location_ = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -93,10 +109,15 @@ public class AddRemoveDriver extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
-        jButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(51, 51, 51));
-        jButton3.setText("SUBMIT");
+        SubmitRemove.setBackground(new java.awt.Color(0, 0, 0));
+        SubmitRemove.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        SubmitRemove.setForeground(new java.awt.Color(51, 51, 51));
+        SubmitRemove.setText("SUBMIT");
+        SubmitRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubmitRemoveActionPerformed(evt);
+            }
+        });
 
         back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         back.setText("BACK");
@@ -113,6 +134,12 @@ public class AddRemoveDriver extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Driver ID:");
 
+        driverids.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                driveridsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -121,16 +148,16 @@ public class AddRemoveDriver extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(back)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(SubmitRemove)
                 .addGap(30, 30, 30))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(driverids, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,11 +165,11 @@ public class AddRemoveDriver extends javax.swing.JFrame {
                 .addGap(104, 104, 104)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addComponent(driverids, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(SubmitRemove)
                     .addComponent(back))
                 .addGap(27, 27, 27))
         );
@@ -163,14 +190,13 @@ public class AddRemoveDriver extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Vehicle number:");
 
-        txt_phonenumber.addActionListener(new java.awt.event.ActionListener() {
+        SubmitAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        SubmitAdd.setText("SUBMIT");
+        SubmitAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_phonenumberActionPerformed(evt);
+                SubmitAddActionPerformed(evt);
             }
         });
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("SUBMIT");
 
         Back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Back.setForeground(new java.awt.Color(51, 51, 51));
@@ -185,21 +211,9 @@ public class AddRemoveDriver extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Phone Number:");
 
-        txt_vehiclename.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_vehiclenameActionPerformed(evt);
-            }
-        });
-
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Vehicle Name:");
-
-        txt_vehiclenumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_vehiclenumberActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -238,8 +252,8 @@ public class AddRemoveDriver extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Back)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(SubmitAdd)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,8 +294,8 @@ public class AddRemoveDriver extends javax.swing.JFrame {
                 .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Back)
-                    .addComponent(jButton1))
-                .addContainerGap(122, Short.MAX_VALUE))
+                    .addComponent(SubmitAdd))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         tabs.addTab("ADD DRIVER", jPanel1);
@@ -324,7 +338,7 @@ public class AddRemoveDriver extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -336,18 +350,6 @@ public class AddRemoveDriver extends javax.swing.JFrame {
          new Admin(admin_name).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BackActionPerformed
-
-    private void txt_vehiclenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_vehiclenameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_vehiclenameActionPerformed
-
-    private void txt_vehiclenumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_vehiclenumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_vehiclenumberActionPerformed
-
-    private void txt_phonenumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_phonenumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_phonenumberActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         new Admin(admin_name).setVisible(true);
@@ -362,6 +364,23 @@ public class AddRemoveDriver extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_location_ActionPerformed
+
+    private void driveridsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_driveridsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_driveridsActionPerformed
+
+    private void SubmitRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitRemoveActionPerformed
+      String y = driverids.getSelectedItem().toString();// TODO add your handling code here:
+      HeadQuater.removedriver(Integer.parseInt(y));
+    }//GEN-LAST:event_SubmitRemoveActionPerformed
+
+    private void SubmitAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitAddActionPerformed
+        // TODO add your handling code here:
+       
+        Driver ob = new Driver(txt_drivername.getText(),Integer.parseInt(txt_driverid.getText()),txt_phonenumber.getText(),5,txt_vehiclenumber.getText(),txt_vehiclename.getText(),HeadQuater.getLocationNumber(location),0);
+        HeadQuater.adddriver(ob);
+          JOptionPane.showMessageDialog(null, "Driver Added Successfully");
+    }//GEN-LAST:event_SubmitAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,9 +419,10 @@ public class AddRemoveDriver extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
+    private javax.swing.JButton SubmitAdd;
+    private javax.swing.JButton SubmitRemove;
     private javax.swing.JButton back;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> driverids;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -416,7 +436,6 @@ public class AddRemoveDriver extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JComboBox<String> location_;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JTextField txt_driverid;

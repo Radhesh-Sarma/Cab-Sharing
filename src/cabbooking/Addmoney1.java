@@ -5,11 +5,6 @@
  */
 package cabbooking;
 import java.awt.Color;
-import java.awt.HeadlessException;
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,50 +12,18 @@ import javax.swing.JOptionPane;
  * @author Dell
  */
 public class Addmoney1 extends javax.swing.JFrame {
-    Connection conn = null;
-ResultSet rs = null;
-PreparedStatement pst = null;
- String userid;
- Double userbalance;
- Double newamt;
- 
- 
-    /**
+ /**
      * Creates new form Add money
      * @param uname
      */
    
-
-    public Addmoney1(String uname) {
+ Customer currentuser;
+ 
+    public Addmoney1(Customer ob) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        conn = dbm.dbconnect();
-        String sql = "SELECT NAME,BALANCE FROM customer WHERE USERNAME=?";
-        userid = uname;
-        
-        try
-        {
-            pst = conn.prepareStatement(sql);
-            pst.setString(1,uname);
-            rs = pst.executeQuery();
-          
-            userName_display.setText( rs.getString("NAME"));
-            double bal = rs.getDouble("BALANCE");
-            userbalance = bal;
-            
-            balance_display.setText(String.valueOf(bal));
-            
-        }
-        catch(SQLException e){
-            
-        }
-             finally {
-    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (pst != null) pst.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-        
-            
+        currentuser = ob;
+        userName_display.setText(ob.getName());
+        balance_display.setText(String.valueOf(ob.getBalance()));           
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -277,88 +240,31 @@ PreparedStatement pst = null;
     private void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
        //jDialog1.setVisible(true);   // TODO add your handling code here:
        
-       boolean  amount_flag = true;
-       boolean add = false;
-       
-       
-       if("Enter Amount".equals(txt_amount.getText()))
+      if("Enter Amount".equals(txt_amount.getText()))
        {
-            amount_flag=false;
              JOptionPane.showMessageDialog(null, "Kindly Enter Amount");
        }
-       
-
-       else if(txt_password.getPassword().length==0&&!"Enter Amount".equals(txt_amount.getText()) ){
+       else if(txt_password.getPassword().length==0&&!"Enter Amount".equals(txt_amount.getText()) )
+       {
         JOptionPane.showMessageDialog(null, "Enter Valid Password");
         }
         else if(Integer.parseInt(txt_amount.getText()) <= 0)
        {
-           amount_flag=false;
              JOptionPane.showMessageDialog(null, "Kindly Enter a Positive amount");
        }
-      Connection connect = dbm.dbconnect();;
-       PreparedStatement ps = null;
-        ResultSet rs1= null;
-       
-       try
-       {
-           
-       String password = String.valueOf(txt_password.getPassword());
-       String query ="select PASSWORD from customer where USERNAME=? ";
-                 ps =connect.prepareStatement(query);
-                ps.setString(1,userid);
-               rs1=ps.executeQuery();
-                
-                String pass=rs1.getString("PASSWORD");
-                if(pass.equals(password))
-                {
-                    add = true;
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null ,"Incorrect password!");
-                }
-                
-                 
-                
-       }
-       catch(SQLException | HeadlessException e)
-       {
-           System.out.println(e.getMessage());
-       }
-           finally {
-    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-       
-       if(add == true)
-       {    Connection con = dbm.dbconnect();
-            PreparedStatement ps2 = null;
-           
-           try
-           {
-                Double new_amount  = userbalance + Integer.parseInt(txt_amount.getText());
-                newamt = new_amount;
-                String sqlQuery = "UPDATE customer SET BALANCE =? WHERE USERNAME = ?";
-                ps2=con.prepareStatement(sqlQuery);
-                ps2.setDouble(1,new_amount);
-                ps2.setString(2, userid);
-                ps2.executeUpdate();
-                
-           }
-           catch(NumberFormatException | SQLException e)
-       {
-           System.out.println(e.getMessage());
-       }
-             finally {
-    try { if (ps2!= null) ps2.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-            JOptionPane.showMessageDialog(null, "Amount Added Sucessfully. New Balance is " + newamt);
+        else if(! String.valueOf(txt_password.getPassword()).equals(currentuser.getPassword()))
+        {
+            JOptionPane.showMessageDialog(null ,"Incorrect password!");
+        }
+        else 
+        {
+            currentuser.setBalance(currentuser.getBalance() + Integer.parseInt(txt_amount.getText()));
+            HeadQuater.updateCustomerData(currentuser);
+            JOptionPane.showMessageDialog(null, "Amount Added Sucessfully. New Balance is " + currentuser.getBalance());
             this.setVisible(false);
-            new Functions(userid).setVisible(true);
-       }
+            new Functions(currentuser).setVisible(true);
+        }
+       
        
     }//GEN-LAST:event_ConfirmActionPerformed
 
@@ -379,7 +285,7 @@ PreparedStatement pst = null;
     }//GEN-LAST:event_txt_amountFocusLost
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        new Functions(userid).setVisible(true);
+        new Functions(currentuser).setVisible(true);
 
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_BackButtonActionPerformed

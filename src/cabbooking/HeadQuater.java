@@ -5,6 +5,7 @@
  */
 package cabbooking;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.util.*; 
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;  
+import java.util.regex.Pattern;
+import javax.swing.*;
 /**
  *
  * @author Radhesh
@@ -413,7 +416,8 @@ public class HeadQuater
         }
          finally {
     try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (ps1 != null) ps1.close(); } catch (Exception e) {System.out.println(e.getMessage());};
+    try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+;
     try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
      
@@ -837,10 +841,24 @@ public class HeadQuater
    
    public static void removedriver(int driverid)
    {
-       
+        Connection conn=dbm2.dbconnect();
+     // String query="DELETE FROM driver WHERE DRIVERID= ? ";
+     PreparedStatement ps1=null;
+      try{
+     String query="DELETE FROM driver WHERE DRIVERID= ? ";
+     ps1=conn.prepareStatement(query);
+      ps1.setInt(1,driverid);
+      ps1.executeUpdate();
+      }
+      catch(java.sql.SQLException e){ }
+      finally{
+         
+         try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+      }
    }
    
-   public static void adddriver(String name,int driverid,String phonenumber,String vehiclenumber,String vehiclename,int location)
+   public static void adddriver(Driver ob)
    {
        
               Connection con = null;
@@ -851,13 +869,13 @@ public class HeadQuater
             con = dbm2.dbconnect();
            String query="insert into driver values(?,?,?,?,?,?,?,?)";
           ps=con.prepareStatement(query);
-          ps.setString(1,name);
-          ps.setInt(2,driverid);
-          ps.setString(3,phonenumber);
+          ps.setString(1,ob.getDriverName());
+          ps.setInt(2,ob.getDriverId());
+          ps.setString(3,ob.getPhoneNumber());
           ps.setInt(4,3);
-          ps.setString(5,vehiclenumber);
-          ps.setString(6,vehiclename);
-          ps.setInt(7,location);      
+          ps.setString(5,ob.getVehicleNumber());
+          ps.setString(6,ob.getVehicleName());
+          ps.setInt(7,ob.getLocation());      
           ps.setInt(8,0);
           ps.execute();
       }
@@ -870,7 +888,38 @@ public class HeadQuater
 }
    }
    
-   public static boolean caneditprofile()
+   public static Driver retriveDriverData(int driverid)
+   {
+       
+       
+         Connection connect = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Driver ob = null;
+        
+          try
+        {
+            connect= dbm2.dbconnect();
+             String sql = "SELECT * FROM DRIVER WHERE DRIVERID = ?";
+             ps=connect.prepareStatement(sql);
+             ps.setInt(1,driverid);
+             rs=ps.executeQuery(); 
+             ob = new Driver(rs.getString("DRIVERNAME"),driverid,rs.getString("PHONENUMBER"),rs.getInt("RATING"),rs.getString("VEHICLENUMBER"),rs.getString("VEHICLENAME"),rs.getInt("LOCATION"),rs.getInt("ISBUSY"));
+        }
+         catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+            finally {
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+       
+       
+          return ob;
+   }
+   
+   public static boolean canEditProfile()
    {
        boolean answer = true;
        return answer;
@@ -879,16 +928,282 @@ public class HeadQuater
    {
        
    }
-   
-   public static boolean canSignUp()
+   public static boolean verify_email(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+                            "[a-zA-Z0-9_+&*-]+)*@" + 
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+                            "A-Z]{2,7}$";
+        Pattern pat = Pattern.compile(emailRegex); 
+        if (email == null) 
+            return false;
+        return pat.matcher(email).matches();
+    }
+    public static boolean verify_name(String name) {
+        String Regex = "^[\\p{L} .'-]+$";
+        Pattern pat = Pattern.compile(Regex); 
+        if (name == null) 
+            return false;
+        return pat.matcher(name).matches();
+    }
+    public static boolean verify_phonenumber(String phonenumber) {
+        String Regex = "^[6-9]\\d{9}$";
+        Pattern pat = Pattern.compile(Regex); 
+        if (phonenumber == null) 
+            return false;
+        return pat.matcher(phonenumber).matches();
+    }
+   public static boolean canSignUp(String name,Date dob,String emailid,String userid,String password,String phoneNumber,String address)
    {
-       boolean answer = true;
-       return answer;
+      
+       
+       if("Enter Name".equals(name))
+       {
+
+           JOptionPane.showMessageDialog(null, "Enter Valid Name");
+           return false;
+       }
+        if(verify_name(name) == false)
+         {  
+             JOptionPane.showMessageDialog(null, "Enter Valid Name");
+           return false;
+         }
+       
+       Date d1 = null;
+       Date presentdate = new Date();
+       
+       if(dob == d1)
+       {
+           JOptionPane.showMessageDialog(null, "Enter Valid Date Of Birth");
+           return false;
+       }
+       
+        try 
+        {
+                if(presentdate.before(dob))
+               {
+
+               JOptionPane.showMessageDialog(null, "Enter Valid Date Of Birth");
+               return false;
+               }
+         
+        }
+        catch(HeadlessException e)
+        {
+
+                JOptionPane.showMessageDialog(null, "Enter Valid Date Of Birth");
+                return false;
+        }
+        
+         if("Enter Email ID".equals(emailid))
+       {
+           JOptionPane.showMessageDialog(null, "Enter Valid Email ID");
+           return false;
+       }
+         if(verify_email(emailid) == false)
+         {
+             JOptionPane.showMessageDialog(null, "Enter Valid Email ID");
+           return false;
+         }
+         
+         if("Enter User ID".equals(userid))
+         {
+             JOptionPane.showMessageDialog(null, "Enter a Valid User Name");
+             return false;
+         }
+         
+         if(doesUserIdExists(userid))
+         {
+              JOptionPane.showMessageDialog(null, "User ID Already in Use");
+             return false;
+         }
+         
+         if(password.length() == 0)
+         {
+             JOptionPane.showMessageDialog(null, "Enter Valid Password");
+             return false;
+         }
+         
+         if("Enter Phone Number".equals(phoneNumber))
+         {
+             JOptionPane.showMessageDialog(null, "Enter Phone Number");
+             return false;
+         }
+         if(verify_phonenumber(phoneNumber) == false)
+         {
+             JOptionPane.showMessageDialog(null, "Enter a Valid Phone Number");
+           return false;
+         }
+         
+         if("Enter Address".equals(address))
+         {
+             JOptionPane.showMessageDialog(null, "Enter Valid Address");
+             return false;
+         }
+         
+         
+       
+       return true;
    }
-   public static void AddCustomer()
+   
+   public static boolean doesUserIdExists(String userid)
    {
+       boolean answer = false;
+       
+       Connection conn = null;
+       PreparedStatement ps1 = null;
+       ResultSet rs1 = null;
+         try
+        {
+            conn= dbm.dbconnect();
+             String sql = "SELECT * FROM CUSTOMER WHERE USERNAME = ?";
+             ps1 =conn.prepareStatement(sql);
+             ps1.setString(1,userid);
+             rs1=ps1.executeQuery();
+             
+            while(rs1.next())
+            {
+                answer = true;
+            }
+             
+        }
+         catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+            finally {
+    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+       
+       return answer;
        
    }
+   public static void AddCustomer(Customer ob)
+   {
+             Connection con = null;
+        PreparedStatement ps = null;
+        
+      try
+      {
+            con = dbm.dbconnect();
+           String query="insert into CUSTOMER values(?,?,?,?,?,?,?,?,?)";
+          ps=con.prepareStatement(query);
+          ps.setString(1,ob.getName());
+          ps.setString(2,ob.getAddress());
+          ps.setString(3,ob.getEmail());
+          ps.setString(4, ob.getUsername());
+          ps.setString(5,ob.getPassword());
+          ps.setInt(6,ob.getBalance());
+          ps.setString(7,ob.getDob());
+         ps.setInt(8,ob.getIsBusy());
+          ps.setString(9,ob.getPhonenumber());
+         
+          
+          
+          
+          ps.execute();
+      }
+        catch(SQLException | NumberFormatException e){
+            System.out.println(e.getMessage());
+        }
+             finally {
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+      
+   }
+   
+   public static Customer retriveCustomerData(String userid)
+   {
+       Customer ob = null;
+       
+        Connection connect = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+ 
+        
+          try
+        {
+            connect= dbm.dbconnect();
+             String sql = "SELECT * FROM CUSTOMER WHERE USERNAME = ?";
+             ps=connect.prepareStatement(sql);
+             ps.setString(1,userid);
+             rs=ps.executeQuery(); 
+             
+             ob = new Customer(rs.getString("NAME"),rs.getString("ADDRESS"),rs.getString("EMAIL"),userid,rs.getString("PASSWORD"),rs.getInt("BALANCE"),rs.getString("DATE OF BIRTH"),rs.getInt("ISBUSY"),rs.getString("PHONENUMBER"));
+            
+ 
+        }
+         catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+            finally {
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+       
+       return ob;
+   }
+   
+   public static void updateCustomerData(Customer ob)
+   {
+        Connection con = null;
+      PreparedStatement ps = null;
+      
+      try
+      {
+     con= dbm.dbconnect();
+     System.out.println(ob.toString());
+     String sql = "UPDATE customer SET BALANCE =? , ISBUSY =? , EMAIL =? , PASSWORD =? , PHONENUMBER =? WHERE USERNAME =?";
+          
+       ps =con.prepareStatement(sql);
+           
+       ps.setInt(1, ob.getBalance());
+       ps.setInt(2,ob.getIsBusy());
+       ps.setString(3,ob.getEmail());
+       ps.setString(4,ob.getPassword());
+       ps.setString(5,ob.getPhonenumber());
+       ps.setString(6,ob.getUsername());
+
+ 
+             ps.executeUpdate();
+      }
+        catch(SQLException e){
+            System.out.println("Jalaj " +e.getMessage());
+        }
+      finally {
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    
+    
+}
+      
+      
+   }
+   
+   public static boolean isCustomerPasswordCorrect(String userid,String password)
+   {
+       Customer ob = retriveCustomerData(userid);
+       return ob.getPassword().equals(password);
+   }
+   public static boolean isAdminUser(String userid)
+   {
+       return userid.equals("Radhesh")||userid.equals("Amogh")||userid.equals("Simran")||userid.equals("Jalaj");
+   }
+    public static boolean isAdminPasswordCorrect(String userid,String password)
+   {
+       if(userid.equals("Radhesh")||userid.equals("Amogh")||userid.equals("Simran")||userid.equals("Jalaj"))
+       {
+           if(password.equals("admin"))
+           {
+               return true;
+           }
+       }
+       
+       return false;
+   }
+   
    
    
    public static void ChangeBookingStatus(String userid)
@@ -912,4 +1227,8 @@ public class HeadQuater
     try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
    }
+   
+   
+   
+   
 }

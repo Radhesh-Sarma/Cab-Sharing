@@ -20,49 +20,32 @@ public class TransactionHistory extends javax.swing.JFrame {
     /**
      * Creates new form TransactionHistory
      */
-            String rname;
+
          Connection connect = null;
 ResultSet rs = null;
 PreparedStatement pst = null;
- String userid;
-    public TransactionHistory(String uid) {
+ Customer currentuser = null ;
+ 
+    public TransactionHistory(Customer ob) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+
         connect=dbm.dbconnect();
-        userid = uid;
-        
-           String query3="SELECT NAME FROM customer where USERNAME=?";
-        PreparedStatement ps=null;
-        try {
-            ps = connect.prepareStatement(query3);
-            ps.setString(1, userid);
-            rs=ps.executeQuery();
-            rname=rs.getString("name");
-            hi.setText(rname);
-            
-        } catch (SQLException ex) {
-            System.out.println("Entered");
-            System.out.println(ex.getMessage());
-            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-}
+        currentuser = null;
+        hi.setText(ob.getName());
+          
         
         
         int numberofbookings = 0;
         
             Connection conn = null ;
-         ps = null;
+         PreparedStatement ps = null;
          rs = null;
         try
         {
             conn = dbm3.dbconnect();
              String query="SELECT * FROM booking WHERE USERNAME = ?";
              ps =conn.prepareStatement(query);
-             ps.setString(1, userid);
+             ps.setString(1,ob.getUsername());
              rs=ps.executeQuery();
              
              while(rs.next())
@@ -70,15 +53,17 @@ PreparedStatement pst = null;
                  numberofbookings++;
              }
         }
-         catch (Exception ex) 
+         catch (SQLException ex) 
         {
             System.out.println( ex.getMessage());
         }
           finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (Exception e) {System.out.println(e.getMessage());}
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
+ 
+        
         
         
          conn = null ;
@@ -90,7 +75,7 @@ PreparedStatement pst = null;
              conn = dbm3.dbconnect();
              String query="SELECT * FROM booking WHERE USERNAME = ?";
              ps =conn.prepareStatement(query);
-             ps.setString(1, userid);
+             ps.setString(1, ob.getUsername());
              int i = 0 ;
              Object[] cname={"Reference Number","User ID","Driver ID","Pickup Location","Drop Location","Fare","Trip Start Time","Trip End Time"};
             DefaultTableModel model=new DefaultTableModel(cname,numberofbookings);
@@ -274,7 +259,7 @@ PreparedStatement pst = null;
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
      
-         new Functions(userid).setVisible(true); 
+         new Functions(currentuser).setVisible(true); 
         this.setVisible(false); 
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_BackActionPerformed

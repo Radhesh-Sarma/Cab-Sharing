@@ -15,46 +15,19 @@ import java.sql.SQLException;
  * @author Dell
  */
 public class ViewBalance extends javax.swing.JFrame {
-    Connection connect =null;
+
     /**
      * Creates new form ViewBalance
      */
     
-     String rname;
-     ResultSet rs;
-     String userid;
-     Double userbalance;
-     
-    public ViewBalance(String id) {
+Customer currentuser = null;
+
+    public ViewBalance(Customer ob) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-         connect=dbm.dbconnect();
-          userid = id;
-         String query3="SELECT NAME,BALANCE FROM customer where USERNAME=?";
-        PreparedStatement ps=null;
-        
-          try {
-            ps = connect.prepareStatement(query3);
-            ps.setString(1, id);
-            rs=ps.executeQuery();
-            rname=rs.getString("name");
-            double bal = rs.getDouble("balance");
-            
-            hi.setText(rname);
-            userbalance = bal;
-            
-            balance_display.setText(String.valueOf(bal));
-            
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (Exception e) {System.out.println(e.getMessage());}
-}
+        currentuser = ob;
+        hi.setText(ob.getName());
+        balance_display.setText(String.valueOf(ob.getBalance()));
+       
     }
 
     /**
@@ -154,7 +127,7 @@ public class ViewBalance extends javax.swing.JFrame {
 
     private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
         
-     new Functions(userid).setVisible(true);  
+     new Functions(currentuser).setVisible(true);  
 
         this.setVisible(false);        
     }//GEN-LAST:event_backbuttonActionPerformed

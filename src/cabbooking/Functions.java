@@ -5,10 +5,6 @@
  */
 package cabbooking;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.awt.Desktop;
@@ -17,38 +13,17 @@ import java.awt.Desktop;
  * @author Dell
  */
 public class Functions extends javax.swing.JFrame {
-     Connection connect =null;
+
     /**
      * Creates new form Functions
      */
      
-     String rname;
-     ResultSet rs;
-     String userid;
-    public Functions(String nam) {
+Customer currentuser = null;
+
+    public Functions(Customer ob) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        connect=dbm.dbconnect();
-           userid = nam;
-         String query3="SELECT NAME FROM customer where USERNAME=?";
-        PreparedStatement ps=null;
-        try {
-            ps = connect.prepareStatement(query3);
-            ps.setString(1, nam);
-            rs=ps.executeQuery();
-            rname=rs.getString("name");
-            hi.setText(rname);
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           finally {
-    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-        
+        currentuser = ob;
+      hi.setText(ob.getName()); 
     }
     
     /**
@@ -232,14 +207,14 @@ public class Functions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ViewTransHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewTransHistoryActionPerformed
-      new TransactionHistory(userid).setVisible(true);
+      new TransactionHistory(currentuser).setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_ViewTransHistoryActionPerformed
 
     private void ViewBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewBalanceActionPerformed
       //jMenuItem1 viewbal = new jMenuItem1("Your balance is: ");
       //jpopupMenu1.add(viewbal);        // TODO add your handling code here:
-        new ViewBalance(userid).setVisible(true);
+        new ViewBalance(currentuser).setVisible(true);
         this.dispose(); 
     }//GEN-LAST:event_ViewBalanceActionPerformed
 
@@ -251,47 +226,40 @@ public class Functions extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutActionPerformed
 
     private void EditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProfileActionPerformed
-        new EditProfile(userid).setVisible(true);
-
+        new EditProfile(currentuser).setVisible(true);
         this.dispose();            // TODO add your handling code here:
     }//GEN-LAST:event_EditProfileActionPerformed
 
     private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpButtonActionPerformed
         
         Desktop desktop = Desktop.getDesktop();  
-           String url = "";  
+           String url = null;  
            URI mailTo;  
-           
-           
-           
-            try {  
+             try {  
                  url = "mailTo:test@gmail.com" + "?subject=" + "Support%20Needed" 
                            + "&body=" + "TEST%20BODY";  
                  mailTo = new URI(url);  
                  desktop.mail(mailTo);  
-            } catch (URISyntaxException e) {  
-                 e.printStackTrace();  
-            } catch (IOException e) {  
-                 e.printStackTrace();  
+            } catch (URISyntaxException | IOException e) {  
             }
             
     }//GEN-LAST:event_HelpButtonActionPerformed
 
     private void changePwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePwdActionPerformed
         // TODO add your handling code here:
-         new ChangePassword(userid).setVisible(true);
+         new ChangePassword(currentuser).setVisible(true);
             this.dispose();  
     }//GEN-LAST:event_changePwdActionPerformed
 
     private void AddBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBalanceActionPerformed
         // TODO add your handling code here:
-        new Addmoney1(userid).setVisible(true);
+        new Addmoney1(currentuser).setVisible(true);
             this.dispose();  
     }//GEN-LAST:event_AddBalanceActionPerformed
 
     private void BookCAbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookCAbActionPerformed
         // TODO add your handling code here:
-           new bookcab(userid).setVisible(true);
+           new bookcab(currentuser).setVisible(true);
             this.dispose();    
     }//GEN-LAST:event_BookCAbActionPerformed
 
@@ -324,10 +292,8 @@ public class Functions extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new Functions().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new Functions().setVisible(true);
         });
     }
 
@@ -349,27 +315,5 @@ public class Functions extends javax.swing.JFrame {
     private javax.swing.JButton logout;
     // End of variables declaration//GEN-END:variables
 
-    private static class jpopupMenu1 {
-        int b;
-        private static void add(jMenuItem1 viewbal) {  
-            //this.b=viewbal.balance //if balance is the name of the variable
-        
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public jpopupMenu1() {
-        }
-    }
-
-    private static class jMenuItem1 {
-        String s;
-        public jMenuItem1() {
-        }
-
-        private jMenuItem1(String s_) {
-            this.s=s;
-            
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    }
+   
 }

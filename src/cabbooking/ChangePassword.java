@@ -4,43 +4,22 @@
  * and open the template in the editor.
  */
 package cabbooking;
-
-import java.awt.Color;
-import java.awt.HeadlessException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
 /**
  *
- * @author Dell
+ * @author Radhesh
  */
 public class ChangePassword extends javax.swing.JFrame {
-    Connection connect =null;
-    
+
     /**
      * Creates new form ChangePassword
      */
-    String rname;
-    PreparedStatement pst ;
-     ResultSet rs;
-     
-     String userid;
-     Double userbalance;
-     String passwd;
-     
-    public ChangePassword(String id) {
+     Customer currentuser = null; 
+    public ChangePassword(Customer ob) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        currentuser = ob;
            this.setLocationRelativeTo(null);
-        this.getRootPane().setDefaultButton(SubmitButton);
-        connect=dbm.dbconnect();
-          userid = id;
-         
-        
-        
+        this.getRootPane().setDefaultButton(SubmitButton);     
     }
 
     /**
@@ -184,128 +163,45 @@ public class ChangePassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-     new Functions(userid).setVisible(true); 
-
+     new Functions(currentuser).setVisible(true); 
         this.setVisible(false);      
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
              // TODO add your handling code here:
                                                     // TODO add your handling code here:
-              boolean change = false;
-              boolean change2 = true;
-              
-              if(txt_old_password.getPassword().length == 0)
+           if(txt_old_password.getPassword().length == 0)
               {
-                  change = false;
-                  change2 = false;
                   JOptionPane.showMessageDialog(null, "Enter Old Password");
-              }
-              else if(txt_enter_password.getPassword().length==0 && !(txt_old_password.getPassword().length == 0))
+              }   
+           else if(txt_enter_password.getPassword().length==0 && !(txt_old_password.getPassword().length == 0))
               {
-                  change = false;
-                  change2 = false;
                   JOptionPane.showMessageDialog(null, "Enter New Password");
               }
-              else if(txt_re_enter_password.getPassword().length==0 && !(txt_enter_password.getPassword().length==0) && !(txt_old_password.getPassword().length == 0))
+           else if(txt_re_enter_password.getPassword().length==0 && !(txt_enter_password.getPassword().length==0) && !(txt_old_password.getPassword().length == 0))
               {
-                  change = false;   
-                  change2 = false;
                   JOptionPane.showMessageDialog(null, "Re-enter New Password");
               }
-              else if(! String.valueOf(txt_enter_password.getPassword()).equals(String.valueOf(txt_re_enter_password.getPassword())))
+            else if(! String.valueOf(txt_enter_password.getPassword()).equals(String.valueOf(txt_re_enter_password.getPassword())))
               {
-                  change = false;
-                  change2 = false;
-                  JOptionPane.showMessageDialog(null, "Enter same new password");
-                 
-                 
+                  JOptionPane.showMessageDialog(null, "Enter same new password");           
               }
-              else if( String.valueOf(txt_old_password.getPassword()).equals(String.valueOf(txt_re_enter_password.getPassword())))
+            else if(String.valueOf(txt_old_password.getPassword()).equals(String.valueOf(txt_re_enter_password.getPassword())))
               {
-                  change = false;
-                  change2 = false;
-                  JOptionPane.showMessageDialog(null, "Old and New password can not be same");
-                 
-                 
+                  JOptionPane.showMessageDialog(null, "Old and New password can not be same");  
               }
-              
-              if(change2)
-              {
-                  
-                  
-              PreparedStatement ps = null;
-              ResultSet rs= null;
-              
-              try
-       {
-           
-       String password = String.valueOf(txt_old_password.getPassword());
-       String query ="select PASSWORD from customer where USERNAME=? ";
-                 ps =connect.prepareStatement(query);
-                ps.setString(1,userid);
-                rs=ps.executeQuery();
-                
-                String pass=rs.getString("PASSWORD");
-                if(pass.equals(password))
-                {
-                    change = true;
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null ,"Incorrect password!");
-                }
-                
-                 
-                
-       }
-       catch( HeadlessException | SQLException e)
-       {
-           System.out.println(e.getMessage());
-       }
-                      finally {
-    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-              
-           if(change)
-           {
-               ps = null;
-               
-                    try
-       {
-           
-           
-                String sqlQuery = "UPDATE customer SET PASSWORD =? WHERE USERNAME =?";
-               ps =connect.prepareStatement(sqlQuery);
-                ps.setString(1,String.valueOf(txt_enter_password.getPassword()));
-                ps.setString(2, userid);
-                ps.executeUpdate();
-                
-                
-                
-                
-                 
-                
-       }
-       catch(Exception e)
-       {
-           System.out.println(e.getMessage());
-       }
-                      finally {
-    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-                    
-              JOptionPane.showMessageDialog(null, "Password changed Successfully");
+            else if(! String.valueOf(txt_old_password.getPassword()).equals(currentuser.getPassword()))
+            {
+                 JOptionPane.showMessageDialog(null ,"Incorrect password!");
+            }
+            else 
+            {
+                currentuser.setPassword(String.valueOf(txt_re_enter_password.getPassword()));
+                HeadQuater.updateCustomerData(currentuser);
+                JOptionPane.showMessageDialog(null, "Password changed Successfully");
             this.setVisible(false);
-            new Functions(userid).setVisible(true);
-           }
-           
-              }
-              
-        
+            new Functions(currentuser).setVisible(true);
+            }         
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     /**
@@ -336,10 +232,7 @@ public class ChangePassword extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-            }
+        java.awt.EventQueue.invokeLater(() -> {
         });
     }
 
