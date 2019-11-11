@@ -308,7 +308,7 @@ public class EditProfile extends javax.swing.JFrame {
             Name.setForeground(new Color(204,204,204));
             Name.setText(s1);    }
         }
-        catch(SQLException e) { }// TODO add your handling code here:
+        catch(SQLException e) { }
     }//GEN-LAST:event_NameFocusLost
 
     private void txt_emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusGained

@@ -6,6 +6,7 @@
 package cabbooking;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Date;
 /**
  *
  * @author radhesh
@@ -16,6 +17,7 @@ public class Scheduler extends TimerTask{
         
         try
         {
+            System.out.println("Timer task Executed " + new Date());
             HeadQuater.TimeChecker();
         }
         catch(Exception e)

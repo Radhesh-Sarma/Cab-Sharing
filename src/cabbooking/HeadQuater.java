@@ -473,9 +473,7 @@ public class HeadQuater
         }
              finally {
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-;
     try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-;
 }
       
       
@@ -777,7 +775,7 @@ public class HeadQuater
       UpdateCustomerStatusEndTrip(userid);
       UpdateDriverStatusEndTrip(driverid,getLocationNumber(droploc));
       ChangeUserBalance(userid,HeadQuater.CalculateFare(pickuploc,droploc));
-      
+      ChangeBookingStatus(userid);
          
    }
    
@@ -826,11 +824,92 @@ public class HeadQuater
        
        for(int i = 0; i < toend.size();i++)
        {
-           EndTrip(toend.get(i));
+          
+           try
+           {
+           EndTrip(toend.get(i));           }
+           catch(Exception e)
+           {
+               System.out.println(e.getMessage());
+           }           
        }
+   }
+   
+   public static void removedriver(int driverid)
+   {
        
+   }
+   
+   public static void adddriver(String name,int driverid,String phonenumber,String vehiclenumber,String vehiclename,int location)
+   {
+       
+              Connection con = null;
+        PreparedStatement ps = null;
+        
+      try
+      {
+            con = dbm2.dbconnect();
+           String query="insert into driver values(?,?,?,?,?,?,?,?)";
+          ps=con.prepareStatement(query);
+          ps.setString(1,name);
+          ps.setInt(2,driverid);
+          ps.setString(3,phonenumber);
+          ps.setInt(4,3);
+          ps.setString(5,vehiclenumber);
+          ps.setString(6,vehiclename);
+          ps.setInt(7,location);      
+          ps.setInt(8,0);
+          ps.execute();
+      }
+        catch(SQLException | NumberFormatException e){
+            System.out.println(e.getMessage());
+        }
+             finally {
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+   }
+   
+   public static boolean caneditprofile()
+   {
+       boolean answer = true;
+       return answer;
+   }
+   public static void editprofile()
+   {
+       
+   }
+   
+   public static boolean canSignUp()
+   {
+       boolean answer = true;
+       return answer;
+   }
+   public static void AddCustomer()
+   {
        
    }
    
    
+   public static void ChangeBookingStatus(String userid)
+   {
+       Connection con = null ; 
+       PreparedStatement ps = null; 
+       try
+        {
+              con= dbm3.dbconnect();
+                 String sqlQuery = "UPDATE booking SET ISTRIPENDED = ? WHERE USERNAME = ?";
+                ps =con.prepareStatement(sqlQuery);
+                 ps.setInt(1,1);
+                ps.setInt(2,Integer.parseInt(userid));
+                ps.executeUpdate();
+        }
+        catch(SQLException | NumberFormatException e){
+            System.out.println( e.getMessage());
+        }
+             finally {
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+   }
 }

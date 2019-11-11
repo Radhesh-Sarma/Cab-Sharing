@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
+import java.util.Timer;
 
 /**
  *
@@ -34,8 +35,14 @@ public class CabBookingApplication extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.getRootPane().setDefaultButton(login);
         connect=dbm.dbconnect();
+        System.out.println(new Scheduler().scheduledExecutionTime());
+           Timer timer = new Timer();
+        System.out.println(new Scheduler().scheduledExecutionTime());
         
-        
+        if(new Scheduler().scheduledExecutionTime()==0)
+        {
+            timer.schedule(new Scheduler(),60000,60000);
+        }
         
        // System.out.println(HeadQuater.GetCurrentTime());
        // System.out.println(HeadQuater.Comparetime("2019/11/10 23:44:58","2019/11/10 23:44:58"));

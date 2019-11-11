@@ -48,20 +48,30 @@ String vehicle_Number;
         car_id.setText(vehicle_Number);
         
         Timer timer = new Timer();
-        timer.schedule(new Scheduler(),new Date(),60000);
+        
+        System.out.println(new Scheduler().scheduledExecutionTime());
+        
+        if(new Scheduler().scheduledExecutionTime()==0)
+        {
+            timer.schedule(new Scheduler(),60000,60000);
+        }
+        
+        
       
     }
     
     private void getInfo1(String triprefno)
     {
            
-    
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-            Connection conn = dbm3.dbconnect();
+            conn = dbm3.dbconnect();
             String query="SELECT DRIVERID,USERNAME,PICKUPLOCATION,DROPLOCATION,TRIPSTARTTIME,TRIPENDTIME FROM booking where REFERENCENUMBER = ?";
-             PreparedStatement ps =conn.prepareStatement(query);
+             ps = conn.prepareStatement(query);
             ps.setString(1,triprefno);
-              ResultSet rs=ps.executeQuery();
+            rs=ps.executeQuery();
               
               DriverId = rs.getInt("DRIVERID");
               userid = rs.getString("USERNAME");
@@ -70,15 +80,16 @@ String vehicle_Number;
               starttime = rs.getString("TRIPSTARTTIME");
               endtime = rs.getString("TRIPENDTIME");
               Duration = HeadQuater.CalculateTripDuration(HeadQuater.getLocationDescription(Integer.parseInt(PickupLocation)),HeadQuater.getLocationDescription(Integer.parseInt(DropLocation)));
-              HeadQuater.EndTrip(triprefno);
-          
-         
-          
+              
         } catch (SQLException ex) {
             System.out.println( ex.getMessage());
-          
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
+         finally {
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
      
        
     }
@@ -88,17 +99,22 @@ String vehicle_Number;
     {
         
        
-         System.out.println("Driver ID is " + driverid);
+       
          
       String answer = "dummy";
       
+      
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+      
       try {
-            Connection conn = dbm2.dbconnect();
+           conn = dbm2.dbconnect();
       
             String query="SELECT DRIVERNAME,VEHICLENAME,VEHICLENUMBER FROM driver where DRIVERID = ?";
-              PreparedStatement ps =conn.prepareStatement(query);
+              ps =conn.prepareStatement(query);
             ps.setInt(1,driverid);
-              ResultSet rs=ps.executeQuery();
+              rs=ps.executeQuery();
               
               answer = rs.getString("DRIVERNAME");
                vehicle_Name = rs.getString("VEHICLENAME");
@@ -106,10 +122,15 @@ String vehicle_Number;
               
           
         } catch (SQLException ex) {
-            System.out.println("Amogh " + ex.getMessage());
+            System.out.println(ex.getMessage());
 
             //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
+              finally {
+    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
      
       
         return answer;

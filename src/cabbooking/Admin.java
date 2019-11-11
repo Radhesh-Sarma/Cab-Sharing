@@ -39,7 +39,6 @@ public class Admin extends javax.swing.JFrame {
         ViewTransaction = new javax.swing.JButton();
         ViewDriverList = new javax.swing.JButton();
         editdrivers = new javax.swing.JButton();
-        SetTime = new javax.swing.JButton();
         randomize = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -74,14 +73,6 @@ public class Admin extends javax.swing.JFrame {
         editdrivers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editdriversActionPerformed(evt);
-            }
-        });
-
-        SetTime.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SetTime.setText("Set Time");
-        SetTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SetTimeActionPerformed(evt);
             }
         });
 
@@ -121,14 +112,12 @@ public class Admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(randomize, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ViewDriverList, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(ViewTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(editdrivers)
-                                .addComponent(SetTime, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(192, 192, 192)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ViewDriverList, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ViewTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editdrivers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(randomize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(226, 226, 226)
@@ -154,11 +143,9 @@ public class Admin extends javax.swing.JFrame {
                 .addComponent(ViewDriverList)
                 .addGap(18, 18, 18)
                 .addComponent(editdrivers)
-                .addGap(18, 18, 18)
-                .addComponent(SetTime)
-                .addGap(26, 26, 26)
+                .addGap(36, 36, 36)
                 .addComponent(randomize)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -206,10 +193,6 @@ public class Admin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_logoutActionPerformed
 
-    private void SetTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SetTimeActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -246,7 +229,6 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton SetTime;
     private javax.swing.JButton ViewDriverList;
     private javax.swing.JButton ViewTransaction;
     private javax.swing.JButton editdrivers;
