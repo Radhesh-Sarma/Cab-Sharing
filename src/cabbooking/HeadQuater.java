@@ -262,7 +262,8 @@ public class HeadQuater
               while(rs.next())
               {
         
-                  answer = true;    
+                  answer = true;   
+                  break;
               }
               
             
@@ -665,17 +666,7 @@ public class HeadQuater
 }
          
     }
-    
-    public static void changetime(int start_time,int end_time)
-    {
-        int current_time = start_time;
-        
-        while(current_time <= end_time)
-        {
-            current_time++;
-        }
-    }
-    
+     
    public static void UpdateCustomerStatusStartTrip(String userid)
    {
        Connection con = null;

@@ -30,7 +30,7 @@ PreparedStatement pst = null;
         initComponents();
 
         connect=dbm.dbconnect();
-        currentuser = null;
+        currentuser = ob;
         hi.setText(ob.getName());
           
         
