@@ -1,0 +1,5 @@
+.first-button{
+    -fx-shape:"10,1 4,19.8 19,7.8 1,7.8 16,19.8";
+    -fx-style:"fill:#DCDCDC;stroke:grey;stroke-width:1;fill-rule:nonzero;";
+    -fx-effect:dropshadow(three-pass-box,black,10,0,0,0);
+}
