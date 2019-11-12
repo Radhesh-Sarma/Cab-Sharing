@@ -20,10 +20,10 @@ public class dbm3 {
     try
     {
     Class.forName("org.sqlite.JDBC");
-    Connection conn=DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Amogh saxena\\Desktop\\proj\\CabBooking\\databases/booking.sqlite");
+    Connection conn=DriverManager.getConnection("jdbc:sqlite:/home/radhesh/Cab-Sharing-Application/CabBooking/databases/booking.sqlite");
     //JOptionPane.showMessageDialog(null ,"connected");
     return conn;
-}catch(Exception e){
+}catch(ClassNotFoundException | SQLException e){
     JOptionPane.showMessageDialog(null ,e);
     return null;
 }

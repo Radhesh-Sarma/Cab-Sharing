@@ -19,6 +19,17 @@ public class Booking {
     private String tripEndTime;
     private int isTripEnded;
 
+    public Booking(String referenceNumber, String userName, int driverId, String pickUpLocation, String dropLocation, String tripStartTime, String tripEndTime, int isTripEnded) {
+        this.referenceNumber = referenceNumber;
+        this.userName = userName;
+        this.driverId = driverId;
+        this.pickUpLocation = pickUpLocation;
+        this.dropLocation = dropLocation;
+        this.tripStartTime = tripStartTime;
+        this.tripEndTime = tripEndTime;
+        this.isTripEnded = isTripEnded;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -31,17 +42,6 @@ public class Booking {
             ", tripEndTime='" + getTripEndTime() + "'" +
             ", isTripEnded='" + getIsTripEnded() + "'" +
             "}";
-    }
-
-    public Booking(String referenceNumber, String userName, int driverId, String pickUpLocation, String dropLocation, String tripStartTime, String tripEndTime, int isTripEnded) {
-        this.referenceNumber = referenceNumber;
-        this.userName = userName;
-        this.driverId = driverId;
-        this.pickUpLocation = pickUpLocation;
-        this.dropLocation = dropLocation;
-        this.tripStartTime = tripStartTime;
-        this.tripEndTime = tripEndTime;
-        this.isTripEnded = isTripEnded;
     }
 
     public String getReferenceNumber() {
@@ -107,5 +107,7 @@ public class Booking {
     public void setIsTripEnded(int isTripEnded) {
         this.isTripEnded = isTripEnded;
     }
+
+   
     
 }

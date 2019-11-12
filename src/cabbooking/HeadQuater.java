@@ -1077,8 +1077,7 @@ public class HeadQuater
     public static void AddCustomer(Customer ob)
    {
              Connection con = null;
-        PreparedStatement ps = null;
-        
+        PreparedStatement ps = null;      
       try
       {
             con = dbm.dbconnect();
@@ -1093,11 +1092,7 @@ public class HeadQuater
           ps.setString(7,ob.getDob());
          ps.setInt(8,ob.getIsBusy());
           ps.setString(9,ob.getPhonenumber());
-         
-          
-          
-          
-          ps.execute();
+         ps.execute();
       }
         catch(SQLException | NumberFormatException e){
             System.out.println(e.getMessage());
@@ -1105,30 +1100,23 @@ public class HeadQuater
              finally {
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-      
+}    
    }
    
    public static Customer retriveCustomerData(String userid)
    {
-       Customer ob = null;
-       
+       Customer ob = null;      
         Connection connect = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
- 
-        
-          try
+             try
         {
             connect= dbm.dbconnect();
              String sql = "SELECT * FROM CUSTOMER WHERE USERNAME = ?";
              ps=connect.prepareStatement(sql);
              ps.setString(1,userid);
-             rs=ps.executeQuery(); 
-             
-             ob = new Customer(rs.getString("NAME"),rs.getString("ADDRESS"),rs.getString("EMAIL"),userid,rs.getString("PASSWORD"),rs.getInt("BALANCE"),rs.getString("DATE OF BIRTH"),rs.getInt("ISBUSY"),rs.getString("PHONENUMBER"));
-            
- 
+             rs=ps.executeQuery();             
+             ob = new Customer(rs.getString("NAME"),rs.getString("ADDRESS"),rs.getString("EMAIL"),userid,rs.getString("PASSWORD"),rs.getInt("BALANCE"),rs.getString("DATE OF BIRTH"),rs.getInt("ISBUSY"),rs.getString("PHONENUMBER"));     
         }
          catch(SQLException e){
             System.out.println(e.getMessage());
@@ -1141,28 +1129,22 @@ public class HeadQuater
        
        return ob;
    }
-   
    public static void updateCustomerData(Customer ob)
    {
         Connection con = null;
-      PreparedStatement ps = null;
-      
+      PreparedStatement ps = null;      
       try
       {
      con= dbm.dbconnect();
      System.out.println(ob.toString());
-     String sql = "UPDATE customer SET BALANCE =? , ISBUSY =? , EMAIL =? , PASSWORD =? , PHONENUMBER =? WHERE USERNAME =?";
-          
-       ps =con.prepareStatement(sql);
-           
+     String sql = "UPDATE customer SET BALANCE =? , ISBUSY =? , EMAIL =? , PASSWORD =? , PHONENUMBER =? WHERE USERNAME =?";     
+       ps =con.prepareStatement(sql);        
        ps.setInt(1, ob.getBalance());
        ps.setInt(2,ob.getIsBusy());
        ps.setString(3,ob.getEmail());
        ps.setString(4,ob.getPassword());
        ps.setString(5,ob.getPhonenumber());
        ps.setString(6,ob.getUsername());
-
- 
              ps.executeUpdate();
       }
         catch(SQLException e){
@@ -1173,11 +1155,8 @@ public class HeadQuater
     try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     
     
-}
-      
-      
+} 
    }
-   
    public static boolean isCustomerPasswordCorrect(String userid,String password)
    {
        Customer ob = retriveCustomerData(userid);
@@ -1195,14 +1174,10 @@ public class HeadQuater
            {
                return true;
            }
-       }
-       
+       }  
        return false;
    }
-   
-   
-   
-   public static void ChangeBookingStatus(String userid)
+ public static void ChangeBookingStatus(String userid)
    {
        Connection con = null ; 
        PreparedStatement ps = null; 
@@ -1240,12 +1215,7 @@ public class HeadQuater
           ps.setString(5,ob.getDropLocation());
           ps.setString(6,ob.getTripStartTime());
           ps.setString(7,ob.getTripEndTime());
-         ps.setInt(8,ob.getIsTripEnded());
-         
-         
-          
-          
-          
+         ps.setInt(8,ob.getIsTripEnded()); 
           ps.execute();
       }
         catch(SQLException | NumberFormatException e){
@@ -1261,23 +1231,18 @@ public class HeadQuater
    public static Booking retriveBookingData(String referno)
    {
        Booking ob = null;
-       
         Connection connect = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
- 
-        
-          try
+         try
         {
             connect= dbm3.dbconnect();
              String sql = "SELECT * FROM BOOKING WHERE REFERENCENUMBER = ?";
              ps=connect.prepareStatement(sql);
              ps.setString(1,referno);
-             rs=ps.executeQuery(); 
-             
+             rs=ps.executeQuery();            
              ob = new Booking(referno,rs.getString("USERNAME"),rs.getInt("DRIVERID"),rs.getString("PICKUPLOCATION"),rs.getString("DROPLOCATION"),rs.getString("TRIPSTARTTIME"),rs.getString("TRIPENDTIME"),rs.getInt("ISTRIPENDED"));
-            
- 
+
         }
          catch(SQLException e){
             System.out.println(e.getMessage());
@@ -1289,8 +1254,7 @@ public class HeadQuater
 }
        
        return ob;
-   }
-   
+   } 
     /**
      *
      * @param ob
@@ -1298,44 +1262,34 @@ public class HeadQuater
     public static void updateBookingData(Booking ob)
    {
         Connection con = null;
-      PreparedStatement ps = null;
-      
+      PreparedStatement ps = null;     
       try
       {
      con= dbm3.dbconnect();
-     System.out.println(ob.toString());
      String sql = "UPDATE booking SET ISTRIPENDED =? WHERE REFERENCENUMBER =?";
           
        ps =con.prepareStatement(sql);
            
        ps.setInt(1, ob.getIsTripEnded());
        ps.setString(2,ob.getReferenceNumber());
-      
-
- 
-             ps.executeUpdate();
+           ps.executeUpdate();
       }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
       finally {
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    
-    
+    try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}   
 }
-      
-      
+     
    }
     public static void updateDriverData(Driver ob)
    {
         Connection con = null;
-      PreparedStatement ps = null;
-      
+      PreparedStatement ps = null;  
       try
       {
      con= dbm2.dbconnect();
-     System.out.println(ob.toString());
      String sql = "UPDATE driver SET ISBUSY =? , PHONENUMBER =? , LOCATION =? WHERE DRIVERID =?";
           
        ps =con.prepareStatement(sql);
@@ -1344,22 +1298,16 @@ public class HeadQuater
        ps.setString(2,ob.getPhoneNumber());
        ps.setInt(3,ob.getLocation());
        ps.setInt(4,ob.getDriverId());
-       
-
- 
-             ps.executeUpdate();
+          ps.executeUpdate();
       }
         catch(SQLException e){
-            System.out.println("yoyo"+e.getMessage());
+            System.out.println(e.getMessage());
         }
       finally {
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    
-    
+ 
 }
-      
-      
    }
    
    

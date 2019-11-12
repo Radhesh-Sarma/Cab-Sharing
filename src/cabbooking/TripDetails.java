@@ -32,7 +32,7 @@ String vehicle_Number;
 Customer currentuser;
     /**
      * Creates new form TripDetails
-     * @param trip_referenece
+     * @param trip_reference
      * @param ob
      */
     public TripDetails(String trip_reference,Customer ob) {
@@ -354,22 +354,16 @@ Customer currentuser;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TripDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TripDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TripDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TripDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+    //</editor-fold>
+    
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new TripDetails().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new TripDetails().setVisible(true);
         });
     }
 

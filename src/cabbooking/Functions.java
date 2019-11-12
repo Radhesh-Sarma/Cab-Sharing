@@ -233,10 +233,10 @@ Customer currentuser = null;
     private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpButtonActionPerformed
         
         Desktop desktop = Desktop.getDesktop();  
-           String url = null;  
+             
            URI mailTo;  
              try {  
-                 url = "mailTo:test@gmail.com" + "?subject=" + "Support%20Needed" 
+                 String url = "mailTo:test@gmail.com" + "?subject=" + "Support%20Needed" 
                            + "&body=" + "TEST%20BODY";  
                  mailTo = new URI(url);  
                  desktop.mail(mailTo);  
@@ -280,15 +280,11 @@ Customer currentuser = null;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Functions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Functions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Functions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Functions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+    //</editor-fold>
+    
         //</editor-fold>
 
         /* Create and display the form */
