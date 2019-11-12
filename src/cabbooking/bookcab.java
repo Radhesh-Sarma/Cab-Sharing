@@ -293,8 +293,8 @@ public class bookcab extends javax.swing.JFrame {
     private void BookCabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookCabActionPerformed
         
 
-        String driverid,triprefno;
-        if(HeadQuater.isCabAvailable(currentuser.getUsername())==false)
+        
+        if(HeadQuater.isCabAvailable(currentuser)==false)
         {
             JOptionPane.showMessageDialog(null, "Request Timeout.No Cab Available at the Moment. Please try again later");
         }
@@ -302,16 +302,16 @@ public class bookcab extends javax.swing.JFrame {
        {
            JOptionPane.showMessageDialog(null, "Click ShowFare first");
        }
-       else  if(HeadQuater.CanBookCab(currentuser.getUsername(),Fare)==false)
+       else  if(HeadQuater.CanBookCab(currentuser,Fare)==false)
         {
             JOptionPane.showMessageDialog(null, "Insufficient Balance to book cab ");
         }
        else
        { 
-           driverid = HeadQuater.FindNearestDriverWithHighestRating(pickuploc);
-           JOptionPane.showMessageDialog(null, "Cab Booked Successfully with driver " + driverid);    
-           triprefno = HeadQuater.AddBooking(HeadQuater.getLocationNumber(pickuploc),HeadQuater.getLocationNumber(droploc), currentuser.getUsername(), driverid);
-            new TripDetails(triprefno,currentuser).setVisible(true);
+           Driver tripdriver = HeadQuater.FindNearestDriverWithHighestRating(pickuploc);
+           JOptionPane.showMessageDialog(null, "Cab Booked Successfully with driver " + tripdriver.getDriverId());    
+           Booking Currentbooking = HeadQuater.AddBooking(HeadQuater.getLocationNumber(pickuploc),HeadQuater.getLocationNumber(droploc), currentuser,tripdriver);
+            new TripDetails(Currentbooking,currentuser,tripdriver).setVisible(true);
         this.dispose();   
        }
         

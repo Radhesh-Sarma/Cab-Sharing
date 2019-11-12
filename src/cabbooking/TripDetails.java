@@ -4,11 +4,6 @@
  * and open the template in the editor.
  */
 package cabbooking;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 /**
  *
@@ -17,16 +12,6 @@ import java.util.*;
 public class TripDetails extends javax.swing.JFrame {
 
        
-String userid;
-String DriverName;
-String PickupLocation;
-String DropLocation;
-int Duration;
-int DriverId;
-String starttime;
-String endtime;
-String vehicle_Name;
-String vehicle_Number;
 
 
 Customer currentuser;
@@ -35,110 +20,33 @@ Customer currentuser;
      * @param trip_reference
      * @param ob
      */
-    public TripDetails(String trip_reference,Customer ob) {
+    public TripDetails(Booking currentbooking,Customer ob,Driver tripdriver) {
         initComponents();
         currentuser = ob;
-        getInfo1(trip_reference);
-        DriverName = getDriverName(DriverId);
-         drivername.setText(DriverName);
-        driver_id.setText(String.valueOf(DriverId));
-        Pickup_Location.setText(HeadQuater.getLocationDescription(Integer.parseInt(PickupLocation)));
-        Drop_Location.setText(HeadQuater.getLocationDescription(Integer.parseInt(DropLocation)));
-        System.out.println(PickupLocation);
-        System.out.println(DropLocation);
-        System.out.println(Duration);
-        Duration_.setText(String.valueOf(Duration)  + " Min");
-        car_name.setText(vehicle_Name);
-        car_id.setText(vehicle_Number);
+        //System.out.println(ob.toString());
+        HeadQuater.CallRandomize();
+        
+        
+        
+        drivername.setText(tripdriver.getDriverName());
+        driver_id.setText(String.valueOf(tripdriver.getDriverId())); 
+       Pickup_Location.setText(HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getPickUpLocation())));
+        Drop_Location.setText(HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getDropLocation())));
+        int Duration = HeadQuater.CalculateTripDuration(HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getPickUpLocation())),HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getDropLocation())));
+         Duration_.setText(String.valueOf(Duration)  + " Min");    
+        
         Timer timer = new Timer();
         System.out.println(new Scheduler().scheduledExecutionTime());
+        
         if(new Scheduler().scheduledExecutionTime()==0)
         {
-            timer.schedule(new Scheduler(),60000,60000);
+            timer.schedule(new Scheduler(),59000,60000);
         }
         
         
       
     }
-    
-    private void getInfo1(String triprefno)
-    {
-           
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = dbm3.dbconnect();
-            String query="SELECT DRIVERID,USERNAME,PICKUPLOCATION,DROPLOCATION,TRIPSTARTTIME,TRIPENDTIME FROM booking where REFERENCENUMBER = ?";
-             ps = conn.prepareStatement(query);
-            ps.setString(1,triprefno);
-            rs=ps.executeQuery();
-              
-              DriverId = rs.getInt("DRIVERID");
-              userid = rs.getString("USERNAME");
-              PickupLocation = rs.getString("PICKUPLOCATION");
-              DropLocation = rs.getString("DROPLOCATION");
-              starttime = rs.getString("TRIPSTARTTIME");
-              endtime = rs.getString("TRIPENDTIME");
-              Duration = HeadQuater.CalculateTripDuration(HeadQuater.getLocationDescription(Integer.parseInt(PickupLocation)),HeadQuater.getLocationDescription(Integer.parseInt(DropLocation)));
-              
-        } catch (SQLException ex) {
-            System.out.println( ex.getMessage());
-            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         finally {
-    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-     
-       
-    }
-    
-    
-    private String getDriverName(int driverid)
-    {
-        
-       
-       
-         
-      String answer = "dummy";
-      
-      
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-      
-      try {
-           conn = dbm2.dbconnect();
-      
-            String query="SELECT DRIVERNAME,VEHICLENAME,VEHICLENUMBER FROM driver where DRIVERID = ?";
-              ps =conn.prepareStatement(query);
-            ps.setInt(1,driverid);
-              rs=ps.executeQuery();
-              
-              answer = rs.getString("DRIVERNAME");
-               vehicle_Name = rs.getString("VEHICLENAME");
-              vehicle_Number = rs.getString("VEHICLENUMBER");
-              
-          
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-
-            //Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-              finally {
-    try { if (rs != null) rs.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
-}
-     
-      
-        return answer;
-    }
-    
-
-    /**
+      /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.

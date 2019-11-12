@@ -29,7 +29,7 @@ public class CabBookingApplication extends javax.swing.JFrame {
         
         if(new Scheduler().scheduledExecutionTime()==0)
         {
-            timer.schedule(new Scheduler(),60000,60000);
+            timer.schedule(new Scheduler(),59000,60000);
         }
         
        // System.out.println(HeadQuater.GetCurrentTime());
