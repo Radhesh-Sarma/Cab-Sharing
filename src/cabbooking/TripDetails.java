@@ -36,11 +36,11 @@ Customer currentuser;
          Duration_.setText(String.valueOf(Duration)  + " Min");    
         
         Timer timer = new Timer();
-        System.out.println(new Scheduler().scheduledExecutionTime());
+      //  System.out.println(new Scheduler().scheduledExecutionTime());
         
         if(new Scheduler().scheduledExecutionTime()==0)
         {
-            timer.schedule(new Scheduler(),59000,60000);
+            timer.schedule(new Scheduler(),59000,2000);
         }
         
         

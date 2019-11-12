@@ -23,13 +23,11 @@ public class CabBookingApplication extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.getRootPane().setDefaultButton(login);
         
-        System.out.println(new Scheduler().scheduledExecutionTime());
+        //System.out.println(new Scheduler().scheduledExecutionTime());
            Timer timer = new Timer();
-        System.out.println(new Scheduler().scheduledExecutionTime());
-        
-        if(new Scheduler().scheduledExecutionTime()==0)
+           if(new Scheduler().scheduledExecutionTime()==0)
         {
-            timer.schedule(new Scheduler(),59000,60000);
+            timer.schedule(new Scheduler(),59000,2000);
         }
         
        // System.out.println(HeadQuater.GetCurrentTime());

@@ -385,6 +385,7 @@ public class HeadQuater
         Connection con = null;
         PreparedStatement ps = null ;
         
+        System.out.println("In Update Driver Rating " + driverid + " " + location);
         try
         {
              con= dbm2.dbconnect();
@@ -586,9 +587,10 @@ public class HeadQuater
        System.out.println("Trip Ended " + ob.toString());
            String pickuploc =HeadQuater.getLocationDescription(Integer.parseInt(ob.getPickUpLocation()));
            String droploc = HeadQuater.getLocationDescription(Integer.parseInt(ob.getDropLocation()));
+       System.out.println("In End Trip " + pickuploc + " " + droploc);
        
       UpdateCustomerStatusEndTrip(ob.getUserName());
-      UpdateDriverStatusEndTrip(String.valueOf(ob.getDriverId()),getLocationNumber(ob.getDropLocation()));
+      UpdateDriverStatusEndTrip(String.valueOf(ob.getDriverId()),Integer.parseInt(ob.getDropLocation()));
       ChangeUserBalance(ob.getUserName(),HeadQuater.CalculateFare(pickuploc,droploc));
       ChangeBookingStatus(ob.getUserName());
          

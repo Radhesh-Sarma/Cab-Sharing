@@ -328,7 +328,7 @@ public class bookcab extends javax.swing.JFrame {
         String x = pickupLocation.getSelectedItem().toString();
         pickuploc=x;
         
-        System.out.println(pickuploc);
+        //System.out.println(pickuploc);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_pickupLocationActionPerformed
@@ -337,7 +337,7 @@ public class bookcab extends javax.swing.JFrame {
         String y = DropLocation.getSelectedItem().toString();
         droploc = y;// TODO add your handling code here:
         
-        System.out.println(droploc);
+        //System.out.println(droploc);
     }//GEN-LAST:event_DropLocationActionPerformed
 
     /**

@@ -290,6 +290,7 @@ public class SignupPage extends javax.swing.JFrame {
                HeadQuater.AddCustomer(ob);
                JOptionPane.showMessageDialog(null, "Signup Successful");
                  new CabBookingApplication().setVisible(true); 
+                 this.dispose();
            }         
    
       
