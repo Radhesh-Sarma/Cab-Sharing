@@ -5,6 +5,7 @@
  */
 package cabbooking;
 
+import cabbooking.com.test.reportGenertors.Report;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -1048,6 +1049,8 @@ public class HeadQuater
     try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
       
+      
+      
    }
    
    public static Booking retriveBookingData(String referno)
@@ -1158,6 +1161,33 @@ public class HeadQuater
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
+   }
+   
+   public static void SendConfirmationEmail(Customer currentuser,Driver tripdriver,Booking currentbooking)
+   {
+       Report obj=new Report();
+       String pickuploc = HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getPickUpLocation()));
+       String droploc = HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getDropLocation()));
+       String body = "<html><body>>";
+       body += "<h2>Your Booking is Confirmed! </h2>";
+       body += "<h3>Booking Reference : "+currentbooking.getReferenceNumber()+"</h3>";
+       body += "<h3>Pickup Location : "+ pickuploc+"</h3>";
+       body += "<h3>Drop Location : "+ droploc+"</h3>";
+       body += "<h3>Trip Start Time : "+ currentbooking.getTripStartTime()+"</h3>";
+       body += "<h3>Estimated Fare : "+ String.valueOf(CalculateFare(pickuploc,droploc))+"</h3>";
+       body += "<h3>Driver Name : "+ tripdriver.getDriverName()+"</h3>";
+       body += "<h3>Car : "+ tripdriver.getVehicleName()+"</h3>";
+       body += "<h3>License Plate Number : "+ tripdriver.getVehicleNumber()+"</h3>";
+       body+="</body></html>";
+       
+       
+       obj.sendMail(currentuser.getEmail(),body);
+       
+       
+       
+       
+            
+            
    }
    
 }

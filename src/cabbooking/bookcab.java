@@ -311,7 +311,8 @@ public class bookcab extends javax.swing.JFrame {
            Driver tripdriver = HeadQuater.FindNearestDriverWithHighestRating(pickuploc);
            JOptionPane.showMessageDialog(null, "Cab Booked Successfully with driver " + tripdriver.getDriverId());    
            Booking Currentbooking = HeadQuater.AddBooking(HeadQuater.getLocationNumber(pickuploc),HeadQuater.getLocationNumber(droploc), currentuser,tripdriver);
-            new TripDetails(Currentbooking,currentuser,tripdriver).setVisible(true);
+            HeadQuater.SendConfirmationEmail(currentuser,tripdriver,Currentbooking);
+           new TripDetails(Currentbooking,currentuser,tripdriver).setVisible(true);
         this.dispose();   
        }
         

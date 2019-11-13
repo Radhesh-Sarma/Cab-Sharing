@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.awt.Desktop;
+import java.util.*;
 /**
  *
  * @author Dell
@@ -233,10 +234,12 @@ Customer currentuser = null;
     private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpButtonActionPerformed
         
         Desktop desktop = Desktop.getDesktop();  
-             
+        
+   
+
            URI mailTo;  
              try {  
-                 String url = "mailTo:test@gmail.com" + "?subject=" + "Support%20Needed" 
+                 String url = "mailTo:bookmycab123123@gmail.com" + "?subject=" + "Support%20Needed" 
                            + "&body=" + "TEST%20BODY";  
                  mailTo = new URI(url);  
                  desktop.mail(mailTo);  
