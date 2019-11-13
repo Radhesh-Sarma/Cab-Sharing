@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.*; 
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;  
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import javax.swing.*;
 /**
@@ -584,11 +585,23 @@ public class HeadQuater
            String droploc = HeadQuater.getLocationDescription(Integer.parseInt(ob.getDropLocation()));
        System.out.println("In End Trip " + pickuploc + " " + droploc);
        
+       try
+       {
       UpdateCustomerStatusEndTrip(ob.getUserName());
+      Thread.sleep(500);
       UpdateDriverStatusEndTrip(String.valueOf(ob.getDriverId()),Integer.parseInt(ob.getDropLocation()));
+      Thread.sleep(500);
       ChangeUserBalance(ob.getUserName(),HeadQuater.CalculateFare(pickuploc,droploc));
+      Thread.sleep(500);
       ChangeBookingStatus(ob.getUserName());
+      Thread.sleep(500);
       SendEndTripEmail(currentuser,ob);
+      
+       }
+       catch(InterruptedException | NumberFormatException e)
+       {
+           System.out.println(e.getMessage());
+       }
          
    }
    
@@ -635,23 +648,18 @@ public class HeadQuater
        
        
        
-       for(int i = 0; i < toend.size();i++)
-       {
-          
-           try
-           {
-               Booking ob = retriveBookingData(toend.get(i));
-               Customer ob2 = retriveCustomerData(ob.getUserName());
-               EndTrip(ob2,ob);
-               
-               
-           }
-           
-           catch(Exception e)
-           {
-               System.out.println(e.getMessage());
-           }           
-       }
+           toend.stream().forEach((String toend1) -> {
+               try {
+                   Booking ob = retriveBookingData(toend1);
+                   Customer ob2 = retriveCustomerData(ob.getUserName());
+                   EndTrip(ob2,ob);
+                   Thread.sleep(500);
+               }catch(Exception e)
+               {
+                   System.out.println(e.getMessage());
+                   
+               }
+       });
    }
    
    public static void removedriver(Driver ob)
@@ -1213,6 +1221,8 @@ public class HeadQuater
        body += "<h2>The Cab Booking Application Team</h2>";
        body+="</body></html>";
        obj.sendMail(currentuser.getEmail(),body);
+       
+       System.out.println("CONFIRM BOOKING EMAIL SENT");
                  
    }
    
@@ -1232,6 +1242,7 @@ public class HeadQuater
        body += "<h2>The Cab Booking Application Team</h2>";
        body+="</body></html>";
        
+       System.out.println("END TRIP EMAIL SENT");
        obj.sendMail(currentuser.getEmail(),body);
        
    }
@@ -1323,4 +1334,6 @@ public class HeadQuater
        return answer;
        
    }
+       
+       
 }
