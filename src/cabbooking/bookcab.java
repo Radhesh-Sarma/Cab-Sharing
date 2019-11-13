@@ -298,6 +298,10 @@ public class bookcab extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, "Request Timeout.No Cab Available at the Moment. Please try again later");
         }
+        else if(currentuser.getIsBusy() == 1)
+        {
+            JOptionPane.showMessageDialog(null, "You cannot book cab since you are already in trip");
+        }
        else if(Fare == -1)
        {
            JOptionPane.showMessageDialog(null, "Click ShowFare first");

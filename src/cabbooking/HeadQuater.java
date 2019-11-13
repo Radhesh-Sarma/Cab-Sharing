@@ -222,16 +222,10 @@ public class HeadQuater
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (con != null) con.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
-      if(answer == true)
-         {
-            
-             if(ob.getIsBusy() == 1)
-             {
-                 answer = false;
-             }
-         }    
+         
         return answer;
     }
+   
     
     public static boolean CanBookCab(Customer ob,int fare)
     {
@@ -660,7 +654,7 @@ public class HeadQuater
        }
    }
    
-   public static void removedriver(int driverid)
+   public static void removedriver(Driver ob)
    {
         Connection conn=dbm2.dbconnect();
      // String query="DELETE FROM driver WHERE DRIVERID= ? ";
@@ -668,7 +662,7 @@ public class HeadQuater
       try{
      String query="DELETE FROM driver WHERE DRIVERID= ? ";
      ps1=conn.prepareStatement(query);
-      ps1.setInt(1,driverid);
+      ps1.setInt(1,ob.getDriverId());
       ps1.executeUpdate();
       }
       catch(java.sql.SQLException e){ }
@@ -1239,6 +1233,94 @@ public class HeadQuater
        body+="</body></html>";
        
        obj.sendMail(currentuser.getEmail(),body);
+       
+   }
+   
+   public static boolean canAddDriver(String name,String driverid,String phonenumber,String vehiclenumber,String vehiclename,String location)
+   {
+       if("Enter Name".equals(name) || name.length() == 0)
+       {
+
+           JOptionPane.showMessageDialog(null, "Enter Valid Name");
+           return false;
+       }
+        if(verify_name(name) == false)
+         {  
+             JOptionPane.showMessageDialog(null, "Enter Valid Name");
+           return false;
+         }
+        
+          if("Enter Driver ID".equals(driverid) || driverid.length() == 0)
+         {
+             JOptionPane.showMessageDialog(null, "Enter a Valid Driver ID");
+             return false;
+         }
+          
+         if("Enter Phone Number".equals(phonenumber))
+         {
+             JOptionPane.showMessageDialog(null, "Enter Phone Number");
+             return false;
+         }
+         if(verify_phonenumber(phonenumber) == false)
+         {
+             JOptionPane.showMessageDialog(null, "Enter a Valid Phone Number");
+           return false;
+         }
+         
+         if(vehiclename.length() == 0)
+         {
+             JOptionPane.showMessageDialog(null, "Enter a Valid Vehicle Number");
+           return false;
+         }
+         
+         if(vehiclenumber.length() == 0)
+         {
+             JOptionPane.showMessageDialog(null, "Enter a Valid Vehicle Number");
+           return false;
+         }
+         
+
+        if(location == null)
+        {
+            JOptionPane.showMessageDialog(null, "Select a location");
+            return false;
+        }
+        
+        return true;
+   }
+   
+       public static boolean doesDriverIdExists(Driver ob)
+   {
+       boolean answer = false;
+       
+       Connection conn = null;
+       PreparedStatement ps1 = null;
+       ResultSet rs1 = null;
+         try
+        {
+            conn= dbm2.dbconnect();
+             String sql = "SELECT * FROM DRIVER WHERE driverid = ?";
+             ps1 =conn.prepareStatement(sql);
+             ps1.setInt(1,ob.getDriverId());
+             rs1=ps1.executeQuery();
+             
+            while(rs1.next())
+            {
+                answer = true;
+                break;
+            }
+             
+        }
+         catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+            finally {
+    try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+    try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
+}
+       
+       return answer;
        
    }
 }

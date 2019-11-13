@@ -369,16 +369,47 @@ public class AddRemoveDriver extends javax.swing.JFrame {
     }//GEN-LAST:event_driveridsActionPerformed
 
     private void SubmitRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitRemoveActionPerformed
-      String y = driverids.getSelectedItem().toString();// TODO add your handling code here:
-      HeadQuater.removedriver(Integer.parseInt(y));
+      int y = Integer.parseInt(driverids.getSelectedItem().toString());// TODO add your handling code here:
+      
+      Driver ob = HeadQuater.retriveDriverData(y);
+      
+     
+     
+     if(ob.getIsBusy() == 1)
+     {
+         JOptionPane.showMessageDialog(null, "Driver is Busy on a trip .Cannot Remove");
+     }
+     else
+     {
+         HeadQuater.removedriver(ob);
+     }
+      
+      
     }//GEN-LAST:event_SubmitRemoveActionPerformed
 
     private void SubmitAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitAddActionPerformed
         // TODO add your handling code here:
        
-        Driver ob = new Driver(txt_drivername.getText(),Integer.parseInt(txt_driverid.getText()),txt_phonenumber.getText(),5,txt_vehiclenumber.getText(),txt_vehiclename.getText(),HeadQuater.getLocationNumber(location),0);
-        HeadQuater.adddriver(ob);
-          JOptionPane.showMessageDialog(null, "Driver Added Successfully");
+        
+        boolean ok = HeadQuater.canAddDriver(txt_drivername.getText(),(txt_driverid.getText()),txt_phonenumber.getText(),txt_vehiclenumber.getText(),txt_vehiclename.getText(),location);
+        
+        if(ok == true)
+        {    
+            Driver ob = new Driver(txt_drivername.getText(),Integer.parseInt(txt_driverid.getText()),txt_phonenumber.getText(),5,txt_vehiclenumber.getText(),txt_vehiclename.getText(),HeadQuater.getLocationNumber(location),0);
+             
+            if(HeadQuater.doesDriverIdExists(ob))
+            {
+                JOptionPane.showMessageDialog(null, "Driver ID is in USE");
+            }
+            else
+            {
+                HeadQuater.adddriver(ob);
+                JOptionPane.showMessageDialog(null, "Driver Added Successfully");
+            }
+             
+          
+        }
+        
     }//GEN-LAST:event_SubmitAddActionPerformed
 
     /**
