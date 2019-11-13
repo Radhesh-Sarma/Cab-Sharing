@@ -233,7 +233,6 @@ public class CabBookingApplication extends javax.swing.JFrame {
         else if(HeadQuater.isCustomerPasswordCorrect(txt_user_id.getText(),String.valueOf(txt_password.getPassword())))
         {
             Customer ob = HeadQuater.retriveCustomerData(txt_user_id.getText());
-            JOptionPane.showMessageDialog(null ,"WELCOME "+ ob.getName() +"!");
             this.setVisible(false);
             new Functions(ob).setVisible(true);
         }

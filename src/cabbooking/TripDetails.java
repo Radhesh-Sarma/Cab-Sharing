@@ -17,7 +17,9 @@ public class TripDetails extends javax.swing.JFrame {
 Customer currentuser;
     /**
      * Creates new form TripDetails
+     * @param currentbooking
      * @param trip_reference
+     * @param tripdriver
      * @param ob
      */
     public TripDetails(Booking currentbooking,Customer ob,Driver tripdriver) {
@@ -34,6 +36,8 @@ Customer currentuser;
         Drop_Location.setText(HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getDropLocation())));
         int Duration = HeadQuater.CalculateTripDuration(HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getPickUpLocation())),HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getDropLocation())));
          Duration_.setText(String.valueOf(Duration)  + " Min");    
+         car_name.setText(tripdriver.getVehicleName());
+         car_id.setText(tripdriver.getVehicleNumber());
         
         Timer timer = new Timer();
       //  System.out.println(new Scheduler().scheduledExecutionTime());
