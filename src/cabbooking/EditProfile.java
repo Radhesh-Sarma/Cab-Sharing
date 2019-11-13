@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package cabbooking;
-
-import java.awt.Color;
-
+import javax.swing.*;
 
 /**
  *
@@ -17,7 +15,8 @@ public class EditProfile extends javax.swing.JFrame {
      Customer currentuser;
     public EditProfile(Customer ob) {
         initComponents();
-        currentuser = ob;  
+        currentuser = ob; 
+        
     }
 
     /**
@@ -31,8 +30,6 @@ public class EditProfile extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -40,11 +37,9 @@ public class EditProfile extends javax.swing.JFrame {
         Back = new javax.swing.JButton();
         FinalSubmitButtion = new javax.swing.JButton();
         changePasswordButtion = new javax.swing.JButton();
-        txt_name = new javax.swing.JTextField();
         txt_email = new javax.swing.JTextField();
         txt_password = new javax.swing.JPasswordField();
         txt_address = new javax.swing.JTextField();
-        txt_dob = new datechooser.beans.DateChooserCombo();
         password = new javax.swing.JLabel();
         txt_phonenumber = new javax.swing.JTextField();
 
@@ -56,14 +51,6 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Enter the fields you wish to change ");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Changed Name:");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Changed DOB:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,30 +92,15 @@ public class EditProfile extends javax.swing.JFrame {
             }
         });
 
-        txt_name.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_nameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_nameFocusLost(evt);
+        txt_email.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_emailMouseClicked(evt);
             }
         });
 
-        txt_email.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_emailFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_emailFocusLost(evt);
-            }
-        });
-
-        txt_address.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_addressFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_addressFocusLost(evt);
+        txt_address.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_addressMouseClicked(evt);
             }
         });
 
@@ -136,12 +108,9 @@ public class EditProfile extends javax.swing.JFrame {
         password.setForeground(new java.awt.Color(255, 255, 255));
         password.setText("Phone Number");
 
-        txt_phonenumber.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_phonenumberFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_phonenumberFocusLost(evt);
+        txt_phonenumber.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_phonenumberMouseClicked(evt);
             }
         });
 
@@ -150,96 +119,65 @@ public class EditProfile extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(92, 92, 92)
-                                .addComponent(jLabel1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_address, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_phonenumber, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(92, 92, 92)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel7)
                                 .addComponent(jLabel9)
-                                .addGap(299, 299, 299))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(92, 92, 92)
-                                        .addComponent(txt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(25, 25, 25)
-                                            .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(changePasswordButtion)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel7)
-                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addGap(79, 79, 79)
-                                                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(0, 0, Short.MAX_VALUE))
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(txt_address, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGap(0, 0, Short.MAX_VALUE))))))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(140, 140, 140)
-                            .addComponent(FinalSubmitButtion, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(password))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(password)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_phonenumber, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(135, 135, 135)))
+                        .addGap(205, 205, 205)
+                        .addComponent(FinalSubmitButtion, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(changePasswordButtion)
+                        .addGap(161, 161, 161)
+                        .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(551, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(83, 83, 83)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txt_address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(password)
                     .addComponent(txt_phonenumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addComponent(FinalSubmitButtion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(changePasswordButtion, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addGap(355, 355, 355))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,23 +200,6 @@ public class EditProfile extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusLost
-        // TODO add your handling code here:
-           if(txt_email.getText().equals("")){
-            txt_email.setForeground(new Color(204,204,204));
-        txt_email.setText(currentuser.getEmail());
-        }
-    }//GEN-LAST:event_txt_emailFocusLost
-
-    private void txt_emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusGained
-
-        // TODO add your handling code here:
-         if(txt_email.getText().equals(currentuser.getEmail())){
-        txt_email.setText(null);
-        txt_email.setForeground(Color.BLACK);
-    }
-    }//GEN-LAST:event_txt_emailFocusGained
-
     private void changePasswordButtionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtionActionPerformed
         new ChangePassword(currentuser).setVisible(true);
         this.dispose();            // TODO add your handling code here:
@@ -287,7 +208,31 @@ public class EditProfile extends javax.swing.JFrame {
     private void FinalSubmitButtionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalSubmitButtionActionPerformed
         // TODO add your handling code here:
          
-       
+        boolean b = HeadQuater.canEditProfile(txt_email.getText(), txt_address.getText(), txt_phonenumber.getText());
+        if(b == true)
+        {
+            currentuser.setEmail(txt_email.getText());
+            currentuser.setAddress(txt_address.getText());
+            currentuser.setPhonenumber(txt_phonenumber.getText());
+            
+            if(String.valueOf(txt_password.getPassword()).equals(currentuser.getPassword()))
+                {
+                    HeadQuater.updateCustomerData(currentuser);
+            JOptionPane.showMessageDialog(null, "Edit Profile Successful");
+                 new Functions(currentuser).setVisible(true); 
+                 this.dispose();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Wrong Password Entered");
+                }
+            
+            
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_FinalSubmitButtionActionPerformed
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
@@ -295,57 +240,20 @@ public class EditProfile extends javax.swing.JFrame {
         this.dispose();            // TODO add your handling code here:
     }//GEN-LAST:event_BackActionPerformed
 
-    private void txt_nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nameFocusGained
+    private void txt_emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_emailMouseClicked
         // TODO add your handling code here:
-        
-           if(txt_name.getText().equals(currentuser.getName())){
-        txt_name.setText(null);
-        txt_name.setForeground(Color.BLACK);
-    }
-        
-    }//GEN-LAST:event_txt_nameFocusGained
+        txt_email.setText(currentuser.getEmail());
+    }//GEN-LAST:event_txt_emailMouseClicked
 
-    private void txt_nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nameFocusLost
+    private void txt_addressMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_addressMouseClicked
         // TODO add your handling code here:
-          if(txt_name.getText().equals("")){
-            txt_name.setForeground(new Color(204,204,204));
-        txt_name.setText(currentuser.getName());
-        
-    }
-    }//GEN-LAST:event_txt_nameFocusLost
-
-    private void txt_addressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_addressFocusGained
-        // TODO add your handling code here:
-            if(txt_address.getText().equals(currentuser.getAddress())){
-        txt_address.setText(null);
-        txt_address.setForeground(Color.BLACK);
-    }
-    }//GEN-LAST:event_txt_addressFocusGained
-
-    private void txt_addressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_addressFocusLost
-        // TODO add your handling code here:
-            if(txt_address.getText().equals("")){
-            txt_address.setForeground(new Color(204,204,204));
         txt_address.setText(currentuser.getAddress());
-        
-    }
-    }//GEN-LAST:event_txt_addressFocusLost
+    }//GEN-LAST:event_txt_addressMouseClicked
 
-    private void txt_phonenumberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_phonenumberFocusGained
+    private void txt_phonenumberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_phonenumberMouseClicked
         // TODO add your handling code here:
-        if(txt_phonenumber.getText().equals(currentuser.getPhonenumber())){
-            txt_phonenumber.setText(null);
-            txt_phonenumber.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_txt_phonenumberFocusGained
-
-    private void txt_phonenumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_phonenumberFocusLost
-        // TODO add your handling code here:
-        if(txt_phonenumber.getText().equals("")){
-            txt_phonenumber.setForeground(new Color(204,204,204));
-            txt_phonenumber.setText(currentuser.getPhonenumber());
-        }
-    }//GEN-LAST:event_txt_phonenumberFocusLost
+        txt_phonenumber.setText(currentuser.getPhonenumber());
+    }//GEN-LAST:event_txt_phonenumberMouseClicked
   
     /**
      * @param args the command line arguments
@@ -389,8 +297,6 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JButton FinalSubmitButtion;
     private javax.swing.JButton changePasswordButtion;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -398,9 +304,7 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel password;
     private javax.swing.JTextField txt_address;
-    private datechooser.beans.DateChooserCombo txt_dob;
     private javax.swing.JTextField txt_email;
-    private javax.swing.JTextField txt_name;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_phonenumber;
     // End of variables declaration//GEN-END:variables

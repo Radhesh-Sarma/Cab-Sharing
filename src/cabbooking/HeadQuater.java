@@ -740,10 +740,37 @@ public class HeadQuater
           return ob;
    }
    
-   public static boolean canEditProfile()
+   public static boolean canEditProfile(String emailid,String address,String phonenumber)
    {
-       boolean answer = true;
-       return answer;
+        if(emailid.length()==0)
+       {
+           JOptionPane.showMessageDialog(null, "Enter Valid Email ID");
+           return false;
+       }
+         if(verify_email(emailid) == false)
+         {
+             JOptionPane.showMessageDialog(null, "Enter Valid Email ID");
+           return false;
+         }
+       
+       if(phonenumber.length() == 0)
+         {
+             JOptionPane.showMessageDialog(null, "Enter Phone Number");
+             return false;
+         }
+         if(verify_phonenumber(phonenumber) == false)
+         {
+             JOptionPane.showMessageDialog(null, "Enter a Valid Phone Number");
+           return false;
+         }
+         
+         if("Enter Address".equals(address) || address.length() == 0)
+         {
+             JOptionPane.showMessageDialog(null, "Enter Valid Address");
+             return false;
+         } 
+         
+       return true;
    }
    public static void editprofile()
    {
