@@ -30,7 +30,7 @@ public class Report {
             InternetAddress[] address = InternetAddress.parse(to, true);
             //Setting the recepients from the address variable
             msg.setRecipients(Message.RecipientType.TO, address);
-            msg.setSubject("Cab Booking Confirmation");
+            msg.setSubject("Cab Booking Team");
             msg.setSentDate(new Date());
             msg.setContent(body, "text/html");
             msg.setHeader("XPriority", "1");

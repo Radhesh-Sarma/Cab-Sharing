@@ -583,7 +583,7 @@ public class HeadQuater
    }
    
    
-   public static void EndTrip(Booking ob)
+   public static void EndTrip(Customer currentuser,Booking ob)
    {
        System.out.println("Trip Ended " + ob.toString());
            String pickuploc =HeadQuater.getLocationDescription(Integer.parseInt(ob.getPickUpLocation()));
@@ -594,6 +594,7 @@ public class HeadQuater
       UpdateDriverStatusEndTrip(String.valueOf(ob.getDriverId()),Integer.parseInt(ob.getDropLocation()));
       ChangeUserBalance(ob.getUserName(),HeadQuater.CalculateFare(pickuploc,droploc));
       ChangeBookingStatus(ob.getUserName());
+      SendEndTripEmail(currentuser,ob);
          
    }
    
@@ -645,7 +646,13 @@ public class HeadQuater
           
            try
            {
-           EndTrip(retriveBookingData(toend.get(i)));           }
+               Booking ob = retriveBookingData(toend.get(i));
+               Customer ob2 = retriveCustomerData(ob.getUserName());
+               EndTrip(ob2,ob);
+               
+               
+           }
+           
            catch(Exception e)
            {
                System.out.println(e.getMessage());
@@ -1181,10 +1188,30 @@ public class HeadQuater
        body += "<h3>Driver Name : "+ tripdriver.getDriverName()+"</h3>";
        body += "<h3>Car : "+ tripdriver.getVehicleName()+"</h3>";
        body += "<h3>License Plate Number : "+ tripdriver.getVehicleNumber()+"</h3>";
+       body += "<h2>Thanks & Best Regards,</h2>";
+       body += "<h2>The Cab Booking Application Team</h2>";
        body+="</body></html>";
        obj.sendMail(currentuser.getEmail(),body);
                  
    }
    
-   
+   public static void SendEndTripEmail(Customer currentuser,Booking currentbooking)
+   {
+       
+       Report obj=new Report();
+       String pickuploc = HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getPickUpLocation()));
+       String droploc = HeadQuater.getLocationDescription(Integer.parseInt(currentbooking.getDropLocation()));
+       String body = "<html><body>";
+       body += "<h1>Thanks for Riding with us! </h1>";
+       body += "<h2>We hope you enjoyed your ride </h2>";
+       body += "<h2>Total Fare of " + String.valueOf(CalculateFare(pickuploc,droploc))+ " Rupees has been deducted from your account </h3>";
+       body += "<h2>For any kind of feedback, please do not hesitate to use the help section of our app</h2>";
+        body += "<h2></h2>";
+        body += "<h2>Thanks & Best Regards,</h2>";
+       body += "<h2>The Cab Booking Application Team</h2>";
+       body+="</body></html>";
+       
+       obj.sendMail(currentuser.getEmail(),body);
+       
+   }
 }
