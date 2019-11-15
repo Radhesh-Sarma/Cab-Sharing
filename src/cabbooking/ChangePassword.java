@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package cabbooking;
+import static cabbooking.HeadQuater.verify_passwordValidity;
 import javax.swing.JOptionPane;
 /**
  *
@@ -221,6 +222,21 @@ public class ChangePassword extends javax.swing.JFrame {
             {
                  JOptionPane.showMessageDialog(null ,"Incorrect password!");
             }
+            else if(verify_passwordValidity(String.valueOf(txt_enter_password.getPassword())) == false)
+         {
+             String base = "Password Policy is : \n";
+             String one = "A digit must occur at least once \n";
+             String two = "A lower case letter and an upper case letter must occur at least once \n";
+             String three = "A special character must occur at least once \n";
+             String four = "no whitespace allowed in the entire string";
+             String five = "Length is atleast 8 characters \n";
+             
+             String answer = base + five + one + two + three + four;
+             
+             
+             JOptionPane.showMessageDialog(null,answer);
+         }
+                    
             else 
             {
                 currentuser.setPassword(String.valueOf(txt_re_enter_password.getPassword()));
