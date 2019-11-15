@@ -55,6 +55,7 @@ public class CabBookingApplication extends javax.swing.JFrame {
         txt_password = new javax.swing.JPasswordField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -71,23 +72,23 @@ public class CabBookingApplication extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1900, 1180));
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Cab Booking Portal");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(744, 12, 345, 58);
+        jLabel1.setBounds(710, 20, 580, 58);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("User ID:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(537, 260, 152, 26);
+        jLabel2.setBounds(570, 260, 220, 26);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Password:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(537, 428, 152, 30);
+        jLabel3.setBounds(570, 430, 220, 30);
 
         txt_user_id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_user_id.setToolTipText("");
@@ -136,8 +137,8 @@ public class CabBookingApplication extends javax.swing.JFrame {
         txt_password.setBounds(1092, 433, 240, 30);
 
         jCheckBox1.setBackground(new java.awt.Color(0, 0, 0));
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jCheckBox1.setForeground(java.awt.Color.white);
         jCheckBox1.setText("Show Password");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,13 +146,18 @@ public class CabBookingApplication extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBox1);
-        jCheckBox1.setBounds(1092, 469, 164, 26);
+        jCheckBox1.setBounds(1060, 470, 430, 40);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("New User?");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(820, 880, 130, 27);
+        jLabel4.setBounds(810, 870, 200, 27);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cabbooking/taxi-cab-381233_1920.jpg"))); // NOI18N
+        jLabel5.setText("jLabel5");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(0, 0, 1900, 1180);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -284,6 +290,7 @@ public class CabBookingApplication extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
