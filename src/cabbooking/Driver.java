@@ -13,13 +13,13 @@ public class Driver {
     private String driverName;
     private int driverId;
     private String phoneNumber;
-    private int rating;
+    private String rating;
     private String vehicleNumber;
     private String vehicleName;
     private int location;
     private int isBusy;
-
-    public Driver(String driverName, int driverId, String phoneNumber, int rating, String vehicleNumber, String vehicleName, int location, int isBusy) {
+    private int numberoftrips;
+    public Driver(String driverName, int driverId, String phoneNumber, String rating, String vehicleNumber, String vehicleName, int location, int isBusy, int numberoftrips) {
         this.driverName = driverName;
         this.driverId = driverId;
         this.phoneNumber = phoneNumber;
@@ -28,6 +28,7 @@ public class Driver {
         this.vehicleName = vehicleName;
         this.location = location;
         this.isBusy = isBusy;
+        this.numberoftrips = numberoftrips;
     }
 
     public String getDriverName() {
@@ -54,11 +55,11 @@ public class Driver {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getRating() {
+    public String getRating() {
         return this.rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
@@ -93,6 +94,12 @@ public class Driver {
     public void setIsBusy(int isBusy) {
         this.isBusy = isBusy;
     }
-    
 
+    public int getNumberoftrips() {
+        return this.numberoftrips;
+    }
+
+    public void setNumberoftrips(int numberoftrips) {
+        this.numberoftrips = numberoftrips;
+    }    
 }

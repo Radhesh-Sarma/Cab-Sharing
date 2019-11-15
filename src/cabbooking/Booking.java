@@ -18,8 +18,9 @@ public class Booking {
     private String tripStartTime;
     private String tripEndTime;
     private int isTripEnded;
+    private int rating;
 
-    public Booking(String referenceNumber, String userName, int driverId, String pickUpLocation, String dropLocation, String tripStartTime, String tripEndTime, int isTripEnded) {
+    public Booking(String referenceNumber, String userName, int driverId, String pickUpLocation, String dropLocation, String tripStartTime, String tripEndTime, int isTripEnded, int rating) {
         this.referenceNumber = referenceNumber;
         this.userName = userName;
         this.driverId = driverId;
@@ -28,6 +29,7 @@ public class Booking {
         this.tripStartTime = tripStartTime;
         this.tripEndTime = tripEndTime;
         this.isTripEnded = isTripEnded;
+        this.rating = rating;
     }
 
     @Override
@@ -41,6 +43,7 @@ public class Booking {
             ", tripStartTime='" + getTripStartTime() + "'" +
             ", tripEndTime='" + getTripEndTime() + "'" +
             ", isTripEnded='" + getIsTripEnded() + "'" +
+            ", rating='" + getRating() + "'" +
             "}";
     }
 
@@ -108,6 +111,15 @@ public class Booking {
         this.isTripEnded = isTripEnded;
     }
 
+    public int getRating() {
+        return this.rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    
    
     
 }

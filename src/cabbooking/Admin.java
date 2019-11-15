@@ -47,12 +47,15 @@ public class Admin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(2000, 1200));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Admin Page");
 
-        ViewTransaction.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        ViewTransaction.setBackground(java.awt.Color.darkGray);
+        ViewTransaction.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        ViewTransaction.setForeground(java.awt.Color.white);
         ViewTransaction.setText("View All Transactions");
         ViewTransaction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,7 +63,9 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        ViewDriverList.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        ViewDriverList.setBackground(java.awt.Color.darkGray);
+        ViewDriverList.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        ViewDriverList.setForeground(java.awt.Color.white);
         ViewDriverList.setText("View Drivers List");
         ViewDriverList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,7 +73,9 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        editdrivers.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        editdrivers.setBackground(java.awt.Color.darkGray);
+        editdrivers.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        editdrivers.setForeground(java.awt.Color.white);
         editdrivers.setText("Add/Remove a Driver");
         editdrivers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +83,9 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        randomize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        randomize.setBackground(java.awt.Color.darkGray);
+        randomize.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        randomize.setForeground(java.awt.Color.white);
         randomize.setText("Randomize");
         randomize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +93,9 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        logout.setBackground(java.awt.Color.darkGray);
+        logout.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        logout.setForeground(java.awt.Color.white);
         logout.setText("LOG-OUT");
         logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,11 +103,11 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Welcome");
 
-        hi.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        hi.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         hi.setForeground(new java.awt.Color(255, 255, 255));
         hi.setText("User_name");
 
@@ -106,48 +117,54 @@ public class Admin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(ViewDriverList, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(811, 811, 811)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(756, 756, 756)
+                                .addComponent(ViewTransaction))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(863, 863, 863)
+                                .addComponent(logout))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ViewDriverList, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ViewTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editdrivers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(randomize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(716, 716, 716)
+                        .addComponent(editdrivers, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(226, 226, 226)
-                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(190, 190, 190))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(744, 744, 744)
+                        .addComponent(jLabel2)
+                        .addGap(62, 62, 62)
+                        .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(780, 780, 780)
+                        .addComponent(randomize, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 706, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(127, 127, 127)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(ViewTransaction)
-                .addGap(31, 31, 31)
-                .addComponent(ViewDriverList)
-                .addGap(18, 18, 18)
-                .addComponent(editdrivers)
-                .addGap(36, 36, 36)
-                .addComponent(randomize)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGap(65, 65, 65)
+                .addComponent(ViewTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(ViewDriverList, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(editdrivers, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83)
+                .addComponent(randomize, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(176, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

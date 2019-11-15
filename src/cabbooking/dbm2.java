@@ -21,8 +21,6 @@ public class dbm2 {
     {
     Class.forName("org.sqlite.JDBC");
     Connection conn=DriverManager.getConnection("jdbc:sqlite:/home/radhesh/upload/Cab-Sharing-Application/databases/driver.sqlite");
-    //JOptionPane.showMessageDialog(null ,"connected");
-    //System.out.println("connected to Driver Database" );
     return conn;
 }catch(ClassNotFoundException | SQLException e){
     JOptionPane.showMessageDialog(null ,e);

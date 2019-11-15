@@ -27,9 +27,6 @@ public class DriverDetails extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         admin_name = adminname;
         
-      //  table.setValueAt((Object)"PARTH KRISHNA SHARMA",0,0);
-       // table.setValueAt((Object)(1),0,1);
-       // table.setValueAt((Object)("9650993163"),0,2);
         int numberofdrivers = 0;
         
             Connection conn = null ;
@@ -56,9 +53,7 @@ public class DriverDetails extends javax.swing.JFrame {
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
-        
-        
-        
+  
           conn = null ;
          ps = null;
          rs = null;
@@ -80,17 +75,17 @@ public class DriverDetails extends javax.swing.JFrame {
                 String drivername = rs.getString("DRIVERNAME");
                 int driverid = rs.getInt("DRIVERID");
                 String phonenumber = rs.getString("PHONENUMBER");
-                int rating = rs.getInt("RATING");
+                String rating = rs.getString("RATING");
                 String vehiclenumber = rs.getString("VEHICLENUMBER");
                 String vehiclename = rs.getString("VEHICLENAME");
                 String location = HeadQuater.getLocationDescription(rs.getInt("LOCATION"));
                 
                 int isbusy = rs.getInt("ISBUSY");
-                
+                   String rting = rating.substring(0, Math.min(rating.length(), 5));
                 table.setValueAt((Object)(drivername),i,0);
                 table.setValueAt((Object)(driverid),i,1);
                 table.setValueAt((Object)(phonenumber),i,2);
-                table.setValueAt((Object)(rating),i,3);
+                table.setValueAt((Object)(rting),i,3);
                 table.setValueAt((Object)(vehiclenumber),i,4);
                 table.setValueAt((Object)(vehiclename),i,5);
                 table.setValueAt((Object)(location),i,6);
@@ -135,9 +130,12 @@ public class DriverDetails extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(2, 2, 52));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(2000, 1200));
 
-        Back.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Back.setBackground(java.awt.Color.darkGray);
+        Back.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        Back.setForeground(java.awt.Color.white);
         Back.setText("BACK");
         Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,11 +144,11 @@ public class DriverDetails extends javax.swing.JFrame {
         });
 
         MyDrivers.setFont(new java.awt.Font("Caviar Dreams", 1, 36)); // NOI18N
-        MyDrivers.setForeground(new java.awt.Color(22, 169, 255));
+        MyDrivers.setForeground(java.awt.Color.white);
         MyDrivers.setText("DRIVER DETAILS");
 
-        table.setBackground(new java.awt.Color(14, 140, 214));
-        table.setFont(new java.awt.Font("Caviar Dreams", 1, 12)); // NOI18N
+        table.setBackground(java.awt.Color.darkGray);
+        table.setFont(new java.awt.Font("Caviar Dreams", 1, 20)); // NOI18N
         table.setForeground(new java.awt.Color(255, 255, 255));
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -161,7 +159,7 @@ public class DriverDetails extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, true
@@ -176,7 +174,8 @@ public class DriverDetails extends javax.swing.JFrame {
             }
         });
         table.setEnabled(false);
-        table.setGridColor(new java.awt.Color(14, 140, 214));
+        table.setGridColor(java.awt.Color.black);
+        table.setRowHeight(30);
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableMouseClicked(evt);
@@ -189,33 +188,30 @@ public class DriverDetails extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(Back))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(MyDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(217, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(26, 26, 26)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
-                    .addContainerGap()))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 920, Short.MAX_VALUE)
+                        .addComponent(MyDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(665, 665, 665))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(811, 811, 811))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(26, 26, 26)
                 .addComponent(MyDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 500, Short.MAX_VALUE)
-                .addComponent(Back)
-                .addGap(24, 24, 24))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(123, 123, 123)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(102, Short.MAX_VALUE)))
+                .addGap(162, 162, 162)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(126, 126, 126)
+                .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(322, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

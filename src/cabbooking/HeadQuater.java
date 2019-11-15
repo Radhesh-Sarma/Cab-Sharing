@@ -14,9 +14,10 @@ import java.sql.SQLException;
 import java.util.*; 
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;  
-import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import javax.swing.*;
+import java.awt.Desktop;
+import java.net.URI;
 /**
  *
  * @author Radhesh
@@ -36,43 +37,43 @@ public class HeadQuater
        String answer = null;
        if(loc==1)
        {
-           answer="Alwal";
+           answer="Ameerpet";
        }
        if(loc==2)
        {
-           answer="Banjara Hills";
+           answer="Balanagar";
        }
        if(loc==3)
        {
-           answer="Bolaram";
+           answer="Begumpet";
        }
        if(loc==4)
        {
-           answer="Dholakpur";
+           answer="Charminar";
        }
        if(loc==5)
        {
-           answer="East MaredPally";
+           answer="Gachibowli";
        }
        if(loc==6)
        {
-           answer="Firoz Nagar";
+           answer="Hakimpet";
        }
        if(loc==7)
        {
-           answer="Gandhi Marg";
+           answer="Himayatnagar";
        }
        if(loc==8)
        {
-           answer="Hi Tech City";
+           answer="Kachiguda";
        }
        if(loc==9)
        {
-           answer="Kachiguda";
+           answer="Kompally";
        }
        if(loc==10)
        {
-           answer="Kompally";
+           answer="Kukatpally";
        }
        if(loc==11)
        {
@@ -80,73 +81,69 @@ public class HeadQuater
        }
        if(loc==12)
        {
-           answer="Medchal";
+           answer="Malakpet";
        }
        if(loc==13)
        {
-           answer="Malakpet";
+           answer="Medchal";
        }
        if(loc==14)
        {
-           answer="Ratna Nagar";
+           answer="Shamirpet";
        }
        if(loc==15)
        {
-           answer="Trimulgherry";
+           answer="Shamshabad";
        }
        if(loc==16)
        {
-           answer="West MaredPally";
+           answer="Trimulgherry";
        }
-       
        return answer;
-       
-   
    }
     
     
     
   public static int getLocationNumber(String str)
      {
-        // System.out.println(6);
        int answer = 0;
-       if(str.equals("Alwal"))
+       if(str.equals("Ameerpet"))
        {
            answer=1;
        }
-       if(str.equals("Banjara Hills"))
+       if(str.equals("Balanagar"))
        {
            answer=2;
        }
-       if(str.equals("Bolaram"))
+       if(str.equals("Begumpet"))
        {
            answer=3;
        }
-       if(str.equals("Dholakpur"))
+       if(str.equals("Charminar"))
        {
            answer=4;
        }
-       if(str.equals("East MaredPally"))
+       if(str.equals("Gachibowli"))
        {
            answer=5;
        }
-       if(str.equals("Firoz Nagar"))
+       if(str.equals("Hakimpet"))
        {
            answer=6;
        }
-       if(str.equals("Gandhi Marg"))
+       if(str.equals("Himayatnagar"))
        {
            answer=7;
        }
-       if(str.equals("Hi Tech City"))
+       if(str.equals("Kachiguda"))
        {
            answer=8;
        }
-       if(str.equals("Kachiguda"))
+       if(str.equals("Kompally"))
        {
            answer=9;
        }
-       if(str.equals("Kompally"))
+       if(str.equals("Kukatpally"))
        {
            answer=10;
        }
@@ -154,40 +151,36 @@ public class HeadQuater
        {
            answer=11;
        }
-       if(str.equals("Medchal"))
+       if(str.equals("Malakpet"))
        {
            answer=12;
        }
-       if(str.equals("Malakpet"))
+       if(str.equals("Medchal"))
        {
            answer=13;
        }
-       if(str.equals("Ratna Nagar"))
+       if(str.equals("Shamirpet"))
        {
            answer=14;
        }
-       if(str.equals("Trimulgherry"))
+       if(str.equals("Shamshabad"))
        {
            answer=15;
        }
-       if(str.equals("West MaredPally"))
+       if(str.equals("Trimulgherry"))
        {
            answer=16;
        }
        
        return answer;
-       
-   
    }
    
       public static int Distance(String pickup, String drop)
     {
-        //System.out.println(5);
         return Math.abs(getLocationNumber(pickup) - getLocationNumber(drop));
     }  
     public static int CalculateFare(String pickup, String drop)
     {
-       // System.out.println(4);
         return 80*(Distance(pickup,drop));
     }
     public static boolean isCabAvailable(Customer ob)
@@ -231,12 +224,7 @@ public class HeadQuater
     public static boolean CanBookCab(Customer ob,int fare)
     {
        int balance = ob.getBalance();
-       if(balance < 300 || balance < fare)
-              {
-                  return false;
-              }
-       
-       return true;
+       return !(balance < 300 || balance < fare);
     }
     
   
@@ -244,6 +232,7 @@ public class HeadQuater
     public static Driver FindNearestDriverWithHighestRating(String Cust_Loc_Description)
     {
         int answer;
+        
        answer = -1;
         Integer curr_distance = Integer.MAX_VALUE;
         int curr_rating = -1;
@@ -258,7 +247,6 @@ public class HeadQuater
       {
           con= dbm2.dbconnect();
           String sql = "SELECT DRIVERID,RATING,LOCATION FROM driver WHERE ISBUSY = ?";
-      
            ps =con.prepareStatement(sql);
             ps.setInt(1,0);
               rs=ps.executeQuery();
@@ -361,7 +349,7 @@ public class HeadQuater
     public static Booking AddBooking(int Customer_Location,int Drop_Location,Customer currentuser,Driver tripdriver)      
     {
          String referencenumber=String.valueOf(new Date().getTime());
-        Booking ob = new Booking(referencenumber,currentuser.getUsername(),tripdriver.getDriverId(),String.valueOf(Customer_Location),String.valueOf(Drop_Location),HeadQuater.GetCurrentTime(),CalculateTripEndtime(getLocationDescription(Customer_Location),getLocationDescription(Drop_Location)),0);
+        Booking ob = new Booking(referencenumber,currentuser.getUsername(),tripdriver.getDriverId(),String.valueOf(Customer_Location),String.valueOf(Drop_Location),HeadQuater.GetCurrentTime(),CalculateTripEndtime(getLocationDescription(Customer_Location),getLocationDescription(Drop_Location)),0,0);
           AddBookingData(ob);
         UpdateDriverStatusStartTrip(tripdriver);
            UpdateCustomerStatusStartTrip(currentuser);
@@ -380,8 +368,7 @@ public class HeadQuater
     {
         Connection con = null;
         PreparedStatement ps = null ;
-        
-        System.out.println("In Update Driver Rating " + driverid + " " + location);
+       
         try
         {
              con= dbm2.dbconnect();
@@ -506,9 +493,6 @@ public class HeadQuater
          
          
          int newuserbalance = userbalance - Fare;
-         System.out.println(userbalance);
-         System.out.println(Fare);
-         System.out.println(newuserbalance);
          Connection con = null;
         PreparedStatement ps = null;   
            try
@@ -580,29 +564,26 @@ public class HeadQuater
    
    public static void EndTrip(Customer currentuser,Booking ob)
    {
-       System.out.println("Trip Ended " + ob.toString());
            String pickuploc =HeadQuater.getLocationDescription(Integer.parseInt(ob.getPickUpLocation()));
            String droploc = HeadQuater.getLocationDescription(Integer.parseInt(ob.getDropLocation()));
-       System.out.println("In End Trip " + pickuploc + " " + droploc);
+       
+       currentuser = HeadQuater.retriveCustomerData(currentuser.getUsername());
+       ob = HeadQuater.retriveBookingData(ob.getReferenceNumber());
+       
        
        try
        {
-      UpdateCustomerStatusEndTrip(ob.getUserName());
-      Thread.sleep(500);
+           ChangeBookingStatus(ob.getUserName());
+       UpdateCustomerStatusEndTrip(ob.getUserName());
       UpdateDriverStatusEndTrip(String.valueOf(ob.getDriverId()),Integer.parseInt(ob.getDropLocation()));
-      Thread.sleep(500);
       ChangeUserBalance(ob.getUserName(),HeadQuater.CalculateFare(pickuploc,droploc));
-      Thread.sleep(500);
-      ChangeBookingStatus(ob.getUserName());
-      Thread.sleep(500);
-      SendEndTripEmail(currentuser,ob);
-      
+      SendEndTripEmail(currentuser,ob); 
        }
-       catch(InterruptedException | NumberFormatException e)
+       catch(NumberFormatException e)
        {
-           System.out.println(e.getMessage());
+         System.out.println(e.getMessage());
+           
        }
-         
    }
    
    
@@ -640,7 +621,8 @@ public class HeadQuater
          catch(SQLException e){
             System.out.println(e.getMessage());
         }
-            finally {
+          
+           finally {
     try { if (rs1 != null) rs1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (ps1 != null) ps1.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
@@ -648,24 +630,23 @@ public class HeadQuater
        
        
        
-           toend.stream().forEach((String toend1) -> {
-               try {
-                   Booking ob = retriveBookingData(toend1);
-                   Customer ob2 = retriveCustomerData(ob.getUserName());
-                   EndTrip(ob2,ob);
-                   Thread.sleep(500);
-               }catch(Exception e)
-               {
-                   System.out.println(e.getMessage());
+       for(int i = 0; i < toend.size();i++)
+       {
+          
+          
+               Booking ob = retriveBookingData(toend.get(i));
+               Customer ob2 = retriveCustomerData(ob.getUserName());
+               EndTrip(ob2,ob);
+               
+           
+           
                    
-               }
-       });
+       }
    }
    
    public static void removedriver(Driver ob)
    {
         Connection conn=dbm2.dbconnect();
-     // String query="DELETE FROM driver WHERE DRIVERID= ? ";
      PreparedStatement ps1=null;
       try{
      String query="DELETE FROM driver WHERE DRIVERID= ? ";
@@ -690,16 +671,17 @@ public class HeadQuater
       try
       {
             con = dbm2.dbconnect();
-           String query="insert into driver values(?,?,?,?,?,?,?,?)";
+           String query="insert into driver values(?,?,?,?,?,?,?,?,?)";
           ps=con.prepareStatement(query);
           ps.setString(1,ob.getDriverName());
           ps.setInt(2,ob.getDriverId());
           ps.setString(3,ob.getPhoneNumber());
-          ps.setInt(4,3);
+          ps.setString(4,ob.getRating());
           ps.setString(5,ob.getVehicleNumber());
           ps.setString(6,ob.getVehicleName());
           ps.setInt(7,ob.getLocation());      
           ps.setInt(8,0);
+          ps.setInt(9,ob.getNumberoftrips());
           ps.execute();
       }
         catch(SQLException | NumberFormatException e){
@@ -727,7 +709,7 @@ public class HeadQuater
              ps=connect.prepareStatement(sql);
              ps.setInt(1,driverid);
              rs=ps.executeQuery(); 
-             ob = new Driver(rs.getString("DRIVERNAME"),driverid,rs.getString("PHONENUMBER"),rs.getInt("RATING"),rs.getString("VEHICLENUMBER"),rs.getString("VEHICLENAME"),rs.getInt("LOCATION"),rs.getInt("ISBUSY"));
+             ob = new Driver(rs.getString("DRIVERNAME"),driverid,rs.getString("PHONENUMBER"),rs.getString("RATING"),rs.getString("VEHICLENUMBER"),rs.getString("VEHICLENAME"),rs.getInt("LOCATION"),rs.getInt("ISBUSY"),rs.getInt("NUMBEROFBOOKINGS"));
         }
          catch(SQLException e){
             System.out.println(e.getMessage());
@@ -774,10 +756,7 @@ public class HeadQuater
          
        return true;
    }
-   public static void editprofile()
-   {
-       
-   }
+
    public static boolean verify_email(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
                             "[a-zA-Z0-9_+&*-]+)*@" + 
@@ -801,6 +780,13 @@ public class HeadQuater
         if (phonenumber == null) 
             return false;
         return pat.matcher(phonenumber).matches();
+    }
+    public static boolean verify_passwordValidity(String password) {
+        String Regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        Pattern pat = Pattern.compile(Regex); 
+        if (password == null) 
+            return false;
+        return pat.matcher(password).matches();
     }
    public static boolean canSignUp(String name,Date dob,String emailid,String userid,String password,String phoneNumber,String address)
    {
@@ -995,7 +981,6 @@ public class HeadQuater
       try
       {
      con= dbm.dbconnect();
-     System.out.println(ob.toString());
      String sql = "UPDATE customer SET BALANCE =? , ISBUSY =? , EMAIL =? , PASSWORD =? , PHONENUMBER =? WHERE USERNAME =?";     
        ps =con.prepareStatement(sql);        
        ps.setInt(1, ob.getBalance());
@@ -1065,7 +1050,7 @@ public class HeadQuater
       try
       {
             con = dbm3.dbconnect();
-           String query="insert into BOOKING values(?,?,?,?,?,?,?,?)";
+           String query="insert into BOOKING values(?,?,?,?,?,?,?,?,?)";
           ps=con.prepareStatement(query);
           ps.setString(1,ob.getReferenceNumber());
           ps.setString(2,ob.getUserName());
@@ -1075,6 +1060,7 @@ public class HeadQuater
           ps.setString(6,ob.getTripStartTime());
           ps.setString(7,ob.getTripEndTime());
          ps.setInt(8,ob.getIsTripEnded()); 
+         ps.setInt(9,ob.getRating());
           ps.execute();
       }
         catch(SQLException | NumberFormatException e){
@@ -1102,7 +1088,7 @@ public class HeadQuater
              ps=connect.prepareStatement(sql);
              ps.setString(1,referno);
              rs=ps.executeQuery();            
-             ob = new Booking(referno,rs.getString("USERNAME"),rs.getInt("DRIVERID"),rs.getString("PICKUPLOCATION"),rs.getString("DROPLOCATION"),rs.getString("TRIPSTARTTIME"),rs.getString("TRIPENDTIME"),rs.getInt("ISTRIPENDED"));
+             ob = new Booking(referno,rs.getString("USERNAME"),rs.getInt("DRIVERID"),rs.getString("PICKUPLOCATION"),rs.getString("DROPLOCATION"),rs.getString("TRIPSTARTTIME"),rs.getString("TRIPENDTIME"),rs.getInt("ISTRIPENDED"),rs.getInt("RATING"));
 
         }
          catch(SQLException e){
@@ -1127,12 +1113,14 @@ public class HeadQuater
       try
       {
      con= dbm3.dbconnect();
-     String sql = "UPDATE booking SET ISTRIPENDED =? WHERE REFERENCENUMBER =?";
+     String sql = "UPDATE booking SET ISTRIPENDED =?,RATING=? WHERE REFERENCENUMBER =?";
           
        ps =con.prepareStatement(sql);
            
        ps.setInt(1, ob.getIsTripEnded());
-       ps.setString(2,ob.getReferenceNumber());
+       ps.setInt(2, ob.getRating());
+       ps.setString(3,ob.getReferenceNumber());
+       
            ps.executeUpdate();
       }
         catch(SQLException e){
@@ -1151,14 +1139,16 @@ public class HeadQuater
       try
       {
      con= dbm2.dbconnect();
-     String sql = "UPDATE driver SET ISBUSY =? , PHONENUMBER =? , LOCATION =? WHERE DRIVERID =?";
+     String sql = "UPDATE driver SET ISBUSY =? , PHONENUMBER =? , LOCATION =? ,RATING = ?, NUMBEROFBOOKINGS = ? WHERE DRIVERID =?";
           
        ps =con.prepareStatement(sql);
            
        ps.setInt(1, ob.getIsBusy());
        ps.setString(2,ob.getPhoneNumber());
        ps.setInt(3,ob.getLocation());
-       ps.setInt(4,ob.getDriverId());
+       ps.setString(4,ob.getRating());
+       ps.setInt(5,ob.getNumberoftrips());
+       ps.setInt(6,ob.getDriverId());
           ps.executeUpdate();
       }
         catch(SQLException e){
@@ -1171,24 +1161,23 @@ public class HeadQuater
 }
    }
    
-   public static void CallRandomize()
-   {
-        Connection connect = null;
+    public static int numberofbookings()
+    {
+               Connection connect = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
+        
+        int answer = 0;
+        
          try
         {
             connect= dbm3.dbconnect();
              String sql = "SELECT COUNT(*) AS total FROM booking";
              ps=connect.prepareStatement(sql);
              rs=ps.executeQuery();       
-             int numberofbookings = rs.getInt("total");
-             if(numberofbookings%3 == 0)
-             {
-                 Randomize();
-             }
-             
-                 }
+             answer = rs.getInt("total");
+            
+       }
          catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -1197,6 +1186,16 @@ public class HeadQuater
     try { if (ps != null) ps.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
     try { if (connect != null) connect.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
+         
+         return answer;
+         
+    }    
+   public static void CallRandomize()
+   {
+       if(numberofbookings()%3 == 0)
+       {
+           Randomize();
+       }
    }
    
    public static void SendConfirmationEmail(Customer currentuser,Driver tripdriver,Booking currentbooking)
@@ -1220,10 +1219,14 @@ public class HeadQuater
        body += "<h2>Thanks & Best Regards,</h2>";
        body += "<h2>The Cab Booking Application Team</h2>";
        body+="</body></html>";
-       obj.sendMail(currentuser.getEmail(),body);
        
-       System.out.println("CONFIRM BOOKING EMAIL SENT");
+       
+       
+           
+       obj.sendMail(currentuser.getEmail(),body);
                  
+       
+   
    }
    
    public static void SendEndTripEmail(Customer currentuser,Booking currentbooking)
@@ -1242,8 +1245,9 @@ public class HeadQuater
        body += "<h2>The Cab Booking Application Team</h2>";
        body+="</body></html>";
        
-       System.out.println("END TRIP EMAIL SENT");
-       obj.sendMail(currentuser.getEmail(),body);
+       obj.sendMail(currentuser.getEmail(),body);    
+       
+      
        
    }
    
@@ -1333,7 +1337,72 @@ public class HeadQuater
        
        return answer;
        
-   }
+   }  
+       public static void modifydriverrating(int newrating,Driver ob,Booking currenttrip)
+       {
+           
+           double newdriverrating =( Double.parseDouble(ob.getRating()) * (ob.getNumberoftrips())  + newrating) / (ob.getNumberoftrips() + 1);  
+           ob.setRating(String.valueOf(newdriverrating));
+           ob.setNumberoftrips(ob.getNumberoftrips() + 1);
+           System.out.println(ob.toString());
+           updateDriverData(ob);
+           currenttrip.setRating(newrating);
+           updateBookingData(currenttrip);
+
+       }
        
+       public static void googleMapDirections(String pickuplocation,String droplocation)
+       {
+           String base = "https://www.google.com/maps/dir/?api=1&";
+           String origin = "origin=" + pickuplocation + "+Hyderabad&";
+           String destination = "destination=" + droplocation + "+Hyderabad&";
+           String travelmode = "travelmode=driving";    
+           String url = base + origin + destination + travelmode;
+           
+           
+           try
+           {
+                 if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+               {
+                   Desktop.getDesktop().browse(new URI(url));
+               }
+            }   
+                 
+           }
+           catch (Exception e) {
+               // TODO Auto-generated catch block
+                    System.out.println(e.getMessage());
+            }
+          
+           
+           
+           
+       }
+       
+       public static boolean addamountchecker(int amount,String password,Customer currentuser)
+       {
+           
+         
+        if(password.length() == 0 )
+       {
+        JOptionPane.showMessageDialog(null, "Enter Valid Password");
+        return false;
+        }
+         if(amount <= 0)
+       {
+             JOptionPane.showMessageDialog(null, "Kindly Enter a Positive amount");
+             return false;
+       }
+        if(! password.equals(currentuser.getPassword()))
+        {
+            JOptionPane.showMessageDialog(null ,"Incorrect password!");
+            return false;
+            
+        }
+           
+           
+           
+           return true;
+       }
        
 }

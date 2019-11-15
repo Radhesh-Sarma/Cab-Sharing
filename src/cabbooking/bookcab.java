@@ -23,39 +23,42 @@ public class bookcab extends javax.swing.JFrame {
         
         initComponents();
         currentuser = ob;
-         pickupLocation.addItem("Alwal");
-         pickupLocation.addItem("Banjara Hills");
-         pickupLocation.addItem("Bolaram");
-         pickupLocation.addItem("Dholakpur");
-         pickupLocation.addItem("East MaredPally");
-         pickupLocation.addItem("Firoz Nagar");
-         pickupLocation.addItem("Gandhi Marg");
-         pickupLocation.addItem("Hi Tech City");
+        
+         pickupLocation.addItem("Ameerpet");
+         pickupLocation.addItem("Balanagar");
+	 pickupLocation.addItem("Begumpet");
+	 pickupLocation.addItem("Charminar");
+	 pickupLocation.addItem("Gachibowli");	
+	 pickupLocation.addItem("Hakimpet");
+	 pickupLocation.addItem("Himayatnagar");
          pickupLocation.addItem("Kachiguda");
          pickupLocation.addItem("Kompally");
+	 pickupLocation.addItem("Kukatpally");
          pickupLocation.addItem("Nampally");
-         pickupLocation.addItem("Medchal"); 
          pickupLocation.addItem("Malakpet");
-         pickupLocation.addItem("Ratna Nagar");
+         pickupLocation.addItem("Medchal"); 
+	 pickupLocation.addItem("Shamirpet"); 
+	 pickupLocation.addItem("Shamshabad"); 
          pickupLocation.addItem("Trimulgherry");
-         pickupLocation.addItem("West MaredPally");
+	
+;
          
-        DropLocation.addItem("Alwal");
-        DropLocation.addItem("Banjara Hills");
-        DropLocation.addItem("Bolaram");
-        DropLocation.addItem("Dholakpur");
-        DropLocation.addItem("East MaredPally");
-        DropLocation.addItem("Firoz Nagar");
-        DropLocation.addItem("Gandhi Marg");
-        DropLocation.addItem("Hi Tech City");
-        DropLocation.addItem("Kachiguda");
-        DropLocation.addItem("Kompally");
-        DropLocation.addItem("Nampally");
-        DropLocation.addItem("Medchal"); 
-        DropLocation.addItem("Malakpet");
-        DropLocation.addItem("Ratna Nagar");
-        DropLocation.addItem("Trimulgherry");
-        DropLocation.addItem("West MaredPally");
+       DropLocation.addItem("Ameerpet");
+         DropLocation.addItem("Balanagar");
+	 DropLocation.addItem("Begumpet");
+	 DropLocation.addItem("Charminar");
+	 DropLocation.addItem("Gachibowli");	
+	 DropLocation.addItem("Hakimpet");
+	 DropLocation.addItem("Himayatnagar");
+         DropLocation.addItem("Kachiguda");
+         DropLocation.addItem("Kompally");
+	 DropLocation.addItem("Kukatpally");
+         DropLocation.addItem("Nampally");
+         DropLocation.addItem("Malakpet");
+         DropLocation.addItem("Medchal"); 
+	 DropLocation.addItem("Shamirpet"); 
+	 DropLocation.addItem("Shamshabad"); 
+         DropLocation.addItem("Trimulgherry");
         
         balance_display2.setText(String.valueOf(ob.getBalance()));
     }
@@ -73,6 +76,7 @@ public class bookcab extends javax.swing.JFrame {
     private void initComponents() {
 
         jDialog1 = new javax.swing.JDialog();
+        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -87,6 +91,7 @@ public class bookcab extends javax.swing.JFrame {
         balance_display2 = new javax.swing.JLabel();
         pickupLocation = new javax.swing.JComboBox<>();
         DropLocation = new javax.swing.JComboBox<>();
+        GoogleMaps = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -99,32 +104,36 @@ public class bookcab extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        jButton1.setText("jButton1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 94));
+        jPanel1.setBackground(java.awt.Color.black);
+        jPanel1.setPreferredSize(new java.awt.Dimension(2000, 1200));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 255, 255));
-        jLabel1.setText("Enter the details");
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
+        jLabel1.setText("         Enter the details");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Pick-Up Location");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Drop Location");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Fare");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Your balance");
 
-        Back.setBackground(new java.awt.Color(153, 255, 102));
-        Back.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Back.setBackground(java.awt.Color.darkGray);
+        Back.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        Back.setForeground(java.awt.Color.white);
         Back.setText("BACK");
         Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,8 +141,9 @@ public class bookcab extends javax.swing.JFrame {
             }
         });
 
-        BookCab.setBackground(new java.awt.Color(153, 255, 102));
-        BookCab.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        BookCab.setBackground(java.awt.Color.darkGray);
+        BookCab.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        BookCab.setForeground(java.awt.Color.white);
         BookCab.setText("BOOK CAB");
         BookCab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +151,7 @@ public class bookcab extends javax.swing.JFrame {
             }
         });
 
-        Calculate_Fare.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        Calculate_Fare.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         Calculate_Fare.setText("Show Fare");
         Calculate_Fare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,11 +159,13 @@ public class bookcab extends javax.swing.JFrame {
             }
         });
 
-        fare_display.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        fare_display.setForeground(new java.awt.Color(153, 255, 255));
+        fare_display.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        fare_display.setForeground(java.awt.Color.white);
         fare_display.setText("Fare");
 
-        Add_Money.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        Add_Money.setBackground(java.awt.Color.darkGray);
+        Add_Money.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        Add_Money.setForeground(java.awt.Color.white);
         Add_Money.setText("Add Money");
         Add_Money.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,8 +173,8 @@ public class bookcab extends javax.swing.JFrame {
             }
         });
 
-        balance_display2.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        balance_display2.setForeground(new java.awt.Color(153, 255, 255));
+        balance_display2.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        balance_display2.setForeground(java.awt.Color.white);
         balance_display2.setText("Balance");
 
         pickupLocation.addActionListener(new java.awt.event.ActionListener() {
@@ -177,82 +189,97 @@ public class bookcab extends javax.swing.JFrame {
             }
         });
 
+        GoogleMaps.setBackground(java.awt.Color.darkGray);
+        GoogleMaps.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        GoogleMaps.setForeground(java.awt.Color.white);
+        GoogleMaps.setText("Show Google Maps");
+        GoogleMaps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GoogleMapsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(465, 465, 465)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pickupLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DropLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(Back))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel5)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BookCab)
-                        .addGap(47, 47, 47))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(GoogleMaps, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(120, 120, 120))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(2, 2, 2)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(Calculate_Fare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(Add_Money, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(269, 269, 269)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fare_display, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(balance_display2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BookCab, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(235, 235, 235))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(balance_display2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Calculate_Fare)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fare_display, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(Add_Money)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addGap(536, 536, 536)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pickupLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(DropLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(243, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(pickupLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(DropLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(181, 181, 181)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pickupLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(89, 89, 89)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DropLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(130, 130, 130)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Calculate_Fare, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(fare_display, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Calculate_Fare))
-                .addGap(42, 42, 42)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(balance_display2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(195, 195, 195))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Add_Money, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(balance_display2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(Add_Money, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BookCab)
-                    .addComponent(Back))
-                .addGap(23, 23, 23))
+                    .addComponent(GoogleMaps, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BookCab, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -293,7 +320,7 @@ public class bookcab extends javax.swing.JFrame {
     private void BookCabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookCabActionPerformed
         
 
-        
+        currentuser = HeadQuater.retriveCustomerData(currentuser.getUsername());
         if(HeadQuater.isCabAvailable(currentuser)==false)
         {
             JOptionPane.showMessageDialog(null, "Request Timeout.No Cab Available at the Moment. Please try again later");
@@ -315,7 +342,8 @@ public class bookcab extends javax.swing.JFrame {
            Driver tripdriver = HeadQuater.FindNearestDriverWithHighestRating(pickuploc);
            JOptionPane.showMessageDialog(null, "Cab Booked Successfully with driver " + tripdriver.getDriverId());    
            Booking Currentbooking = HeadQuater.AddBooking(HeadQuater.getLocationNumber(pickuploc),HeadQuater.getLocationNumber(droploc), currentuser,tripdriver);
-            HeadQuater.SendConfirmationEmail(currentuser,tripdriver,Currentbooking);
+           currentuser = HeadQuater.retriveCustomerData(currentuser.getUsername());
+           HeadQuater.SendConfirmationEmail(currentuser,tripdriver,Currentbooking);
            new TripDetails(Currentbooking,currentuser,tripdriver).setVisible(true);
         this.dispose();   
        }
@@ -332,18 +360,27 @@ public class bookcab extends javax.swing.JFrame {
     private void pickupLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupLocationActionPerformed
         String x = pickupLocation.getSelectedItem().toString();
         pickuploc=x;
-        
-        //System.out.println(pickuploc);
-
         // TODO add your handling code here:
     }//GEN-LAST:event_pickupLocationActionPerformed
 
     private void DropLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DropLocationActionPerformed
         String y = DropLocation.getSelectedItem().toString();
         droploc = y;// TODO add your handling code here:
-        
-        //System.out.println(droploc);
     }//GEN-LAST:event_DropLocationActionPerformed
+
+    private void GoogleMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoogleMapsActionPerformed
+        // TODO add your handling code here:
+        if(pickuploc.equals(droploc))
+           {
+                   JOptionPane.showMessageDialog(null, "Pickup and Drop Location are same");
+              
+           }  
+        else
+        {
+            HeadQuater.googleMapDirections(pickuploc, droploc);
+        }
+        
+    }//GEN-LAST:event_GoogleMapsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -380,8 +417,10 @@ public class bookcab extends javax.swing.JFrame {
     private javax.swing.JButton BookCab;
     private javax.swing.JButton Calculate_Fare;
     private javax.swing.JComboBox<String> DropLocation;
+    private javax.swing.JButton GoogleMaps;
     private javax.swing.JLabel balance_display2;
     private javax.swing.JLabel fare_display;
+    private javax.swing.JButton jButton1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

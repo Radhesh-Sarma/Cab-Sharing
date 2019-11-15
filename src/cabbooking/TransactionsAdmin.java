@@ -54,7 +54,7 @@ public class TransactionsAdmin extends javax.swing.JFrame {
     try { if (conn != null) conn.close(); } catch (SQLException e) {System.out.println(e.getMessage());}
 }
         
-        
+       
          conn = null ;
          ps = null;
          rs = null;
@@ -80,8 +80,6 @@ public class TransactionsAdmin extends javax.swing.JFrame {
                 String droplocation = HeadQuater.getLocationDescription(Integer.parseInt(rs.getString("DROPLOCATION")));
                 String  tripstarttime = rs.getString("TRIPSTARTTIME");
                 String  tripendtime = rs.getString("TRIPENDTIME");
-                
-                
 
                table.setValueAt((Object)(referencenumber),i,0);
                 table.setValueAt((Object)(username),i,1);
@@ -91,7 +89,6 @@ public class TransactionsAdmin extends javax.swing.JFrame {
                 table.setValueAt((Object)(HeadQuater.CalculateFare(pickuplocation, droplocation)),i,5);
                 table.setValueAt((Object)(tripstarttime),i,6);
                 table.setValueAt((Object)(tripendtime),i,7);
-
                 i++;
               }
         }
@@ -128,13 +125,15 @@ public class TransactionsAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(2000, 1200));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Details of all Transactions");
 
-        Back.setBackground(new java.awt.Color(153, 153, 0));
-        Back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Back.setBackground(java.awt.Color.darkGray);
+        Back.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        Back.setForeground(java.awt.Color.white);
         Back.setText("BACK");
         Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,9 +141,9 @@ public class TransactionsAdmin extends javax.swing.JFrame {
             }
         });
 
-        table.setBackground(new java.awt.Color(14, 140, 214));
+        table.setBackground(java.awt.Color.darkGray);
         table.setFont(new java.awt.Font("Caviar Dreams", 1, 12)); // NOI18N
-        table.setForeground(new java.awt.Color(255, 255, 255));
+        table.setForeground(java.awt.Color.white);
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null}
@@ -169,7 +168,8 @@ public class TransactionsAdmin extends javax.swing.JFrame {
             }
         });
         table.setEnabled(false);
-        table.setGridColor(new java.awt.Color(14, 140, 214));
+        table.setGridColor(java.awt.Color.black);
+        table.setRowHeight(30);
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableMouseClicked(evt);
@@ -184,31 +184,28 @@ public class TransactionsAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(Back))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1976, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(389, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
-                    .addContainerGap()))
+                        .addGap(762, 762, 762)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(877, 877, 877)
+                .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 704, Short.MAX_VALUE)
-                .addComponent(Back)
-                .addGap(61, 61, 61))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(65, 65, 65)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(66, Short.MAX_VALUE)))
+                .addGap(160, 160, 160)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102)
+                .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(329, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

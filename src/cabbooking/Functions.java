@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.awt.Desktop;
-import java.util.*;
 /**
  *
  * @author Dell
@@ -51,16 +50,22 @@ Customer currentuser = null;
         AddBalance = new javax.swing.JButton();
         BookCAb = new javax.swing.JButton();
         EditProfile = new javax.swing.JButton();
+        rateMyTrip = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jPanel1.setBackground(java.awt.Color.black);
+        jPanel1.setPreferredSize(new java.awt.Dimension(2000, 1200));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Welcome");
 
-        ViewBalance.setBackground(java.awt.Color.lightGray);
-        ViewBalance.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        ViewBalance.setBackground(java.awt.Color.darkGray);
+        ViewBalance.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        ViewBalance.setForeground(java.awt.Color.white);
         ViewBalance.setText("View Balance");
         ViewBalance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,8 +73,9 @@ Customer currentuser = null;
             }
         });
 
-        ViewTransHistory.setBackground(java.awt.Color.lightGray);
-        ViewTransHistory.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        ViewTransHistory.setBackground(java.awt.Color.darkGray);
+        ViewTransHistory.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        ViewTransHistory.setForeground(java.awt.Color.white);
         ViewTransHistory.setText("View Transaction History");
         ViewTransHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,8 +83,9 @@ Customer currentuser = null;
             }
         });
 
-        changePwd.setBackground(java.awt.Color.lightGray);
-        changePwd.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        changePwd.setBackground(java.awt.Color.darkGray);
+        changePwd.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        changePwd.setForeground(java.awt.Color.white);
         changePwd.setText("Change Password");
         changePwd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,8 +93,9 @@ Customer currentuser = null;
             }
         });
 
-        HelpButton.setBackground(java.awt.Color.lightGray);
-        HelpButton.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        HelpButton.setBackground(java.awt.Color.darkGray);
+        HelpButton.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        HelpButton.setForeground(java.awt.Color.white);
         HelpButton.setText("Help");
         HelpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,10 +103,13 @@ Customer currentuser = null;
             }
         });
 
-        hi.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        hi.setFont(new java.awt.Font("Tahoma", 3, 30)); // NOI18N
+        hi.setForeground(java.awt.Color.white);
         hi.setText("User_name");
 
-        logout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        logout.setBackground(java.awt.Color.darkGray);
+        logout.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        logout.setForeground(java.awt.Color.white);
         logout.setText("LOG-OUT");
         logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,8 +117,9 @@ Customer currentuser = null;
             }
         });
 
-        AddBalance.setBackground(java.awt.Color.lightGray);
-        AddBalance.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        AddBalance.setBackground(java.awt.Color.darkGray);
+        AddBalance.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        AddBalance.setForeground(java.awt.Color.white);
         AddBalance.setText("Add Balance");
         AddBalance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,8 +127,9 @@ Customer currentuser = null;
             }
         });
 
-        BookCAb.setBackground(java.awt.Color.lightGray);
-        BookCAb.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        BookCAb.setBackground(java.awt.Color.darkGray);
+        BookCAb.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        BookCAb.setForeground(java.awt.Color.white);
         BookCAb.setText("Book a Cab");
         BookCAb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,12 +137,23 @@ Customer currentuser = null;
             }
         });
 
-        EditProfile.setBackground(new java.awt.Color(255, 255, 153));
-        EditProfile.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        EditProfile.setBackground(java.awt.Color.darkGray);
+        EditProfile.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        EditProfile.setForeground(java.awt.Color.white);
         EditProfile.setText("Edit Profile");
         EditProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EditProfileActionPerformed(evt);
+            }
+        });
+
+        rateMyTrip.setBackground(java.awt.Color.darkGray);
+        rateMyTrip.setFont(new java.awt.Font("URW Gothic L", 1, 30)); // NOI18N
+        rateMyTrip.setForeground(java.awt.Color.white);
+        rateMyTrip.setText("Rate My Trip");
+        rateMyTrip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateMyTripActionPerformed(evt);
             }
         });
 
@@ -138,30 +162,28 @@ Customer currentuser = null;
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(782, 782, 782)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 154, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(changePwd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BookCAb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(136, 136, 136))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(EditProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AddBalance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(HelpButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ViewBalance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ViewTransHistory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(136, 136, 136))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(560, 560, 560)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(AddBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ViewBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ViewTransHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BookCAb, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(changePwd, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(HelpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rateMyTrip, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(882, 882, 882)
+                        .addComponent(logout)))
+                .addContainerGap(652, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,23 +192,25 @@ Customer currentuser = null;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(hi, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ViewBalance)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AddBalance)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ViewTransHistory)
-                .addGap(18, 18, 18)
-                .addComponent(BookCAb)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(changePwd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(EditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(HelpButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(logout)
-                .addGap(17, 17, 17))
+                .addGap(41, 41, 41)
+                .addComponent(ViewBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(AddBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(ViewTransHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(BookCAb, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(rateMyTrip, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(changePwd, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(EditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(HelpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(190, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,14 +218,16 @@ Customer currentuser = null;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,8 +239,7 @@ Customer currentuser = null;
     }//GEN-LAST:event_ViewTransHistoryActionPerformed
 
     private void ViewBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewBalanceActionPerformed
-      //jMenuItem1 viewbal = new jMenuItem1("Your balance is: ");
-      //jpopupMenu1.add(viewbal);        // TODO add your handling code here:
+      // TODO add your handling code here:
         new ViewBalance(currentuser).setVisible(true);
         this.dispose(); 
     }//GEN-LAST:event_ViewBalanceActionPerformed
@@ -235,12 +260,14 @@ Customer currentuser = null;
         
         Desktop desktop = Desktop.getDesktop();  
         
-   
+           
+            
 
-           URI mailTo;  
+           
+              URI mailTo;  
              try {  
-                 String url = "mailTo:bookmycab123123@gmail.com" + "?subject=" + "Support%20Needed" 
-                           + "&body=" + "TEST%20BODY";  
+                 String url = "mailto:bookmycab123123@gmail.com" + "?subject=" + "Support%20Needed" 
+                           + "&body=" + "Please%20Help";  
                  mailTo = new URI(url);  
                  desktop.mail(mailTo);  
             } catch (URISyntaxException | IOException e) {  
@@ -265,6 +292,12 @@ Customer currentuser = null;
            new bookcab(currentuser).setVisible(true);
             this.dispose();    
     }//GEN-LAST:event_BookCAbActionPerformed
+
+    private void rateMyTripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateMyTripActionPerformed
+        // TODO add your handling code here:
+        new Rating(currentuser).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_rateMyTripActionPerformed
 
    
     /**
@@ -312,6 +345,7 @@ Customer currentuser = null;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JButton logout;
+    private javax.swing.JButton rateMyTrip;
     // End of variables declaration//GEN-END:variables
 
    
